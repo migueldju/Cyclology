@@ -30,6 +30,7 @@ log = logging.getLogger("ingest.jobs")
 AVG_SPEED_KMH = 42
 FINISH_MARGIN = dt.timedelta(minutes=15)
 RESULTS_DELAY = dt.timedelta(minutes=30)
+LINEUP_GIVE_UP = dt.timedelta(minutes=90)  # sin lista de salida a la hora y media del cierre: alineaciones igualmente
 STARTLIST_EARLY = dt.timedelta(minutes=90)  # la lista de salida se carga antes del cierre, para verla al inscribirse
 DEFAULT_START = dt.time(12, 0)
 DEFAULT_DISTANCE = 170.0
@@ -183,9 +184,13 @@ def run_task(db, task: dict) -> str:
         try:
             total, ours = load_startlist(db, task["race_id"], slug, season)
         except NotReady:
-            # PCS no responde: vale la que ya se cargó por la mañana; si no hay ninguna, se reintenta
+            # PCS no responde: vale la que ya se cargó antes; si no hay ninguna, se reintenta. Pasado LINEUP_GIVE_UP desde
+            # el cierre (carreras sin lista en PCS, como las CRI por parejas) se cierra igual: corre quien se inscribió a mano
+            # y los resultados pueden puntuarse
             if not db.scalar("select exists (select 1 from public.startlist where race_id = %s)", (task["race_id"],)):
-                raise
+                if not db.scalar("select now() > entries_close_at + %s from public.race where id = %s",
+                                 (LINEUP_GIVE_UP, task["race_id"])):
+                    raise
             total = ours = db.scalar("select count(*) from public.startlist where race_id = %s", (task["race_id"],))
         n = db.scalar("select public.auto_lineup(%s)", (task["race_id"],))
         return f"lista de salida: {total} ciclistas ({ours} del juego); alineaciones automáticas: {n} equipos"
