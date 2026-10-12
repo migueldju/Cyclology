@@ -198,10 +198,10 @@ def fetch_results(slug: str, year: int, number: int, is_stage_race: bool) -> dic
 
 
 def results_complete(res: dict, is_stage_race: bool) -> bool:
-    """¿Están ya los resultados? Clásica: el resultado; vuelta: la etapa y la general."""
-    if not res.get("stage"):
-        return False
-    return (not is_stage_race) or bool(res.get("gc"))
+    """¿Hay resultados con los que puntuar? Basta el de la etapa (o la clásica): da los puntos del día. Las
+    clasificaciones (general, puntos, montaña) solo puntúan en la última etapa; si PCS aún no las tiene, las recoge
+    la relectura del día siguiente."""
+    return bool(res.get("stage"))
 
 
 def guess_itt(text: str) -> bool:
