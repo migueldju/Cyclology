@@ -23,7 +23,7 @@ import urllib.request
 from email.message import EmailMessage
 
 from . import sources, store
-from .tz import MADRID, race_tz
+from .tz import MADRID
 
 log = logging.getLogger("ingest.jobs")
 
@@ -157,7 +157,8 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         start_time = info.get("start_time")
         if start_time == dt.time(0, 0):                # PCS pone 00:00 cuando aún no se sabe la hora: se usa la de por defecto
             start_time = None
-        start, finish = estimate(date, start_time, distance, race_tz(slug, country))
+        # PCS da la hora de salida en hora de España (CET/CEST), no en la local de la carrera
+        start, finish = estimate(date, start_time, distance, MADRID)
         store.update_stage_times(db, stage_id, start, finish, distance)
         if number == first:
             store.set_entries_close(db, race_id, start)
