@@ -11,14 +11,16 @@ import { useLeague } from '@/context/LeagueContext';
 import { useLoader } from '@/hooks/useLoader';
 import { t } from '@/i18n';
 import { api } from '@/lib/api';
-import { dateTime, dayMonth, ordinal, points } from '@/lib/format';
+import { dateRange, dateTime, dayMonth, ordinal, points } from '@/lib/format';
+import type { RaceDetail, StageScores } from '@/lib/types';
 import { colors, fonts, space, type } from '@/theme';
 
 type View_ = 'scores' | 'entries';
 
 /**
- * Etapa (o clásica) de una carrera: puntuaciones (equipos de la liga y ciclistas) e inscripciones (de cada
- * equipo y en total). Sin puntuaciones aún, se abre en las inscripciones.
+ * Carrera de una etapa: puntuaciones e inscripciones. En una clásica, sus puntos (equipos de la liga y ciclistas); en
+ * una vuelta, el total de cada equipo en la carrera y un desplegable por cada etapa ya puntuada. Sin puntuaciones aún,
+ * se abre en las inscripciones.
  */
 export default function Etapa() {
   const { stageId } = useLocalSearchParams<{ stageId: string }>();
@@ -27,13 +29,14 @@ export default function Etapa() {
   const scores = useLoader(() => api.stageScores(id, Number(stageId)), [id, stageId], !!leagueId);
   const entries = useLoader(() => api.raceEntries(id, Number(stageId)), [id, stageId], !!leagueId);
   const [tab, setTab] = useState<View_ | null>(null);
-  const [openTeam, setOpenTeam] = useState<string | null>(null);
 
   const st = scores.data?.stage;
-  const scored = st?.status === 'scored';
+  const race = useLoader(() => api.raceDetail(id, st!.race_id), [id, st?.race_id], !!leagueId && !!st?.is_stage_race);
+  const scored = st?.is_stage_race ? !!race.data?.stages.some((x) => x.status === 'scored') : st?.status === 'scored';
+  const ready = st && (!st.is_stage_race || race.data);
   // la pestaña por defecto depende de si ya hay puntos (solo la primera vez: después manda el usuario)
-  useEffect(() => { if (st && tab == null) setTab(scored ? 'scores' : 'entries'); }, [st, scored, tab]);
-  const reload = () => { scores.reload(); entries.reload(); };
+  useEffect(() => { if (ready && tab == null) setTab(scored ? 'scores' : 'entries'); }, [ready, scored, tab]);
+  const reload = () => { scores.reload(); entries.reload(); race.reload(); };
   const open = (riderId: number) => router.push(`/ciclista/${riderId}`);
 
   return (
@@ -45,7 +48,9 @@ export default function Etapa() {
             <Flag code={st?.country} height={16} />
           </View>
           <Txt variant="small">
-            {st ? `${st.is_stage_race ? (st.number === 0 ? t('race.prologue') : t('race.stageN', { n: st.number })) : t('race.oneDay')} · ${dayMonth(st.date)}` : ''}
+            {!st ? '' : !st.is_stage_race ? `${t('race.oneDay')} · ${dayMonth(st.date)}`
+              : race.data?.stages.length
+                ? dateRange(race.data.stages[0].date, race.data.stages[race.data.stages.length - 1].date) : ''}
           </Txt>
         </View>
         <View style={styles.segment} accessibilityRole="tablist">
@@ -61,51 +66,15 @@ export default function Etapa() {
       </View>
       <ErrorText error={scores.error ?? entries.error} />
 
-      {tab === 'scores' ? (
-        <>
-          {!scored && st ? (
-            <Txt style={{ paddingHorizontal: space.l }}>{t('stage.noResultsYet')}</Txt>
-          ) : null}
-          <Section title={t('stage.leagueTeams')}>
-            {scores.data?.members.length ? scores.data.members.map((m, i) => {
-              const isOpen = openTeam === m.member_id;
-              const last = i === scores.data!.members.length - 1;
-              return (
-                <View key={m.member_id} style={!last && styles.line}>
-                  {/* desplegable: los puntos de cada ciclista inscrito por el equipo */}
-                  <Pressable onPress={() => setOpenTeam(isOpen ? null : m.member_id)} accessibilityRole="button"
-                             accessibilityState={{ expanded: isOpen }}
-                             style={({ pressed }) => [styles.teamRow, pressed && { backgroundColor: colors.road }]}>
-                    <Txt variant="number" style={{ width: 36 }}>{ordinal(i + 1)}</Txt>
-                    <View style={{ width: 18 }}><Flag code={m.country} /></View>
-                    <Txt style={[{ flex: 1 }, m.is_mine && styles.mine]} numberOfLines={1}>{m.team_name}</Txt>
-                    <Txt variant="number">{points(m.points)}</Txt>
-                    <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />
-                  </Pressable>
-                  {isOpen ? (
-                    <View style={styles.teamRiders}>
-                      {m.riders.length ? m.riders.map((r) => (
-                        <Pressable key={r.rider_id} onPress={() => open(r.rider_id)} style={styles.teamRider}>
-                          <Txt style={{ flex: 1 }} numberOfLines={1}>{r.name}</Txt>
-                          <Txt variant="number" style={!r.points ? { color: colors.inkSoft } : undefined}>{points(r.points)}</Txt>
-                        </Pressable>
-                      )) : <Txt variant="small">{t('stage.noEntry')}</Txt>}
-                    </View>
-                  ) : null}
-                </View>
-              );
-            }) : <Empty text={scores.loading ? t('common.loading') : t('stage.noTeams')} />}
-          </Section>
-          <Section title={t('stage.scores')}>
-            {scores.data?.riders.length ? scores.data.riders.map((r, i) => (
-              <RiderRow key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
-                        note={r.entered_by.length ? t('stage.enteredBy', { teams: r.entered_by.join(', ') })
-                          : r.owner ? t('stage.ownedNotEntered', { team: r.owner }) : t('stage.noOwner')}
-                        value={0} last={i === scores.data!.riders.length - 1} onPress={() => open(r.rider_id)}
-                        right={<Txt variant="number">{points(r.points)}</Txt>} />
-            )) : <Empty text={scores.loading ? t('common.loading') : t('stage.noResults')} />}
-          </Section>
-        </>
+      {tab === 'scores' && scores.data ? (
+        st?.is_stage_race ? (
+          <RaceScores leagueId={id} race={race.data} loading={race.loading} members={scores.data.members} open={open} />
+        ) : (
+          <>
+            {!scored ? <Txt style={{ paddingHorizontal: space.l }}>{t('stage.noResultsYet')}</Txt> : null}
+            <StageScoresBody data={scores.data} open={open} />
+          </>
+        )
       ) : tab === 'entries' ? (
         <>
           {entries.data && !entries.data.visible ? (
@@ -147,6 +116,112 @@ export default function Etapa() {
         </>
       ) : null}
     </Screen>
+  );
+}
+
+/** Total de cada equipo en la vuelta y, por cada etapa con puntos, un desplegable con su puntuación */
+function RaceScores({ leagueId, race, loading, members, open }: {
+  leagueId: string; race: RaceDetail | null; loading: boolean; members: StageScores['members'];
+  open: (riderId: number) => void;
+}) {
+  const [openStage, setOpenStage] = useState<number | null>(null);
+  const totals = new Map((race?.league_total ?? []).map((x) => [x.member_id, x.points]));
+  const teams = members.map((m) => ({ ...m, total: totals.get(m.member_id) ?? 0 })).sort((a, b) => b.total - a.total);
+  const stages = (race?.stages ?? []).filter((x) => x.status === 'scored');
+  return (
+    <>
+      <Section title={t('stage.leagueTeams')}>
+        {teams.length ? teams.map((m, i) => (
+          <View key={m.member_id} style={[styles.teamRow, i < teams.length - 1 && styles.line]}>
+            <Txt variant="number" style={{ width: 36 }}>{ordinal(i + 1)}</Txt>
+            <View style={{ width: 18 }}><Flag code={m.country} /></View>
+            <Txt style={[{ flex: 1 }, m.is_mine && styles.mine]} numberOfLines={1}>{m.team_name}</Txt>
+            <Txt variant="number">{points(m.total)}</Txt>
+          </View>
+        )) : <Empty text={t('stage.noTeams')} />}
+      </Section>
+      <Section title={t('calendar.stagesTitle')}>
+        {stages.length ? stages.map((x, i) => (
+          <StageItem key={x.stage_id} leagueId={leagueId} stage={x} last={i === stages.length - 1} open={open}
+                     isOpen={openStage === x.stage_id} onToggle={() => setOpenStage(openStage === x.stage_id ? null : x.stage_id)} />
+        )) : <Empty text={loading ? t('common.loading') : t('stage.noResultsYet')} />}
+      </Section>
+    </>
+  );
+}
+
+/** Etapa puntuada de una vuelta: al abrirla se cargan sus puntos */
+function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
+  leagueId: string; stage: RaceDetail['stages'][number]; isOpen: boolean; onToggle: () => void; last: boolean;
+  open: (riderId: number) => void;
+}) {
+  const data = useLoader(() => api.stageScores(leagueId, stage.stage_id), [leagueId, stage.stage_id, isOpen], isOpen);
+  return (
+    <View style={!last && styles.line}>
+      <Pressable onPress={onToggle} accessibilityRole="button" accessibilityState={{ expanded: isOpen }}
+                 style={({ pressed }) => [styles.teamRow, pressed && { backgroundColor: colors.road }]}>
+        <View style={{ flex: 1 }}>
+          <Txt variant="lead">{stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}</Txt>
+          <Txt variant="small" numberOfLines={1}>
+            {dayMonth(stage.date)}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
+          </Txt>
+        </View>
+        <Txt variant="number">{points(stage.my_points)}</Txt>
+        <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />
+      </Pressable>
+      {isOpen ? (
+        data.data ? <StageScoresBody data={data.data} open={open} compact />
+          : <Txt variant="small" style={{ padding: space.l }}>{t('common.loading')}</Txt>
+      ) : null}
+    </View>
+  );
+}
+
+/** Puntos de una etapa: equipos de la liga (desplegable con sus inscritos) y lo que puntuó cada ciclista */
+function StageScoresBody({ data, open, compact }: { data: StageScores; open: (riderId: number) => void; compact?: boolean }) {
+  const [openTeam, setOpenTeam] = useState<string | null>(null);
+  const sectionStyle = compact ? { marginTop: space.s } : undefined;
+  return (
+    <>
+      <Section title={compact ? undefined : t('stage.leagueTeams')} style={sectionStyle}>
+        {data.members.length ? data.members.map((m, i) => {
+          const isOpen = openTeam === m.member_id;
+          const last = i === data.members.length - 1;
+          return (
+            <View key={m.member_id} style={!last && styles.line}>
+              <Pressable onPress={() => setOpenTeam(isOpen ? null : m.member_id)} accessibilityRole="button"
+                         accessibilityState={{ expanded: isOpen }}
+                         style={({ pressed }) => [styles.teamRow, pressed && { backgroundColor: colors.road }]}>
+                <Txt variant="number" style={{ width: 36 }}>{ordinal(i + 1)}</Txt>
+                <View style={{ width: 18 }}><Flag code={m.country} /></View>
+                <Txt style={[{ flex: 1 }, m.is_mine && styles.mine]} numberOfLines={1}>{m.team_name}</Txt>
+                <Txt variant="number">{points(m.points)}</Txt>
+                <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />
+              </Pressable>
+              {isOpen ? (
+                <View style={styles.teamRiders}>
+                  {m.riders.length ? m.riders.map((r) => (
+                    <Pressable key={r.rider_id} onPress={() => open(r.rider_id)} style={styles.teamRider}>
+                      <Txt style={{ flex: 1 }} numberOfLines={1}>{r.name}</Txt>
+                      <Txt variant="number" style={!r.points ? { color: colors.inkSoft } : undefined}>{points(r.points)}</Txt>
+                    </Pressable>
+                  )) : <Txt variant="small">{t('stage.noEntry')}</Txt>}
+                </View>
+              ) : null}
+            </View>
+          );
+        }) : <Empty text={t('stage.noTeams')} />}
+      </Section>
+      <Section title={t('stage.scores')} style={sectionStyle}>
+        {data.riders.length ? data.riders.map((r, i) => (
+          <RiderRow key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
+                    note={r.entered_by.length ? t('stage.enteredBy', { teams: r.entered_by.join(', ') })
+                      : r.owner ? t('stage.ownedNotEntered', { team: r.owner }) : t('stage.noOwner')}
+                    value={0} last={i === data.riders.length - 1} onPress={() => open(r.rider_id)}
+                    right={<Txt variant="number">{points(r.points)}</Txt>} />
+        )) : <Empty text={t('stage.noResults')} />}
+      </Section>
+    </>
   );
 }
 
