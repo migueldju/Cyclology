@@ -7,11 +7,11 @@
 name: ingesta
 on:
   schedule:
-    - cron: "*/5 * * * *"      # tareas pendientes
     - cron: "0 22,23,5 * * *"  # plan del día (y repaso por la mañana)
     - cron: "0 2 * * 1"        # equipos (lunes)
     - cron: "30 2 * * 1"       # calendario (lunes)
-  # lo dispara Supabase (pg_cron, migración 0025) a su hora: los horarios de arriba quedan de respaldo
+  # lo dispara Supabase (pg_cron, migraciones 0025 y 0026) cuando una tarea toca; los horarios de arriba quedan
+  # de respaldo para el plan del día y las recargas de los lunes
   workflow_dispatch:
     inputs:
       cmd:

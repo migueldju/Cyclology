@@ -31,7 +31,7 @@ AVG_SPEED_KMH = 42
 FINISH_MARGIN = dt.timedelta(minutes=15)
 RESULTS_DELAY = dt.timedelta(minutes=30)
 LINEUP_GIVE_UP = dt.timedelta(minutes=90)  # sin lista de salida a la hora y media del cierre: alineaciones igualmente
-STARTLIST_EARLY = dt.timedelta(minutes=90)  # la lista de salida se carga antes del cierre, para verla al inscribirse
+RECHECK_AFTER = dt.timedelta(hours=2)      # relectura de la clasificación, para tenerla completa
 DEFAULT_START = dt.time(12, 0)
 DEFAULT_DISTANCE = 170.0
 
@@ -161,18 +161,15 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         store.update_stage_times(db, stage_id, start, finish, distance)
         if number == first:
             store.set_entries_close(db, race_id, start)
-            store.create_task(db, "startlist", race_id, None, max(now, start - STARTLIST_EARLY), 12,
-                              dt.timedelta(minutes=30))
-            # al cerrar la inscripción: lista de salida al día y alineaciones de quien no se inscribió
+            # a la hora de salida: lista de salida y alineaciones de quien no se inscribió
             store.create_task(db, "lineup", race_id, None, start, 12, dt.timedelta(minutes=10))
+        # media hora después de la llegada estimada: clasificaciones y puntos (con lo que baste para puntuar)
         store.create_task(db, "results", race_id, stage_id, finish + RESULTS_DELAY, 10, dt.timedelta(minutes=30))
+        # dos horas después: relectura para guardar la clasificación completa (corredores que aún faltaban)
+        store.create_task(db, "recheck", race_id, stage_id, finish + RESULTS_DELAY + RECHECK_AFTER, 3,
+                          dt.timedelta(hours=1))
         planned += 1
 
-    # relectura de ayer (correcciones, descalificaciones)
-    for stage_id, race_id in db.fetchall(
-            "select s.id, s.race_id from public.stage s where s.date = %s and s.status = 'scored'",
-            (today - dt.timedelta(days=1),)):
-        store.create_task(db, "recheck", race_id, stage_id, now, 3, dt.timedelta(hours=1))
     log.info("Plan del %s: %s etapas", today, planned)
     return planned
 
