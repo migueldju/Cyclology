@@ -138,7 +138,7 @@ const ca: Partial<Dict> = {
   "home.pointsForYou": "{points} per a tu",
   "home.rules": "Normativa",
   "home.sanctioned": "Aquesta setmana no puntues: dilluns a les 00:00 el teu saldo era negatiu. Ven o deixa de fer ofertes per tornar a positiu abans del proper dilluns.",
-  "home.schedule": "Sortida {start} · arribada cap a les {finish}",
+  "home.schedule": "Sortida {start}",
   "home.scoring": "Arribada: calculant punts",
   "home.shareCodeA": "Comparteix el codi",
   "home.shareCodeB": "o l'enllaç de la lliga.",

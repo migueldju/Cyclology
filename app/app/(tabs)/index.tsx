@@ -113,7 +113,7 @@ export default function Inicio() {
 function StageRow({ s, last, entriesOpen }: { s: TodayRow; last: boolean; entriesOpen: boolean }) {
   const label = s.status === 'scored' ? t('home.pointsForYou', { points: points(s.my_points) })
     : s.status === 'finished' ? t('home.scoring')
-    : s.start_at ? t('home.schedule', { start: time(s.start_at), finish: time(s.est_finish_at) }) : t('home.noSchedule');
+    : s.start_at ? t('home.schedule', { start: time(s.start_at) }) : t('home.noSchedule');
   return (
     <Row last={last}>
       <View style={[styles.swatch, { backgroundColor: categoryColor[s.category] ?? colors.line }]} />

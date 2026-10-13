@@ -137,7 +137,7 @@ const es = {
   "home.pointsForYou": "{points} para ti",
   "home.rules": "Normativa",
   "home.sanctioned": "Esta semana no puntúas: el lunes a las 00:00 tu saldo era negativo. Vende o deja de pujar para volver a positivo antes del próximo lunes.",
-  "home.schedule": "Salida {start} · llegada hacia las {finish}",
+  "home.schedule": "Salida {start}",
   "home.scoring": "Llegada: calculando puntos",
   "home.shareCodeA": "Comparte el código",
   "home.shareCodeB": "o el enlace de la liga.",

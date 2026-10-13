@@ -27,7 +27,10 @@ from .tz import MADRID
 
 log = logging.getLogger("ingest.jobs")
 
-AVG_SPEED_KMH = 42
+AVG_SPEED_KMH = 42                         # perfil desconocido
+# media del ganador según el tipo de recorrido de PCS: 1 llano, 2 media montaña, 3 media montaña con final en alto,
+# 4 montaña, 5 montaña con final en alto
+SPEED_BY_PROFILE = {1: 44.0, 2: 42.0, 3: 41.0, 4: 38.5, 5: 37.0}
 FINISH_MARGIN = dt.timedelta(minutes=15)
 RESULTS_DELAY = dt.timedelta(minutes=30)
 LINEUP_GIVE_UP = dt.timedelta(minutes=90)  # sin lista de salida a la hora y media del cierre: alineaciones igualmente
@@ -127,9 +130,11 @@ def madrid_now(now: dt.datetime | None = None) -> dt.datetime:
     return (now or dt.datetime.now(dt.timezone.utc)).astimezone(MADRID)
 
 
-def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: float | None, tz) -> tuple:
+def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: float | None, tz,
+             profile: int | None = None) -> tuple:
+    """Salida y llegada estimada: la distancia a la media típica de su tipo de recorrido, más un margen."""
     start = dt.datetime.combine(stage_date, start_local or DEFAULT_START, tzinfo=tz).astimezone(MADRID)
-    hours = (distance_km or DEFAULT_DISTANCE) / AVG_SPEED_KMH
+    hours = (distance_km or DEFAULT_DISTANCE) / SPEED_BY_PROFILE.get(profile, AVG_SPEED_KMH)
     return start, start + dt.timedelta(hours=hours) + FINISH_MARGIN
 
 
@@ -158,7 +163,7 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         if start_time == dt.time(0, 0):                # PCS pone 00:00 cuando aún no se sabe la hora: se usa la de por defecto
             start_time = None
         # PCS da la hora de salida en hora de España (CET/CEST), no en la local de la carrera
-        start, finish = estimate(date, start_time, distance, MADRID)
+        start, finish = estimate(date, start_time, distance, MADRID, info.get("profile"))
         store.update_stage_times(db, stage_id, start, finish, distance)
         if number == first:
             store.set_entries_close(db, race_id, start)

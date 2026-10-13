@@ -138,7 +138,7 @@ const nl: Partial<Dict> = {
   "home.pointsForYou": "{points} voor jou",
   "home.rules": "Reglement",
   "home.sanctioned": "Deze week scoor je niet: maandag om 00:00 was je saldo negatief. Verkoop of stop met bieden om voor volgende maandag weer positief te staan.",
-  "home.schedule": "Start {start} · aankomst rond {finish}",
+  "home.schedule": "Start {start}",
   "home.scoring": "Aankomst: punten worden berekend",
   "home.shareCodeA": "Deel de code",
   "home.shareCodeB": "of de link van de competitie.",
