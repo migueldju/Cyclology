@@ -33,7 +33,7 @@ const sl: Partial<Dict> = {
   "avatar.noPhoto": "{name}: brez fotografije",
   "avatar.photo": "Fotografija: {name}",
   "bib.position": "Mesto {value}",
-  "calendar.bestInLeague": "Najboljši v ligi",
+  "calendar.winner": "Zmagovalec",
   "calendar.date": "Datum",
   "calendar.entriesOpen": "Prijave odprte do {when}",
   "calendar.leaguePoints": "Točke lige na dirki",

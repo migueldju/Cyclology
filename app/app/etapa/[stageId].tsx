@@ -68,7 +68,8 @@ export default function Etapa() {
 
       {tab === 'scores' && scores.data ? (
         st?.is_stage_race ? (
-          <RaceScores leagueId={id} race={race.data} loading={race.loading} members={scores.data.members} open={open} />
+          <RaceScores leagueId={id} race={race.data} loading={race.loading} members={scores.data.members} open={open}
+                     initialStage={st.id} />
         ) : (
           <>
             {!scored ? <Txt style={{ paddingHorizontal: space.l }}>{t('stage.noResultsYet')}</Txt> : null}
@@ -120,11 +121,12 @@ export default function Etapa() {
 }
 
 /** Total de cada equipo en la vuelta y, por cada etapa con puntos, un desplegable con su puntuación */
-function RaceScores({ leagueId, race, loading, members, open }: {
+function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
   leagueId: string; race: RaceDetail | null; loading: boolean; members: StageScores['members'];
-  open: (riderId: number) => void;
+  open: (riderId: number) => void; initialStage?: number;
 }) {
-  const [openStage, setOpenStage] = useState<number | null>(null);
+  // se abre ya desplegada la etapa desde la que se llega
+  const [openStage, setOpenStage] = useState<number | null>(initialStage ?? null);
   const [openTeam, setOpenTeam] = useState<string | null>(null);
   const totals = new Map((race?.league_total ?? []).map((x) => [x.member_id, x.points]));
   const teams = members.map((m) => ({ ...m, total: totals.get(m.member_id) ?? 0 })).sort((a, b) => b.total - a.total);

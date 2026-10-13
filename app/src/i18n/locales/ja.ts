@@ -33,7 +33,7 @@ const ja: Partial<Dict> = {
   "avatar.noPhoto": "{name}：写真なし",
   "avatar.photo": "{name}の写真",
   "bib.position": "{value}位",
-  "calendar.bestInLeague": "リーグ最高",
+  "calendar.winner": "勝者",
   "calendar.date": "日付",
   "calendar.entriesOpen": "エントリー受付中（{when}まで）",
   "calendar.leaguePoints": "このレースでのリーグポイント",
