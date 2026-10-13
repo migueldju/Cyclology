@@ -205,7 +205,6 @@ function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
             {dayMonth(stage.date)}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
           </Txt>
         </View>
-        <Txt variant="number">{points(stage.my_points)}</Txt>
         <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />
       </Pressable>
       {isOpen ? (
