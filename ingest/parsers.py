@@ -101,16 +101,20 @@ def keep_race(row: dict) -> bool:
 def parse_race_stages(html: str, slug: str, year: int) -> list[dict]:
     """Etapas de una vuelta desde su página principal: [{number, date, distance_km, is_itt}].
 
-    number 0 = prólogo. La fecha sale de la columna 'dd/mm' de la tabla de etapas.
+    number 0 = prólogo. La fecha sale de la columna 'dd/mm' de la tabla de etapas; en el desplegable no hay fecha (None) y
+    la pone el calendario, una por día desde la salida.
     """
     out, seen = [], set()
-    pat = re.compile(rf"race/{re.escape(slug)}/{year}/(stage-(\d+)|prologue)(?:[/?#]|$)")
-    for a in _soup(html).find_all("a", href=pat):
-        m = pat.search(a["href"])
+    # enlaces antiguos (race/slug/2026/stage-1) y nuevos (race/slug-2026-stage-1), en la tabla o en el desplegable
+    pat = re.compile(rf"race/{re.escape(slug)}(?:/{year}/|-{year}-)(stage-(\d+)|prologue)(?:[/?#]|$)")
+    soup = _soup(html)
+    links = [(a, a["href"]) for a in soup.find_all("a", href=pat)] +             [(o, o["value"]) for o in soup.find_all("option", value=pat)]
+    for a, url in links:
+        m = pat.search(url)
         number = 0 if m.group(1) == "prologue" else int(m.group(2))
         if number in seen:
             continue
-        row = a.find_parent("tr") or a.parent
+        row = a if a.name == "option" else (a.find_parent("tr") or a.parent)
         text = row.get_text(" ", strip=True) if row else a.get_text(" ", strip=True)
         md = re.search(r"\b(\d{1,2})/(\d{1,2})\b", text)
         km = re.search(r"\(?\s*(\d+(?:[.,]\d+)?)\s*k(?:m)?\s*\)?", text)
