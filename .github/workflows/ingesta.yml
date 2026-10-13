@@ -11,7 +11,14 @@ on:
     - cron: "0 22,23,5 * * *"  # plan del día (y repaso por la mañana)
     - cron: "0 2 * * 1"        # equipos (lunes)
     - cron: "30 2 * * 1"       # calendario (lunes)
+  # lo dispara Supabase (pg_cron, migración 0025) a su hora: los horarios de arriba quedan de respaldo
   workflow_dispatch:
+    inputs:
+      cmd:
+        description: "Qué ejecutar"
+        type: choice
+        options: [tick, plan, teams, calendar]
+        default: tick
 # una ejecución detrás de otra: nunca dos a la vez sobre las mismas tareas
 concurrency:
   group: ingesta
@@ -32,10 +39,16 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           ALERT_WEBHOOK: ${{ secrets.ALERT_WEBHOOK }}
         run: |
+          cmd="${{ inputs.cmd }}"
           case "${{ github.event.schedule }}" in
-            "0 22,23,5 * * *") python -m ingest plan && python -m ingest tick ;;
+            "0 22,23,5 * * *") cmd=plan ;;
+            "0 2 * * 1")       cmd=teams ;;
+            "30 2 * * 1")      cmd=calendar ;;
+          esac
+          case "$cmd" in
+            plan)     python -m ingest plan && python -m ingest tick ;;
             # temporada por defecto: la del juego (la de los equipos cargados), no el año natural
-            "0 2 * * 1")     python -m ingest teams ;;
-            "30 2 * * 1")    python -m ingest calendar ;;
-            *)               python -m ingest tick ;;
+            teams)    python -m ingest teams ;;
+            calendar) python -m ingest calendar ;;
+            *)        python -m ingest tick ;;
           esac
