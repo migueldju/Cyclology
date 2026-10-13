@@ -138,7 +138,7 @@ const sl: Partial<Dict> = {
   "home.pointsForYou": "{points} zate",
   "home.rules": "Pravila",
   "home.sanctioned": "Ta teden ne zbiraš točk: v ponedeljek ob 00:00 je bilo tvoje stanje negativno. Prodaj ali nehaj dajati ponudbe, da boš do naslednjega ponedeljka spet v plusu.",
-  "home.schedule": "Start {start} · cilj okoli {finish}",
+  "home.schedule": "Start {start}",
   "home.scoring": "Cilj: računanje točk",
   "home.shareCodeA": "Deli kodo",
   "home.shareCodeB": "ali povezavo lige.",

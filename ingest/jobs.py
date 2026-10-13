@@ -27,7 +27,10 @@ from .tz import MADRID
 
 log = logging.getLogger("ingest.jobs")
 
-AVG_SPEED_KMH = 42
+AVG_SPEED_KMH = 42                         # perfil desconocido
+# media del ganador según el tipo de recorrido de PCS: 1 llano, 2 media montaña, 3 media montaña con final en alto,
+# 4 montaña, 5 montaña con final en alto
+SPEED_BY_PROFILE = {1: 44.0, 2: 42.0, 3: 41.0, 4: 38.5, 5: 37.0}
 FINISH_MARGIN = dt.timedelta(minutes=15)
 RESULTS_DELAY = dt.timedelta(minutes=30)
 LINEUP_GIVE_UP = dt.timedelta(minutes=90)  # sin lista de salida a la hora y media del cierre: alineaciones igualmente
@@ -127,9 +130,11 @@ def madrid_now(now: dt.datetime | None = None) -> dt.datetime:
     return (now or dt.datetime.now(dt.timezone.utc)).astimezone(MADRID)
 
 
-def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: float | None, tz) -> tuple:
+def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: float | None, tz,
+             profile: int | None = None) -> tuple:
+    """Salida y llegada estimada: la distancia a la media típica de su tipo de recorrido, más un margen."""
     start = dt.datetime.combine(stage_date, start_local or DEFAULT_START, tzinfo=tz).astimezone(MADRID)
-    hours = (distance_km or DEFAULT_DISTANCE) / AVG_SPEED_KMH
+    hours = (distance_km or DEFAULT_DISTANCE) / SPEED_BY_PROFILE.get(profile, AVG_SPEED_KMH)
     return start, start + dt.timedelta(hours=hours) + FINISH_MARGIN
 
 
@@ -158,8 +163,9 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         if start_time == dt.time(0, 0):                # PCS pone 00:00 cuando aún no se sabe la hora: se usa la de por defecto
             start_time = None
         # PCS da la hora de salida en hora de España (CET/CEST), no en la local de la carrera
-        start, finish = estimate(date, start_time, distance, MADRID)
+        start, finish = estimate(date, start_time, distance, MADRID, info.get("profile"))
         store.update_stage_times(db, stage_id, start, finish, distance)
+        store.update_stage_course(db, stage_id, None, info.get("vertical_m"))
         if number == first:
             store.set_entries_close(db, race_id, start)
             # a la hora de salida: lista de salida y alineaciones de quien no se inscribió
@@ -172,7 +178,30 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         planned += 1
 
     log.info("Plan del %s: %s etapas", today, planned)
+    fill_courses(db, today)
     return planned
+
+
+def fill_courses(db, today: dt.date, back_days: int = 1, ahead_days: int = 10, limit: int = 40) -> int:
+    """Distancia y desnivel de las etapas de los próximos días que aún no tienen desnivel, para verlos en el calendario
+    antes de que se corran. Como mucho `limit` páginas por pasada; lo que falte, en la siguiente."""
+    rows = db.fetchall(
+        "select s.id, s.number, r.pcs_slug, r.season, r.is_stage_race from public.stage s "
+        "join public.race r on r.id = s.race_id "
+        "where s.vertical_m is null and s.date between %s and %s order by s.date limit %s",
+        (today - dt.timedelta(days=back_days), today + dt.timedelta(days=ahead_days), limit))
+    done = 0
+    for stage_id, number, slug, season, is_stage_race in rows:
+        try:
+            info = sources.fetch_stage_info(slug, season, number, is_stage_race)
+        except Exception as exc:
+            log.warning("Sin recorrido de %s etapa %s: %s", slug, number, exc)
+            continue
+        if info.get("distance_km") or info.get("vertical_m"):
+            store.update_stage_course(db, stage_id, info.get("distance_km"), info.get("vertical_m"))
+            done += 1
+    log.info("Recorridos: %s de %s etapas", done, len(rows))
+    return done
 
 
 # --------------------------------------------------------------------------- ejecución de tareas

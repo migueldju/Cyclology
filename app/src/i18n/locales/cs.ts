@@ -138,7 +138,7 @@ const cs: Partial<Dict> = {
   "home.pointsForYou": "{points} pro tebe",
   "home.rules": "Pravidla",
   "home.sanctioned": "Tento týden neboduješ: v pondělí v 00:00 byl tvůj zůstatek záporný. Prodej nebo přestaň přihazovat, abys byl do příštího pondělí zase v plusu.",
-  "home.schedule": "Start {start} · cíl kolem {finish}",
+  "home.schedule": "Start {start}",
   "home.scoring": "Cíl: počítají se body",
   "home.shareCodeA": "Sdílej kód",
   "home.shareCodeB": "nebo odkaz na ligu.",

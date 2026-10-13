@@ -138,7 +138,7 @@ const ja: Partial<Dict> = {
   "home.pointsForYou": "あなたに{points}",
   "home.rules": "ルール",
   "home.sanctioned": "今週はポイントが入りません。月曜0:00の時点で残高がマイナスでした。次の月曜までにプラスに戻すため、選手を売るか入札をやめてください。",
-  "home.schedule": "スタート {start} · ゴール予定 {finish}頃",
+  "home.schedule": "スタート {start}",
   "home.scoring": "ゴール：ポイント計算中",
   "home.shareCodeA": "コードを共有",
   "home.shareCodeB": "またはリーグのリンクを共有。",

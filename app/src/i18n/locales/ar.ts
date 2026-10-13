@@ -138,7 +138,7 @@ const ar: Partial<Dict> = {
   "home.pointsForYou": "{points} لك",
   "home.rules": "اللائحة",
   "home.sanctioned": "لن تسجّل نقاطًا هذا الأسبوع: كان رصيدك سالبًا يوم الاثنين الساعة 00:00. بِع أو توقّف عن المزايدة لتعود إلى الرصيد الموجب قبل الاثنين القادم.",
-  "home.schedule": "الانطلاق {start} · الوصول نحو {finish}",
+  "home.schedule": "الانطلاق {start}",
   "home.scoring": "الوصول: جارٍ حساب النقاط",
   "home.shareCodeA": "شارك الرمز",
   "home.shareCodeB": "أو رابط الدوري.",

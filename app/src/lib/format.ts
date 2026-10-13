@@ -25,6 +25,11 @@ export function points(v: number | null | undefined): string {
   return v == null ? '—' : t('fmt.points', { n: thousands(v) });
 }
 
+/** 180 km · 1.758 m+ (lo que se sepa); vacío si no hay nada */
+export function course(km: number | null | undefined, vertical: number | null | undefined): string {
+  return [km ? `${thousands(km)} km` : '', vertical ? `${thousands(vertical)} m+` : ''].filter(Boolean).join(' · ');
+}
+
 const months = () => t('fmt.months').split(',');
 const weekdays = () => t('fmt.weekdays').split(',');
 

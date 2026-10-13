@@ -128,17 +128,23 @@ def parse_race_stages(html: str, slug: str, year: int) -> list[dict]:
 
 # =========================================================================== página de etapa / clásica
 def parse_stage_info(html: str) -> dict:
-    """Hora de salida (local), distancia y fecha de una etapa o clásica."""
+    """Hora de salida (en hora de España), distancia, fecha, desnivel y tipo de recorrido de una etapa o clásica. El
+    tipo es el de PCS: 1 llano, 2 media montaña, 3 media montaña con final en alto, 4 montaña, 5 montaña con final en
+    alto (p0 = sin clasificar)."""
     text = _soup(html).get_text(" ", strip=True)
     st = re.search(r"Start\s*time\s*:?\s*(\d{1,2})[:.h](\d{2})", text, re.I)
     km = re.search(r"Distance\s*:?\s*(\d+(?:[.,]\d+)?)\s*km", text, re.I)
     dd = re.search(r"Date\s*:?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(\d{4})", text, re.I)
+    prof = re.search(r"icon profile p(\d)", html)
+    vert = re.search(r"Vertical\s*meters\s*:?\s*(\d+)", text, re.I)
     date = None
     if dd and dd.group(2).lower() in MONTHS:
         date = dt.date(int(dd.group(3)), MONTHS[dd.group(2).lower()], int(dd.group(1)))
     return dict(start_time=dt.time(int(st.group(1)), int(st.group(2))) if st else None,
                 distance_km=float(km.group(1).replace(",", ".")) if km else None,
-                date=date)
+                date=date,
+                profile=int(prof.group(1)) if prof and 1 <= int(prof.group(1)) <= 5 else None,
+                vertical_m=int(vert.group(1)) if vert and int(vert.group(1)) > 0 else None)
 
 
 def _rank(td_text: str) -> int | None:

@@ -138,7 +138,7 @@ const eu: Partial<Dict> = {
   "home.pointsForYou": "{points} zuretzat",
   "home.rules": "Araudia",
   "home.sanctioned": "Aste honetan ez duzu puntuatzen: astelehenean 00:00etan zure saldoa negatiboa zen. Saldu edo utzi eskaintzak egiteari hurrengo astelehenaren aurretik positibora itzultzeko.",
-  "home.schedule": "Irteera {start} · helmuga {finish} aldera",
+  "home.schedule": "Irteera {start}",
   "home.scoring": "Helmuga: puntuak kalkulatzen",
   "home.shareCodeA": "Partekatu kodea",
   "home.shareCodeB": "edo ligaren esteka.",

@@ -138,7 +138,7 @@ const it: Partial<Dict> = {
   "home.pointsForYou": "{points} per te",
   "home.rules": "Regolamento",
   "home.sanctioned": "Questa settimana non fai punti: lunedì alle 00:00 il tuo saldo era negativo. Vendi o smetti di fare offerte per tornare in positivo prima del prossimo lunedì.",
-  "home.schedule": "Partenza {start} · arrivo verso le {finish}",
+  "home.schedule": "Partenza {start}",
   "home.scoring": "Arrivo: calcolo dei punti",
   "home.shareCodeA": "Condividi il codice",
   "home.shareCodeB": "o il link della lega.",
