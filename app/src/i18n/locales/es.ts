@@ -32,7 +32,7 @@ const es = {
   "avatar.noPhoto": "{name}: sin foto",
   "avatar.photo": "Foto de {name}",
   "bib.position": "Puesto {value}",
-  "calendar.bestInLeague": "Mejor de la liga",
+  "calendar.winner": "Ganador",
   "calendar.date": "Fecha",
   "calendar.entriesOpen": "Inscripción abierta hasta {when}",
   "calendar.leaguePoints": "Puntos de la liga en la carrera",

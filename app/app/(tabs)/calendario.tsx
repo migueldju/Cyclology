@@ -208,7 +208,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
             <View style={[styles.tr, styles.th]}>
               <Txt variant="label" style={{ width: 84 }}>{r.is_stage_race ? t('calendar.stage') : ''}</Txt>
               <Txt variant="label" style={{ width: 52 }}>{t('calendar.date')}</Txt>
-              <Txt variant="label" style={{ flex: 1 }}>{t('calendar.bestInLeague')}</Txt>
+              <Txt variant="label" style={{ flex: 1 }}>{t('calendar.winner')}</Txt>
               <Txt variant="label" style={styles.numCol}>{t('calendar.yourPoints')}</Txt>
             </View>
             {d.stages.map((s, i) => (
@@ -217,9 +217,16 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
                                                   pressed && { backgroundColor: colors.road }]}>
                 <Txt style={{ width: 84 }}>{r.is_stage_race ? (s.number === 0 ? t('race.prologue') : t('race.stageN', { n: s.number })) : t('calendar.result')}</Txt>
                 <Txt variant="small" style={{ width: 52 }}>{dayMonth(s.date)}</Txt>
-                <Txt variant="small" style={{ flex: 1 }} numberOfLines={1}>
-                  {s.status === 'scored' ? (s.top_member ? s.top_member.team_name : t('calendar.noPoints')) : t('calendar.pending')}
-                </Txt>
+                {s.winner ? (
+                  <View style={styles.winner}>
+                    <Flag code={s.winner.nationality} />
+                    <Txt variant="small" style={{ flex: 1 }} numberOfLines={1}>{s.winner.name}</Txt>
+                  </View>
+                ) : (
+                  <Txt variant="small" style={{ flex: 1 }} numberOfLines={1}>
+                    {s.status === 'scored' ? '—' : t('calendar.pending')}
+                  </Txt>
+                )}
                 <Txt variant="number" style={styles.numCol}>{s.status === 'scored' ? points(s.my_points) : '—'}</Txt>
               </Pressable>
             ))}
@@ -290,6 +297,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
 }
 
 const styles = StyleSheet.create({
+  winner: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6 },
   monthHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: space.m, paddingBottom: space.xs },
   grid: { flexDirection: 'row', flexWrap: 'wrap' },
   weekday: { textAlign: 'center', paddingBottom: space.xs, textTransform: 'capitalize' },

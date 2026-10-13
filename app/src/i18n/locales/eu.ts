@@ -33,7 +33,7 @@ const eu: Partial<Dict> = {
   "avatar.noPhoto": "{name}: argazkirik gabe",
   "avatar.photo": "{name}(r)en argazkia",
   "bib.position": "{value}. postua",
-  "calendar.bestInLeague": "Ligako onena",
+  "calendar.winner": "Irabazlea",
   "calendar.date": "Data",
   "calendar.entriesOpen": "Izen-ematea irekita {when} arte",
   "calendar.leaguePoints": "Ligako puntuak lasterketan",

@@ -33,7 +33,7 @@ const ar: Partial<Dict> = {
   "avatar.noPhoto": "{name}: بلا صورة",
   "avatar.photo": "صورة {name}",
   "bib.position": "المركز {value}",
-  "calendar.bestInLeague": "الأفضل في الدوري",
+  "calendar.winner": "الفائز",
   "calendar.date": "التاريخ",
   "calendar.entriesOpen": "التسجيل مفتوح حتى {when}",
   "calendar.leaguePoints": "نقاط الدوري في السباق",

@@ -33,7 +33,7 @@ const nl: Partial<Dict> = {
   "avatar.noPhoto": "{name}: geen foto",
   "avatar.photo": "Foto van {name}",
   "bib.position": "Plaats {value}",
-  "calendar.bestInLeague": "Beste van de competitie",
+  "calendar.winner": "Winnaar",
   "calendar.date": "Datum",
   "calendar.entriesOpen": "Inschrijving open tot {when}",
   "calendar.leaguePoints": "Competitiepunten in de koers",

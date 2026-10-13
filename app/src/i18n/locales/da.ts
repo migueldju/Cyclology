@@ -33,7 +33,7 @@ const da: Partial<Dict> = {
   "avatar.noPhoto": "{name}: intet foto",
   "avatar.photo": "Foto af {name}",
   "bib.position": "Plads {value}",
-  "calendar.bestInLeague": "Bedst i ligaen",
+  "calendar.winner": "Vinder",
   "calendar.date": "Dato",
   "calendar.entriesOpen": "Tilmelding åben til {when}",
   "calendar.leaguePoints": "Ligapoint i løbet",

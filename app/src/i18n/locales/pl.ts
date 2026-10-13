@@ -33,7 +33,7 @@ const pl: Partial<Dict> = {
   "avatar.noPhoto": "{name}: brak zdjęcia",
   "avatar.photo": "Zdjęcie: {name}",
   "bib.position": "Miejsce {value}",
-  "calendar.bestInLeague": "Najlepszy w lidze",
+  "calendar.winner": "Zwycięzca",
   "calendar.date": "Data",
   "calendar.entriesOpen": "Zgłoszenia otwarte do {when}",
   "calendar.leaguePoints": "Punkty ligi w wyścigu",

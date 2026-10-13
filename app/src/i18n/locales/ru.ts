@@ -33,7 +33,7 @@ const ru: Partial<Dict> = {
   "avatar.noPhoto": "{name}: нет фото",
   "avatar.photo": "Фото: {name}",
   "bib.position": "Место {value}",
-  "calendar.bestInLeague": "Лучший в лиге",
+  "calendar.winner": "Победитель",
   "calendar.date": "Дата",
   "calendar.entriesOpen": "Заявка открыта до {when}",
   "calendar.leaguePoints": "Очки лиги в гонке",
