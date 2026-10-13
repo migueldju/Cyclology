@@ -13,7 +13,7 @@ import { useLoader } from '@/hooks/useLoader';
 import { t } from '@/i18n';
 import { api } from '@/lib/api';
 import { stageLabel } from '@/lib/stages';
-import { dateRange, moneyShort, points, time, todayISO } from '@/lib/format';
+import { course, dateRange, moneyShort, points, time, todayISO } from '@/lib/format';
 import { inviteMessage } from '@/lib/invite';
 import type { CalendarRow, TodayRow } from '@/lib/types';
 import { categoryColor, categoryLabel, colors, space } from '@/theme';
@@ -121,7 +121,8 @@ function StageRow({ s, last, entriesOpen }: { s: TodayRow; last: boolean; entrie
       <View style={styles.flagCol}><Flag code={s.country} /></View>
       <View style={{ flex: 1 }}>
         <Txt variant="lead" numberOfLines={1}>{s.race_name}</Txt>
-        <Txt variant="small" numberOfLines={1}>{stageLabel(s.is_stage_race, s.number, s.last_stage)} · {label}</Txt>
+        <Txt variant="small" numberOfLines={1}>{[stageLabel(s.is_stage_race, s.number, s.last_stage), course(s.distance_km, s.vertical_m), label]
+          .filter(Boolean).join(' · ')}</Txt>
       </View>
       {/* antes de la salida: inscribirse; en carrera: en curso; con los puntos ya calculados: puntuaciones */}
       {s.status === 'scored' ? (

@@ -173,6 +173,7 @@ export interface TodayRow {
   country: string | null;
   is_stage_race: boolean;
   last_stage: number;
+  vertical_m: number | null;
 }
 
 export interface StageScores {
@@ -225,7 +226,9 @@ export interface RaceDetail {
     status: string;
     my_points: number;
     top_member: { team_name: string; points: number } | null;
-    winner: { name: string; nationality: string | null } | null;   // ganador de la etapa (o de la clásica)
+    winner: { name: string; nationality: string | null } | null;
+    distance_km: number | null;
+    vertical_m: number | null;   // desnivel acumulado   // ganador de la etapa (o de la clásica)
   }[];
   league_total: { member_id: string; team_name: string; points: number; country: string | null }[];
   gc: { position: number; rider_id: number | null; name: string; nationality: string | null; in_game?: boolean; scored_for: string[] }[];

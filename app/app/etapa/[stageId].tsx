@@ -11,7 +11,7 @@ import { useLeague } from '@/context/LeagueContext';
 import { useLoader } from '@/hooks/useLoader';
 import { t } from '@/i18n';
 import { api } from '@/lib/api';
-import { dateRange, dateTime, dayMonth, ordinal, points } from '@/lib/format';
+import { course, dateRange, dateTime, dayMonth, ordinal, points } from '@/lib/format';
 import type { RaceDetail, StageScores } from '@/lib/types';
 import { colors, fonts, space, type } from '@/theme';
 
@@ -204,7 +204,7 @@ function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
         <View style={{ flex: 1 }}>
           <Txt variant="lead">{stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}</Txt>
           <Txt variant="small" numberOfLines={1}>
-            {dayMonth(stage.date)}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
+            {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
           </Txt>
         </View>
         <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />

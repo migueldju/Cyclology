@@ -97,6 +97,12 @@ def update_stage_times(db, stage_id: int, start_at: dt.datetime, est_finish_at: 
                (start_at, est_finish_at, distance_km, stage_id))
 
 
+def update_stage_course(db, stage_id: int, distance_km: float | None, vertical_m: int | None) -> None:
+    """Distancia y desnivel de la página de la etapa (lo que no venga, se deja como estaba)."""
+    db.execute("update public.stage set distance_km = coalesce(%s, distance_km), vertical_m = coalesce(%s, vertical_m) "
+               "where id = %s", (distance_km, vertical_m, stage_id))
+
+
 def set_entries_close(db, race_id: int, close_at: dt.datetime) -> None:
     """Fija el cierre de inscripciones a la hora real de salida (si la carrera aún no ha empezado)."""
     db.execute("update public.race set entries_close_at = %s "

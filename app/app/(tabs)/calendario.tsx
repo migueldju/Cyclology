@@ -10,7 +10,7 @@ import { useLeague } from '@/context/LeagueContext';
 import { useLoader } from '@/hooks/useLoader';
 import { getLang, t } from '@/i18n';
 import { api } from '@/lib/api';
-import { dateTime, dayMonth, ordinal, parseDay, points, todayISO } from '@/lib/format';
+import { course, dateTime, dayMonth, ordinal, parseDay, points, todayISO } from '@/lib/format';
 import { stageLabel } from '@/lib/stages';
 import type { CalendarRow, RaceDetail } from '@/lib/types';
 import { categoryColor, categoryName, categoryRank, colors, fonts, space, type } from '@/theme';
@@ -206,7 +206,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
           <Txt variant="label" style={styles.subhead}>{r.is_stage_race ? t('calendar.stagesTitle') : t('calendar.race')}</Txt>
           <View style={styles.table}>
             <View style={[styles.tr, styles.th]}>
-              <Txt variant="label" style={{ width: 84 }}>{r.is_stage_race ? t('calendar.stage') : ''}</Txt>
+              <Txt variant="label" style={styles.stageCol}>{r.is_stage_race ? t('calendar.stage') : ''}</Txt>
               <Txt variant="label" style={{ width: 52 }}>{t('calendar.date')}</Txt>
               <Txt variant="label" style={{ flex: 1 }}>{t('calendar.winner')}</Txt>
               <Txt variant="label" style={styles.numCol}>{t('calendar.yourPoints')}</Txt>
@@ -215,7 +215,12 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
               <Pressable key={s.stage_id} onPress={() => router.push(`/etapa/${s.stage_id}`)} accessibilityRole="button"
                          style={({ pressed }) => [styles.tr, i === d.stages.length - 1 && styles.trLast,
                                                   pressed && { backgroundColor: colors.road }]}>
-                <Txt style={{ width: 84 }}>{r.is_stage_race ? (s.number === 0 ? t('race.prologue') : t('race.stageN', { n: s.number })) : t('calendar.result')}</Txt>
+                <View style={styles.stageCol}>
+                  <Txt>{r.is_stage_race ? (s.number === 0 ? t('race.prologue') : t('race.stageN', { n: s.number })) : t('calendar.result')}</Txt>
+                  {course(s.distance_km, s.vertical_m) ? (
+                    <Txt variant="small" numberOfLines={1}>{course(s.distance_km, s.vertical_m)}</Txt>
+                  ) : null}
+                </View>
                 <Txt variant="small" style={{ width: 52 }}>{dayMonth(s.date)}</Txt>
                 {s.winner ? (
                   <View style={styles.winner}>
@@ -297,6 +302,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
 }
 
 const styles = StyleSheet.create({
+  stageCol: { width: 116 },
   winner: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6 },
   monthHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: space.m, paddingBottom: space.xs },
   grid: { flexDirection: 'row', flexWrap: 'wrap' },

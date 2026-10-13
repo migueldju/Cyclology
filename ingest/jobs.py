@@ -165,6 +165,7 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         # PCS da la hora de salida en hora de España (CET/CEST), no en la local de la carrera
         start, finish = estimate(date, start_time, distance, MADRID, info.get("profile"))
         store.update_stage_times(db, stage_id, start, finish, distance)
+        store.update_stage_course(db, stage_id, None, info.get("vertical_m"))
         if number == first:
             store.set_entries_close(db, race_id, start)
             # a la hora de salida: lista de salida y alineaciones de quien no se inscribió
@@ -177,7 +178,30 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         planned += 1
 
     log.info("Plan del %s: %s etapas", today, planned)
+    fill_courses(db, today)
     return planned
+
+
+def fill_courses(db, today: dt.date, back_days: int = 1, ahead_days: int = 10, limit: int = 40) -> int:
+    """Distancia y desnivel de las etapas de los próximos días que aún no tienen desnivel, para verlos en el calendario
+    antes de que se corran. Como mucho `limit` páginas por pasada; lo que falte, en la siguiente."""
+    rows = db.fetchall(
+        "select s.id, s.number, r.pcs_slug, r.season, r.is_stage_race from public.stage s "
+        "join public.race r on r.id = s.race_id "
+        "where s.vertical_m is null and s.date between %s and %s order by s.date limit %s",
+        (today - dt.timedelta(days=back_days), today + dt.timedelta(days=ahead_days), limit))
+    done = 0
+    for stage_id, number, slug, season, is_stage_race in rows:
+        try:
+            info = sources.fetch_stage_info(slug, season, number, is_stage_race)
+        except Exception as exc:
+            log.warning("Sin recorrido de %s etapa %s: %s", slug, number, exc)
+            continue
+        if info.get("distance_km") or info.get("vertical_m"):
+            store.update_stage_course(db, stage_id, info.get("distance_km"), info.get("vertical_m"))
+            done += 1
+    log.info("Recorridos: %s de %s etapas", done, len(rows))
+    return done
 
 
 # --------------------------------------------------------------------------- ejecución de tareas
