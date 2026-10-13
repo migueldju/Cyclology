@@ -149,6 +149,10 @@ def plan_day(db, now: dt.datetime | None = None) -> int:
         except Exception as exc:                      # sin datos: se planifica con valores por defecto
             log.warning("Sin información de %s etapa %s: %s", slug, number, exc)
             info = {}
+        if info.get("date") and info["date"] != date:   # el calendario trajo mal la fecha: manda la de la página de la etapa
+            log.warning("%s etapa %s: fecha corregida de %s a %s", slug, number, date, info["date"])
+            db.execute("update public.stage set date = %s where id = %s", (info["date"], stage_id))
+            date = info["date"]
         distance = info.get("distance_km") or (float(dist) if dist else None)
         start_time = info.get("start_time")
         if start_time == dt.time(0, 0):                # PCS pone 00:00 cuando aún no se sabe la hora: se usa la de por defecto

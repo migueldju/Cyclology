@@ -92,7 +92,8 @@ export default function Inicio() {
 
       <Section title={t('home.today')}>
         {today.data?.length ? today.data.map((s, i) => (
-          <StageRow key={s.stage_id} s={s} last={i === today.data!.length - 1} />
+          <StageRow key={s.stage_id} s={s} last={i === today.data!.length - 1}
+                    entriesOpen={!!calendar.data?.find((r) => r.race_id === s.race_id)?.entries_open} />
         )) : <Empty text={today.loading ? t('common.loading') : t('home.noToday')} />}
       </Section>
       <ErrorText error={today.error} />
@@ -109,7 +110,7 @@ export default function Inicio() {
   );
 }
 
-function StageRow({ s, last }: { s: TodayRow; last: boolean }) {
+function StageRow({ s, last, entriesOpen }: { s: TodayRow; last: boolean; entriesOpen: boolean }) {
   const label = s.status === 'scored' ? t('home.pointsForYou', { points: points(s.my_points) })
     : s.status === 'finished' ? t('home.scoring')
     : s.start_at ? t('home.schedule', { start: time(s.start_at), finish: time(s.est_finish_at) }) : t('home.noSchedule');
@@ -125,10 +126,11 @@ function StageRow({ s, last }: { s: TodayRow; last: boolean }) {
       {/* antes de la salida: inscribirse; en carrera: en curso; con los puntos ya calculados: puntuaciones */}
       {s.status === 'scored' ? (
         <Button small icon="list-outline" label={t('stage.scores')} onPress={() => router.push(`/etapa/${s.stage_id}`)} />
-      ) : s.status === 'finished' || (s.start_at && new Date(s.start_at).getTime() <= Date.now()) ? (
-        <Button small kind="dark" label={t('home.live')} onPress={() => router.push(`/etapa/${s.stage_id}`)} />
-      ) : (
+      ) : entriesOpen ? (
+        // inscribirse solo mientras la inscripción de la carrera siga abierta (en una vuelta, hasta la 1.ª etapa)
         <Button small icon="create-outline" label={t('race.enter')} onPress={() => router.push(`/carrera/${s.race_id}`)} />
+      ) : (
+        <Button small kind="dark" label={t('home.live')} onPress={() => router.push(`/etapa/${s.stage_id}`)} />
       )}
     </Row>
   );
