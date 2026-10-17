@@ -391,6 +391,7 @@ const ca: Partial<Dict> = {
   "stage.noTeams": "No hi ha equips a la lliga.",
   "stage.notInGame": "no és al joc",
   "stage.ownedNotEntered": "de {team}, sense inscriure",
+  "stage.top10": "Classificació de l'etapa",
   "stage.scores": "Puntuacions",
   "stage.startlist": "Llista de sortida",
   "standings.empty": "Encara no hi ha jugadors.",

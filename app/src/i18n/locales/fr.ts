@@ -391,6 +391,7 @@ const fr: Partial<Dict> = {
   "stage.noTeams": "Aucune équipe dans la ligue.",
   "stage.notInGame": "pas dans le jeu",
   "stage.ownedNotEntered": "de {team}, non inscrit",
+  "stage.top10": "Classement de l'étape",
   "stage.scores": "Scores",
   "stage.startlist": "Liste de départ",
   "standings.empty": "Pas encore de joueurs.",

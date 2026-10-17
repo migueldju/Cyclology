@@ -391,6 +391,7 @@ const ja: Partial<Dict> = {
   "stage.noTeams": "リーグにチームはありません。",
   "stage.notInGame": "ゲームに登録されていない",
   "stage.ownedNotEntered": "{team}所属、未エントリー",
+  "stage.top10": "ステージ結果",
   "stage.scores": "得点",
   "stage.startlist": "スタートリスト",
   "standings.empty": "まだプレイヤーはいません。",

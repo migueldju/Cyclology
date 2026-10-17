@@ -177,6 +177,7 @@ export interface TodayRow {
 }
 
 export interface StageScores {
+  top10: { position: number; rider_id: number | null; name: string; nationality: string | null; points: number }[];
   stage: {
     id: number; number: number; date: string; status: string; race_id: number; race_name: string; is_stage_race: boolean;
     country: string | null;

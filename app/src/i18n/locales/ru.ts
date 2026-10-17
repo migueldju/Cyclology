@@ -391,6 +391,7 @@ const ru: Partial<Dict> = {
   "stage.noTeams": "В лиге нет команд.",
   "stage.notInGame": "нет в игре",
   "stage.ownedNotEntered": "из {team}, не заявлен",
+  "stage.top10": "Итоги этапа",
   "stage.scores": "Очки",
   "stage.startlist": "Стартовый лист",
   "standings.empty": "Игроков пока нет.",

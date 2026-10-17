@@ -391,6 +391,7 @@ const eu: Partial<Dict> = {
   "stage.noTeams": "Ez dago talderik ligan.",
   "stage.notInGame": "ez dago jokoan",
   "stage.ownedNotEntered": "{team}, izena eman gabe",
+  "stage.top10": "Etaparen sailkapena",
   "stage.scores": "Puntuazioak",
   "stage.startlist": "Irteera-zerrenda",
   "standings.empty": "Oraindik ez dago jokalaririk.",

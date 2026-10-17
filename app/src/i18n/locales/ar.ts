@@ -391,6 +391,7 @@ const ar: Partial<Dict> = {
   "stage.noTeams": "لا توجد فرق في الدوري.",
   "stage.notInGame": "ليس في اللعبة",
   "stage.ownedNotEntered": "من {team}، غير مسجّل",
+  "stage.top10": "ترتيب المرحلة",
   "stage.scores": "النقاط",
   "stage.startlist": "قائمة الانطلاق",
   "standings.empty": "لا يوجد لاعبون بعد.",
