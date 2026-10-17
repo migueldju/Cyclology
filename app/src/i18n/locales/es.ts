@@ -390,7 +390,7 @@ const es = {
   "stage.noTeams": "No hay equipos en la liga.",
   "stage.notInGame": "no está en el juego",
   "stage.ownedNotEntered": "de {team}, sin inscribir",
-  "stage.top10": "Clasificación de la etapa",
+  "stage.noScorers": "Ningún ciclista ha puntuado en esta etapa.",
   "stage.scores": "Puntuaciones",
   "stage.startlist": "Lista de salida",
   "standings.empty": "Aún no hay jugadores.",

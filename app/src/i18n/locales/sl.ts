@@ -391,7 +391,7 @@ const sl: Partial<Dict> = {
   "stage.noTeams": "V ligi ni ekip.",
   "stage.notInGame": "ni v igri",
   "stage.ownedNotEntered": "od {team}, ni prijavljen",
-  "stage.top10": "Rezultati etape",
+  "stage.noScorers": "Na tej etapi ni noben kolesar osvojil točk.",
   "stage.scores": "Točke",
   "stage.startlist": "Startna lista",
   "standings.empty": "Še ni igralcev.",

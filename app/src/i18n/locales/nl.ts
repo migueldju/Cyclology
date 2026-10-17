@@ -391,7 +391,7 @@ const nl: Partial<Dict> = {
   "stage.noTeams": "Er zijn geen ploegen in de competitie.",
   "stage.notInGame": "zit niet in het spel",
   "stage.ownedNotEntered": "van {team}, niet ingeschreven",
-  "stage.top10": "Uitslag van de etappe",
+  "stage.noScorers": "Geen renner heeft punten gescoord in deze etappe.",
   "stage.scores": "Scores",
   "stage.startlist": "Startlijst",
   "standings.empty": "Nog geen spelers.",

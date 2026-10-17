@@ -265,40 +265,21 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
         }) : <Empty text={t('stage.noTeams')} />}
       </Section>}
       {ridersOnly ? (
-        <Panel title={t('stage.top10')} tint={TINT.top10}>
-          {data.top10.length ? data.top10.map((g, i) => {
-            const cells = (
-              <>
-                <Txt variant="number" style={{ width: 36 }}>{ordinal(g.position)}</Txt>
-                <View style={{ width: 18 }}><Flag code={g.nationality} /></View>
-                <Txt numberOfLines={1} style={[{ flex: 1 }, g.rider_id == null && { color: colors.inkSoft }]}>{g.name}</Txt>
-                {g.points ? <Txt variant="number">{points(g.points)}</Txt> : null}
-              </>
-            );
-            const rowStyle = [styles.teamRow, i < data.top10.length - 1 && styles.line];
-            // los que no están en el juego no tienen ficha: fila sin botón
-            return g.rider_id == null ? <View key={`x${g.position}`} style={rowStyle}>{cells}</View> : (
-              <Pressable key={g.rider_id} onPress={() => open(g.rider_id!)} accessibilityRole="button"
-                         style={({ pressed }) => [...rowStyle, pressed && { backgroundColor: colors.road }]}>{cells}</Pressable>
-            );
-          }) : <Empty text={t('stage.noResults')} />}
+        <Panel title={t('stage.scores')} tint={TINT.scores}>
+          {data.riders.length ? riderRows : <Empty text={t('stage.noScorers')} />}
         </Panel>
-      ) : null}
-      {ridersOnly && !data.riders.length ? null : ridersOnly ? (
-        <Panel title={t('stage.scores')} tint={TINT.scores}>{riderRows}</Panel>
       ) : <Section title={t('stage.scores')} style={sectionStyle}>{riderRows}</Section>}
     </>
   );
 }
 
-// colores de las cabeceras de cada bloque de una etapa: amarillo la clasificación, verde los puntos
+// color de la cabecera de los puntos de una etapa abierta
 const TINT = {
-  top10: { bg: '#FFF4C2', bar: colors.jersey, ink: colors.jerseyInk },
   scores: { bg: '#DDF0E4', bar: colors.green, ink: '#0E4F2C' },
 };
 
 /** Tarjeta de un bloque dentro de una etapa abierta, con la cabecera de su color */
-function Panel({ title, tint, children }: { title: string; tint: (typeof TINT)['top10']; children: ReactNode }) {
+function Panel({ title, tint, children }: { title: string; tint: (typeof TINT)['scores']; children: ReactNode }) {
   return (
     <View style={styles.panel}>
       <View style={[styles.panelHead, { backgroundColor: tint.bg, borderLeftColor: tint.bar }]}>

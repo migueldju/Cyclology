@@ -391,7 +391,7 @@ const gl: Partial<Dict> = {
   "stage.noTeams": "Non hai equipos na liga.",
   "stage.notInGame": "non está no xogo",
   "stage.ownedNotEntered": "de {team}, sen inscribir",
-  "stage.top10": "Clasificación da etapa",
+  "stage.noScorers": "Ningún ciclista puntuou nesta etapa.",
   "stage.scores": "Puntuacións",
   "stage.startlist": "Lista de saída",
   "standings.empty": "Aínda non hai xogadores.",

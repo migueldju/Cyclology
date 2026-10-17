@@ -391,7 +391,7 @@ const cs: Partial<Dict> = {
   "stage.noTeams": "V lize nejsou žádné týmy.",
   "stage.notInGame": "není ve hře",
   "stage.ownedNotEntered": "z {team}, nepřihlášen",
-  "stage.top10": "Výsledky etapy",
+  "stage.noScorers": "Na této etapě nikdo nebodoval.",
   "stage.scores": "Bodování",
   "stage.startlist": "Startovní listina",
   "standings.empty": "Zatím žádní hráči.",

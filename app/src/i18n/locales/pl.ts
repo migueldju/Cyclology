@@ -391,7 +391,7 @@ const pl: Partial<Dict> = {
   "stage.noTeams": "W lidze nie ma drużyn.",
   "stage.notInGame": "nie ma go w grze",
   "stage.ownedNotEntered": "z {team}, niezgłoszony",
-  "stage.top10": "Wyniki etapu",
+  "stage.noScorers": "Żaden kolarz nie zdobył punktów na tym etapie.",
   "stage.scores": "Punktacja",
   "stage.startlist": "Lista startowa",
   "standings.empty": "Nie ma jeszcze graczy.",

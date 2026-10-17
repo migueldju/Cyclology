@@ -391,7 +391,7 @@ const da: Partial<Dict> = {
   "stage.noTeams": "Der er ingen hold i ligaen.",
   "stage.notInGame": "er ikke med i spillet",
   "stage.ownedNotEntered": "fra {team}, ikke tilmeldt",
-  "stage.top10": "Etaperesultat",
+  "stage.noScorers": "Ingen ryttere scorede point på denne etape.",
   "stage.scores": "Point",
   "stage.startlist": "Startliste",
   "standings.empty": "Ingen spillere endnu.",
