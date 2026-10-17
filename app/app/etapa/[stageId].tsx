@@ -275,7 +275,7 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
 
 // color de la cabecera de los puntos de una etapa abierta
 const TINT = {
-  scores: { bg: '#DDF0E4', bar: colors.green, ink: '#0E4F2C' },
+  scores: { bg: '#DDF0E4', bar: colors.green, ink: '#0E4F2C', body: '#F1F8F3' },   // body: fondo de las filas
 };
 
 /** Tarjeta de un bloque dentro de una etapa abierta, con la cabecera de su color */
@@ -285,7 +285,7 @@ function Panel({ title, tint, children }: { title: string; tint: (typeof TINT)['
       <View style={[styles.panelHead, { backgroundColor: tint.bg, borderLeftColor: tint.bar }]}>
         <Txt variant="label" style={{ color: tint.ink }}>{title}</Txt>
       </View>
-      {children}
+      <View style={{ backgroundColor: tint.body }}>{children}</View>
     </View>
   );
 }
