@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Flag } from '@/components/Flag';
 import { RiderRow } from '@/components/RiderRow';
@@ -203,19 +203,24 @@ function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
   return (
     <View style={!last && styles.line}>
       <Pressable onPress={onToggle} disabled={!scored} accessibilityRole="button" accessibilityState={{ expanded }}
-                 style={({ pressed }) => [styles.teamRow, pressed && { backgroundColor: colors.road }]}>
+                 style={({ pressed }) => [styles.teamRow, expanded && styles.stageOpen,
+                                          pressed && { backgroundColor: expanded ? colors.asphaltSoft : colors.road }]}>
         <View style={{ flex: 1 }}>
-          <Txt variant="lead">{stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}</Txt>
-          <Txt variant="small" numberOfLines={1}>
+          <Txt variant="lead" style={expanded && { color: colors.paper }}>
+            {stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}
+          </Txt>
+          <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>
             {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
           </Txt>
         </View>
-        {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={colors.inkSoft} />
+        {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={expanded ? colors.jersey : colors.inkSoft} />
           : <Txt variant="small">{t('calendar.pending')}</Txt>}
       </Pressable>
       {expanded ? (
-        data.data ? <StageScoresBody data={data.data} open={open} compact ridersOnly />
-          : <Txt variant="small" style={{ padding: space.l }}>{t('common.loading')}</Txt>
+        <View style={styles.stagePanel}>
+          {data.data ? <StageScoresBody data={data.data} open={open} compact ridersOnly />
+            : <Txt variant="small">{t('common.loading')}</Txt>}
+        </View>
       ) : null}
     </View>
   );
@@ -227,6 +232,7 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
 }) {
   const [openTeam, setOpenTeam] = useState<string | null>(null);
   const sectionStyle = compact ? { marginTop: space.s } : undefined;
+  const riderRows = <StageRiders data={data} open={open} />;
   return (
     <>
       {ridersOnly ? null : <Section title={compact ? undefined : t('stage.leagueTeams')} style={sectionStyle}>
@@ -259,7 +265,7 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
         }) : <Empty text={t('stage.noTeams')} />}
       </Section>}
       {ridersOnly ? (
-        <Section title={t('stage.top10')} style={sectionStyle}>
+        <Panel title={t('stage.top10')} tint={TINT.top10}>
           {data.top10.length ? data.top10.map((g, i) => {
             const cells = (
               <>
@@ -276,9 +282,36 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
                          style={({ pressed }) => [...rowStyle, pressed && { backgroundColor: colors.road }]}>{cells}</Pressable>
             );
           }) : <Empty text={t('stage.noResults')} />}
-        </Section>
+        </Panel>
       ) : null}
-      {ridersOnly && !data.riders.length ? null : <Section title={t('stage.scores')} style={sectionStyle}>
+      {ridersOnly && !data.riders.length ? null : ridersOnly ? (
+        <Panel title={t('stage.scores')} tint={TINT.scores}>{riderRows}</Panel>
+      ) : <Section title={t('stage.scores')} style={sectionStyle}>{riderRows}</Section>}
+    </>
+  );
+}
+
+// colores de las cabeceras de cada bloque de una etapa: amarillo la clasificación, verde los puntos
+const TINT = {
+  top10: { bg: '#FFF4C2', bar: colors.jersey, ink: colors.jerseyInk },
+  scores: { bg: '#DDF0E4', bar: colors.green, ink: '#0E4F2C' },
+};
+
+/** Tarjeta de un bloque dentro de una etapa abierta, con la cabecera de su color */
+function Panel({ title, tint, children }: { title: string; tint: (typeof TINT)['top10']; children: ReactNode }) {
+  return (
+    <View style={styles.panel}>
+      <View style={[styles.panelHead, { backgroundColor: tint.bg, borderLeftColor: tint.bar }]}>
+        <Txt variant="label" style={{ color: tint.ink }}>{title}</Txt>
+      </View>
+      {children}
+    </View>
+  );
+}
+
+function StageRiders({ data, open }: { data: StageScores; open: (riderId: number) => void }) {
+  return (
+    <>
         {data.riders.length ? data.riders.map((r, i) => (
           <RiderRow key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
                     note={r.entered_by.length ? t('stage.enteredBy', { teams: r.entered_by.join(', ') })
@@ -286,12 +319,15 @@ function StageScoresBody({ data, open, compact, ridersOnly }: {
                     value={0} last={i === data.riders.length - 1} onPress={() => open(r.rider_id)}
                     right={<Txt variant="number">{points(r.points)}</Txt>} />
         )) : <Empty text={t('stage.noResults')} />}
-      </Section>}
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  stageOpen: { backgroundColor: colors.asphalt },
+  stagePanel: { backgroundColor: colors.road, padding: space.m, gap: space.m },
+  panel: { backgroundColor: colors.paper, borderRadius: 8, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
+  panelHead: { paddingHorizontal: space.l, paddingVertical: 8, borderLeftWidth: 4 },
   segment: {
     flexDirection: 'row', alignSelf: 'flex-start', borderWidth: 1.5, borderColor: colors.line, borderRadius: 16,
     overflow: 'hidden',
