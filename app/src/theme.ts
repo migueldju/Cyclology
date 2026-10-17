@@ -6,7 +6,7 @@ import type { Key } from './i18n/types';
 export const colors = {
   asphalt: '#1E272C',      // barra superior, texto principal
   asphaltSoft: '#3A464D',
-  road: '#EDF0EE',         // fondo
+  road: '#DEE4E0',         // fondo
   paper: '#FFFFFF',        // dorsal, superficies
   line: '#D5DBD8',         // separadores
   ink: '#1E272C',
