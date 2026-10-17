@@ -172,14 +172,23 @@ TAB_KINDS = {"stage": "stage", "result": "stage", "gc": "gc", "general": "gc", "
 def parse_results(html: str) -> dict[str, list[tuple[str, int]]]:
     """Resultados de una etapa: {'stage': [(slug, puesto)], 'gc': [...], 'points': [...], 'kom': [...]}.
 
-    Las pestañas de PCS (ul.restabs) dan el orden de las tablas; sin pestañas (clásica), la primera tabla
-    de resultados es el resultado.
+    Formato actual de PCS: cada clasificación en un div.resultCont; la de la etapa va primero y sin título, las demás
+    con su título («General classification», «Points classification»…). Formato antiguo: las pestañas (ul.restabs)
+    dan el orden de las tablas. Sin nada de eso (clásica), la primera tabla de resultados es el resultado.
     """
     soup = _soup(html)
     tables = soup.select("table.results")
     tabs = [li.get_text(" ", strip=True).lower() for li in soup.select("ul.restabs li")]
     out: dict[str, list] = {}
-    if tabs and len(tabs) >= len(tables):
+    blocks = [c for c in soup.select("div.resultCont") if c.select_one("table.results")]
+    if blocks and not tabs:
+        for i, block in enumerate(blocks):
+            title = block.find(["h3", "h4"])
+            label = title.get_text(" ", strip=True).lower() if title else ("stage" if i == 0 else "")
+            kind = TAB_KINDS.get(label.split()[0]) if label else None
+            if kind and kind not in out:
+                out[kind] = _table_rows(block.select_one("table.results"))
+    elif tabs and len(tabs) >= len(tables):
         for label, table in zip(tabs, tables):
             kind = TAB_KINDS.get(label.split()[0]) if label else None
             if kind and kind not in out:
