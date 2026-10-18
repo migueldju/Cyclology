@@ -3,7 +3,8 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
-import { Input, Segmented } from '@/components/Inputs';
+import { Input } from '@/components/Inputs';
+import { LanguagePicker } from '@/components/LanguagePicker';
 import { Screen } from '@/components/Screen';
 import { Section } from '@/components/Section';
 import { Txt } from '@/components/Txt';
@@ -82,8 +83,7 @@ export default function Perfil() {
 
       <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
         <View style={{ padding: space.l, paddingBottom: 0 }}>
-          <Segmented label={t('profile.languageHint')} value={lang} onChange={setLang}
-                     options={LANGUAGES.map((l) => ({ value: l.code, label: l.name }))} />
+          <LanguagePicker label={t('profile.languageHint')} languages={LANGUAGES} value={lang} onChange={setLang} />
         </View>
       </Section>
 
