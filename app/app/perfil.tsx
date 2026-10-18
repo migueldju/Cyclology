@@ -79,12 +79,6 @@ export default function Perfil() {
       <Button kind="secondary" label={t('profile.saveName')} busy={busy === 'name'}
               onPress={() => run('name', async () => { await api.updateProfile(name, null); return t('profile.nameSaved'); })} />
 
-      <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
-        <View style={{ padding: space.l, paddingBottom: 0 }}>
-          <LanguagePicker label={t('profile.languageHint')} languages={LANGUAGES} value={lang} onChange={setLang} />
-        </View>
-      </Section>
-
       {leagueId && me ? (
         <Section title={t('profile.teamIn', { league: me.league_name })} style={{ marginHorizontal: -space.l }}>
           <View style={{ padding: space.l }}>
@@ -94,6 +88,12 @@ export default function Perfil() {
           </View>
         </Section>
       ) : null}
+
+      <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
+        <View style={{ padding: space.l, paddingBottom: 0 }}>
+          <LanguagePicker label={t('profile.languageHint')} languages={LANGUAGES} value={lang} onChange={setLang} />
+        </View>
+      </Section>
 
       <View style={{ gap: space.m, marginTop: space.xl }}>
         <Button kind="secondary" label={t('profile.switchLeague')} onPress={() => router.push('/ligas')} />
