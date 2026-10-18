@@ -226,15 +226,9 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
             {part === 'final' ? t('kind.gc') : stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}
           </Txt>
           {part === 'final' ? null : (
-            <>
-              <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>{dayMonth(stage.date)}</Txt>
-              {/* debajo de la fecha: km y desnivel */}
-              {course(stage.distance_km, stage.vertical_m) ? (
-                <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>
-                  {course(stage.distance_km, stage.vertical_m)}
-                </Txt>
-              ) : null}
-            </>
+            <Txt variant="small" numberOfLines={2} style={expanded && { color: colors.line }}>
+              {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}
+            </Txt>
           )}
         </View>
         {/* a la derecha: el ganador, con su bandera, y su equipo debajo */}
