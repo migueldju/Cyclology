@@ -1,8 +1,11 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg';
 import type { Lang } from '../i18n';
-import { colors, fonts, space, type } from '../theme';
+import { colors, fonts, space } from '../theme';
 import { Flag } from './Flag';
+import { Sheet } from './Modal';
 import { Txt } from './Txt';
 
 // Bandera de cada idioma: la del país; el árabe, la de Arabia Saudí. Catalán, euskera y gallego, dibujadas aquí
@@ -48,38 +51,48 @@ export function LangFlag({ lang }: { lang: Lang }) {
   return cc ? <Flag code={cc} height={H} /> : <RegionFlag lang={lang} />;
 }
 
-/** Elección del idioma: botones con la bandera y el nombre de cada idioma */
+/** Elección del idioma: campo con la bandera y el idioma actual que abre la lista (desplegable) */
 export function LanguagePicker({ label, languages, value, onChange }: {
   label: string; languages: { code: Lang; name: string }[]; value: Lang; onChange: (l: Lang) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const current = languages.find((l) => l.code === value);
   return (
     <View style={{ marginBottom: space.l }}>
-      <Txt variant="label" style={{ marginBottom: 6 }}>{label}</Txt>
-      <View style={styles.grid}>
-        {languages.map((l) => {
-          const on = l.code === value;
-          return (
-            <Pressable key={l.code} onPress={() => onChange(l.code)} accessibilityRole="radio"
-                       accessibilityState={{ selected: on }}
-                       style={({ pressed }) => [styles.chip, on && styles.chipOn, pressed && !on && { backgroundColor: colors.road }]}>
-              <View style={styles.flag}><LangFlag lang={l.code} /></View>
-              <Txt style={[styles.name, on && styles.nameOn]} numberOfLines={1}>{l.name}</Txt>
-            </Pressable>
-          );
-        })}
-      </View>
+      <Txt variant="label" style={{ marginBottom: space.xs }}>{label}</Txt>
+      <Pressable onPress={() => setOpen(true)} accessibilityRole="button" accessibilityLabel={label}
+                 style={({ pressed }) => [styles.field, pressed && { backgroundColor: colors.road }]}>
+        <View style={styles.flag}><LangFlag lang={value} /></View>
+        <Txt style={{ flex: 1 }}>{current?.name}</Txt>
+        <Ionicons name="chevron-down" size={18} color={colors.inkSoft} />
+      </Pressable>
+
+      <Sheet visible={open} onClose={() => setOpen(false)} title={label}>
+        <ScrollView style={{ maxHeight: 420 }}>
+          {languages.map((l) => {
+            const on = l.code === value;
+            return (
+              <Pressable key={l.code} onPress={() => { onChange(l.code); setOpen(false); }} accessibilityRole="radio"
+                         accessibilityState={{ checked: on }}
+                         style={({ pressed }) => [styles.option, (pressed || on) && { backgroundColor: colors.road }]}>
+                <View style={styles.flag}><LangFlag lang={l.code} /></View>
+                <Txt style={[{ flex: 1 }, on && { fontFamily: fonts.bodyBold }]}>{l.name}</Txt>
+                {on ? <Ionicons name="checkmark" size={18} color={colors.green} /> : null}
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+      </Sheet>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.s },
-  chip: {
-    flexDirection: 'row', alignItems: 'center', gap: space.s, paddingHorizontal: space.m, paddingVertical: 8,
-    borderRadius: 18, borderWidth: 1.5, borderColor: colors.line, backgroundColor: colors.paper,
+  field: {
+    flexDirection: 'row', alignItems: 'center', gap: space.s, backgroundColor: colors.paper, borderWidth: 1,
+    borderColor: colors.line, borderRadius: 6, paddingHorizontal: space.m, paddingVertical: 12,
   },
-  chipOn: { borderColor: colors.jersey, backgroundColor: colors.asphalt },
+  option: { flexDirection: 'row', alignItems: 'center', gap: space.m, paddingVertical: 10, paddingHorizontal: space.s,
+            borderRadius: 6 },
   flag: { borderRadius: 2, overflow: 'hidden' },
-  name: { fontFamily: fonts.bodyMedium, fontSize: type.small, color: colors.ink, letterSpacing: 0.2 },
-  nameOn: { color: colors.paper },
 });
