@@ -23,8 +23,6 @@ export default function Perfil() {
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState<string | null>(null);
   const [team, setTeam] = useState('');
-  const [email, setEmail] = useState(session?.user.email ?? '');
-  const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -96,27 +94,6 @@ export default function Perfil() {
           </View>
         </Section>
       ) : null}
-
-      <Section title={t('profile.account')} style={{ marginHorizontal: -space.l }}>
-        <View style={{ padding: space.l }}>
-          <Input label={t('auth.email')} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
-          <Button kind="secondary" label={t('profile.changeEmail')} busy={busy === 'email'}
-                  onPress={() => run('email', async () => {
-                    const { error } = await supabase.auth.updateUser({ email: email.trim() });
-                    if (error) throw new Error(error.message);
-                    return t('profile.emailSent');
-                  })} />
-          <View style={{ height: space.l }} />
-          <Input label={t('newpass.title')} value={password} onChangeText={setPassword} secureTextEntry hint={t('auth.min8')} />
-          <Button kind="secondary" label={t('profile.changePassword')} busy={busy === 'password'} disabled={password.length < 8}
-                  onPress={() => run('password', async () => {
-                    const { error } = await supabase.auth.updateUser({ password });
-                    if (error) throw new Error(error.message);
-                    setPassword('');
-                    return t('profile.passwordChanged');
-                  })} />
-        </View>
-      </Section>
 
       <View style={{ gap: space.m, marginTop: space.xl }}>
         <Button kind="secondary" label={t('profile.switchLeague')} onPress={() => router.push('/ligas')} />
