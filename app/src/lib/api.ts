@@ -41,8 +41,9 @@ export const api = {
   offers: (leagueId: string) => rpc<OfferRow[]>('get_offers', { p_league: leagueId }),
   calendar: (leagueId: string) => rpc<CalendarRow[]>('get_calendar', { p_league: leagueId }),
   today: (leagueId: string) => rpc<TodayRow[]>('get_today', { p_league: leagueId }),
-  stageScores: (leagueId: string, stageId: number) =>
-    rpc<StageScores>('get_stage_scores', { p_league: leagueId, p_stage: stageId }),
+  // part: 'stage' solo lo de la etapa; 'final' solo las clasificaciones finales de la vuelta; sin part, todo
+  stageScores: (leagueId: string, stageId: number, part?: 'stage' | 'final') =>
+    rpc<StageScores>('get_stage_scores', { p_league: leagueId, p_stage: stageId, p_part: part ?? null }),
   raceEntries: (leagueId: string, stageId: number) =>
     rpc<RaceEntries>('get_race_entries', { p_league: leagueId, p_stage: stageId }),
   raceDetail: (leagueId: string, raceId: number) =>

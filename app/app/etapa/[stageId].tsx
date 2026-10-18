@@ -120,22 +120,31 @@ export default function Etapa() {
   );
 }
 
-/** Total de cada equipo en la vuelta y, por cada etapa con puntos, un desplegable con su puntuación */
+/**
+ * Total de cada equipo en la vuelta; después, cada etapa con su desplegable y, al final, la general (lo que dan las
+ * clasificaciones finales), aparte de la última etapa
+ */
 function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
   leagueId: string; race: RaceDetail | null; loading: boolean; members: StageScores['members'];
   open: (riderId: number) => void; initialStage?: number;
 }) {
   // se abre ya desplegada la etapa desde la que se llega
-  const [openStage, setOpenStage] = useState<number | null>(initialStage ?? null);
+  const [openStage, setOpenStage] = useState<string | null>(initialStage != null ? String(initialStage) : null);
   const [openTeam, setOpenTeam] = useState<string | null>(null);
   const totals = new Map((race?.league_total ?? []).map((x) => [x.member_id, x.points]));
   const teams = members.map((m) => ({ ...m, total: totals.get(m.member_id) ?? 0 })).sort((a, b) => b.total - a.total);
   const allStages = race?.stages ?? [];
-  const stages = allStages.filter((x) => x.status === 'scored');
-  // puntos de cada etapa puntuada (para ver cada equipo etapa a etapa); se piden al abrir el primer equipo
-  const ids = stages.map((x) => x.stage_id).join(',');
-  const byStage = useLoader(() => Promise.all(stages.map((x) => api.stageScores(leagueId, x.stage_id))),
-                            [leagueId, ids, openTeam != null], openTeam != null && stages.length > 0);
+  const lastStage = allStages[allStages.length - 1];
+  // la última etapa sale solo con lo suyo; sus clasificaciones finales van aparte, en «General»
+  const parts: StagePart[] = allStages.flatMap((x) => x === lastStage
+    ? [{ key: String(x.stage_id), stage: x, part: 'stage' as const },
+       ...(x.status === 'scored' ? [{ key: 'final', stage: x, part: 'final' as const }] : [])]
+    : [{ key: String(x.stage_id), stage: x }]);
+  const scoredParts = parts.filter((x) => x.stage.status === 'scored');
+  // puntos de cada parte puntuada (para ver cada equipo etapa a etapa); se piden al abrir el primer equipo
+  const ids = scoredParts.map((x) => x.key).join(',');
+  const byStage = useLoader(() => Promise.all(scoredParts.map((x) => api.stageScores(leagueId, x.stage.stage_id, x.part))),
+                            [leagueId, ids, openTeam != null], openTeam != null && scoredParts.length > 0);
   return (
     <>
       <Section title={t('stage.leagueTeams')}>
@@ -155,16 +164,14 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
               {/* desplegable: los puntos del equipo etapa a etapa, con los ciclistas que puntuaron */}
               {isOpen ? (
                 <View style={styles.teamRiders}>
-                  {!stages.length ? <Txt variant="small">{t('stage.noResultsYet')}</Txt>
+                  {!scoredParts.length ? <Txt variant="small">{t('stage.noResultsYet')}</Txt>
                     : !byStage.data ? <Txt variant="small">{t('common.loading')}</Txt>
-                    : stages.map((x, k) => {
+                    : scoredParts.map((x, k) => {
                       const mm = byStage.data![k]?.members.find((y) => y.member_id === m.member_id);
                       return (
-                        <View key={x.stage_id} style={{ paddingVertical: 4 }}>
+                        <View key={x.key} style={{ paddingVertical: 4 }}>
                           <View style={styles.teamRider}>
-                            <Txt style={{ flex: 1 }} numberOfLines={1}>
-                              {x.number === 0 ? t('race.prologue') : t('race.stageN', { n: x.number })} · {dayMonth(x.date)}
-                            </Txt>
+                            <Txt style={{ flex: 1 }} numberOfLines={1}>{partTitle(x)}</Txt>
                             <Txt variant="number">{points(mm?.points ?? 0)}</Txt>
                           </View>
                           {(mm?.riders ?? []).filter((r) => r.points > 0).map((r) => (
@@ -183,9 +190,9 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
         }) : <Empty text={t('stage.noTeams')} />}
       </Section>
       <Section title={t('calendar.stagesTitle')}>
-        {allStages.length ? allStages.map((x, i) => (
-          <StageItem key={x.stage_id} leagueId={leagueId} stage={x} last={i === allStages.length - 1} open={open}
-                     isOpen={openStage === x.stage_id} onToggle={() => setOpenStage(openStage === x.stage_id ? null : x.stage_id)} />
+        {parts.length ? parts.map((x, i) => (
+          <StageItem key={x.key} leagueId={leagueId} item={x} last={i === parts.length - 1} open={open}
+                     isOpen={openStage === x.key} onToggle={() => setOpenStage(openStage === x.key ? null : x.key)} />
         )) : <Empty text={loading ? t('common.loading') : t('stage.noResultsYet')} />}
       </Section>
     </>
@@ -193,13 +200,19 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
 }
 
 /** Etapa de una vuelta: si ya tiene resultados, al abrirla se cargan su top 10 y sus puntos; si no, solo se lista */
-function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
-  leagueId: string; stage: RaceDetail['stages'][number]; isOpen: boolean; onToggle: () => void; last: boolean;
+type StagePart = { key: string; stage: RaceDetail['stages'][number]; part?: 'stage' | 'final' };
+
+const partTitle = (x: StagePart) => x.part === 'final' ? t('kind.gc')
+  : `${x.stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: x.stage.number })} · ${dayMonth(x.stage.date)}`;
+
+function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
+  leagueId: string; item: StagePart; isOpen: boolean; onToggle: () => void; last: boolean;
   open: (riderId: number) => void;
 }) {
+  const { stage, part } = item;
   const scored = stage.status === 'scored';
   const expanded = isOpen && scored;
-  const data = useLoader(() => api.stageScores(leagueId, stage.stage_id), [leagueId, stage.stage_id, expanded], expanded);
+  const data = useLoader(() => api.stageScores(leagueId, stage.stage_id, part), [leagueId, stage.stage_id, part, expanded], expanded);
   return (
     <View style={!last && styles.line}>
       <Pressable onPress={onToggle} disabled={!scored} accessibilityRole="button" accessibilityState={{ expanded }}
@@ -207,11 +220,13 @@ function StageItem({ leagueId, stage, isOpen, onToggle, last, open }: {
                                           pressed && { backgroundColor: expanded ? colors.asphaltSoft : colors.road }]}>
         <View style={{ flex: 1 }}>
           <Txt variant="lead" style={expanded && { color: colors.paper }}>
-            {stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}
+            {part === 'final' ? t('kind.gc') : stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}
           </Txt>
-          <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>
-            {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}{stage.top_member ? ` · ${stage.top_member.team_name} ${points(stage.top_member.points)}` : ''}
-          </Txt>
+          {part === 'final' ? null : (
+            <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>
+              {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}
+            </Txt>
+          )}
         </View>
         {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={expanded ? colors.jersey : colors.inkSoft} />
           : <Txt variant="small">{t('calendar.pending')}</Txt>}
