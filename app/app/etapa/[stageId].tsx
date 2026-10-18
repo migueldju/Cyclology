@@ -137,9 +137,9 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
   const lastStage = allStages[allStages.length - 1];
   // la última etapa sale solo con lo suyo; sus clasificaciones finales van aparte, en «General»
   const parts: StagePart[] = allStages.flatMap((x) => x === lastStage
-    ? [{ key: String(x.stage_id), stage: x, part: 'stage' as const },
-       ...(x.status === 'scored' ? [{ key: 'final', stage: x, part: 'final' as const }] : [])]
-    : [{ key: String(x.stage_id), stage: x }]);
+    ? [{ key: String(x.stage_id), stage: x, part: 'stage' as const, winner: x.winner },
+       ...(x.status === 'scored' ? [{ key: 'final', stage: x, part: 'final' as const, winner: race?.gc[0] ?? null }] : [])]
+    : [{ key: String(x.stage_id), stage: x, winner: x.winner }]);
   const scoredParts = parts.filter((x) => x.stage.status === 'scored');
   // puntos de cada parte puntuada (para ver cada equipo etapa a etapa); se piden al abrir el primer equipo
   const ids = scoredParts.map((x) => x.key).join(',');
@@ -200,7 +200,10 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
 }
 
 /** Etapa de una vuelta: si ya tiene resultados, al abrirla se cargan su top 10 y sus puntos; si no, solo se lista */
-type StagePart = { key: string; stage: RaceDetail['stages'][number]; part?: 'stage' | 'final' };
+type StagePart = {
+  key: string; stage: RaceDetail['stages'][number]; part?: 'stage' | 'final';
+  winner: { name: string; nationality: string | null } | null;   // ganador de la etapa o, en la general, el de la general
+};
 
 const partTitle = (x: StagePart) => x.part === 'final' ? t('kind.gc')
   : `${x.stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: x.stage.number })} · ${dayMonth(x.stage.date)}`;
@@ -209,7 +212,7 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
   leagueId: string; item: StagePart; isOpen: boolean; onToggle: () => void; last: boolean;
   open: (riderId: number) => void;
 }) {
-  const { stage, part } = item;
+  const { stage, part, winner } = item;
   const scored = stage.status === 'scored';
   const expanded = isOpen && scored;
   const data = useLoader(() => api.stageScores(leagueId, stage.stage_id, part), [leagueId, stage.stage_id, part, expanded], expanded);
@@ -227,6 +230,13 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
               {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}
             </Txt>
           )}
+          {winner ? (
+            <View style={styles.winner}>
+              <Ionicons name="trophy" size={13} color={colors.jersey} />
+              <Flag code={winner.nationality} />
+              <Txt variant="small" numberOfLines={1} style={[{ flexShrink: 1 }, expanded && { color: colors.paper }]}>{winner.name}</Txt>
+            </View>
+          ) : null}
         </View>
         {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={expanded ? colors.jersey : colors.inkSoft} />
           : <Txt variant="small">{t('calendar.pending')}</Txt>}
@@ -320,6 +330,7 @@ function StageRiders({ data, open }: { data: StageScores; open: (riderId: number
 }
 
 const styles = StyleSheet.create({
+  winner: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 },
   stageOpen: { backgroundColor: colors.asphalt },
   stagePanel: { backgroundColor: colors.road, padding: space.m, gap: space.m },
   panel: { backgroundColor: colors.paper, borderRadius: 8, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
