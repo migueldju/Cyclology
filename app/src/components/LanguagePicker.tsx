@@ -52,14 +52,14 @@ export function LangFlag({ lang }: { lang: Lang }) {
 }
 
 /** Elección del idioma: campo con la bandera y el idioma actual que abre la lista (desplegable) */
-export function LanguagePicker({ label, languages, value, onChange }: {
-  label: string; languages: { code: Lang; name: string }[]; value: Lang; onChange: (l: Lang) => void;
+export function LanguagePicker({ label, hideLabel, languages, value, onChange }: {
+  label: string; hideLabel?: boolean; languages: { code: Lang; name: string }[]; value: Lang; onChange: (l: Lang) => void;
 }) {
   const [open, setOpen] = useState(false);
   const current = languages.find((l) => l.code === value);
   return (
     <View style={{ marginBottom: space.l }}>
-      <Txt variant="label" style={{ marginBottom: space.xs }}>{label}</Txt>
+      {hideLabel ? null : <Txt variant="label" style={{ marginBottom: space.xs }}>{label}</Txt>}
       <Pressable onPress={() => setOpen(true)} accessibilityRole="button" accessibilityLabel={label}
                  style={({ pressed }) => [styles.field, pressed && { backgroundColor: colors.road }]}>
         <View style={styles.flag}><LangFlag lang={value} /></View>

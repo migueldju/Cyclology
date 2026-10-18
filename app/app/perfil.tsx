@@ -75,15 +75,17 @@ export default function Perfil() {
       </View>
       {msg ? <Txt style={{ color: msg.ok ? colors.green : colors.red, marginBottom: space.m }}>{msg.text}</Txt> : null}
 
-      <Input label={t('auth.yourName')} value={name} onChangeText={setName} maxLength={40} />
-      <Button kind="secondary" label={t('profile.saveName')} busy={busy === 'name'}
-              onPress={() => run('name', async () => { await api.updateProfile(name, null); return t('profile.nameSaved'); })} />
+      <View style={styles.inline}>
+        <View style={{ flex: 1 }}><Input label={t('auth.yourName')} value={name} onChangeText={setName} maxLength={40} /></View>
+        <Button kind="secondary" label={t('common.save')} busy={busy === 'name'} style={styles.save}
+                onPress={() => run('name', async () => { await api.updateProfile(name, null); return t('profile.nameSaved'); })} />
+      </View>
 
       {leagueId && me ? (
         <Section title={t('profile.teamIn', { league: me.league_name })} style={{ marginHorizontal: -space.l }}>
-          <View style={{ padding: space.l }}>
-            <Input label={t('profile.teamName')} value={team} onChangeText={setTeam} maxLength={40} />
-            <Button kind="secondary" label={t('profile.saveTeamName')} busy={busy === 'team'}
+          <View style={[styles.inline, { padding: space.l, paddingBottom: 0 }]}>
+            <View style={{ flex: 1 }}><Input label={t('profile.teamName')} value={team} onChangeText={setTeam} maxLength={40} /></View>
+            <Button kind="secondary" label={t('common.save')} busy={busy === 'team'} style={styles.save}
                     onPress={() => run('team', async () => { await api.renameTeam(leagueId, team); return t('profile.teamNameSaved'); })} />
           </View>
         </Section>
@@ -91,7 +93,7 @@ export default function Perfil() {
 
       <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
         <View style={{ padding: space.l, paddingBottom: 0 }}>
-          <LanguagePicker label={t('profile.languageHint')} languages={LANGUAGES} value={lang} onChange={setLang} />
+          <LanguagePicker label={t('profile.languageHint')} hideLabel languages={LANGUAGES} value={lang} onChange={setLang} />
         </View>
       </Section>
 
@@ -106,7 +108,10 @@ export default function Perfil() {
 }
 
 const styles = StyleSheet.create({
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.l, marginTop: space.l, marginBottom: space.xl },
-  avatar: { width: 72, height: 72, borderRadius: 36 },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.l, marginBottom: space.l },
+  avatar: { width: 56, height: 56, borderRadius: 28 },
+  // campo con su botón de guardar al lado, a la altura del campo
+  inline: { flexDirection: 'row', alignItems: 'flex-end', gap: space.s },
+  save: { marginBottom: space.l, minHeight: 44 },
   noAvatar: { backgroundColor: colors.line },
 });
