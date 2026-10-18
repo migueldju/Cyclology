@@ -21,6 +21,7 @@ begin
     'stages', coalesce((
       select jsonb_agg(jsonb_build_object(
                'stage_id', s.id, 'number', s.number, 'date', s.date, 'status', s.status,
+               'distance_km', s.distance_km, 'vertical_m', s.vertical_m,
                'my_points', (select coalesce(sum(points), 0) from public.member_score
                              where stage_id = s.id and member_id = me.id),
                'my_final_points', (select coalesce(sum(rs.points), 0) from public.member_score ms
