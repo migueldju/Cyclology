@@ -202,7 +202,7 @@ function RaceScores({ leagueId, race, loading, members, open, initialStage }: {
 /** Etapa de una vuelta: si ya tiene resultados, al abrirla se cargan su top 10 y sus puntos; si no, solo se lista */
 type StagePart = {
   key: string; stage: RaceDetail['stages'][number]; part?: 'stage' | 'final';
-  winner: { name: string; nationality: string | null } | null;   // ganador de la etapa o, en la general, el de la general
+  winner: { name: string; nationality: string | null; team: string | null } | null;   // de la etapa o, en la general, el de la general
 };
 
 const partTitle = (x: StagePart) => x.part === 'final' ? t('kind.gc')
@@ -230,14 +230,22 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
               {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}
             </Txt>
           )}
-          {winner ? (
-            <View style={styles.winner}>
+        </View>
+        {/* a la derecha: el ganador, con su bandera, y su equipo debajo */}
+        {winner ? (
+          <View style={styles.winner}>
+            <View style={styles.winnerName}>
               <Ionicons name="trophy" size={13} color={colors.jersey} />
               <Flag code={winner.nationality} />
-              <Txt variant="small" numberOfLines={1} style={[{ flexShrink: 1 }, expanded && { color: colors.paper }]}>{winner.name}</Txt>
+              <Txt numberOfLines={1} style={[styles.winnerText, expanded && { color: colors.paper }]}>{winner.name}</Txt>
             </View>
-          ) : null}
-        </View>
+            {winner.team ? (
+              <Txt variant="small" numberOfLines={1} style={[{ textAlign: 'right' }, expanded && { color: colors.line }]}>
+                {winner.team}
+              </Txt>
+            ) : null}
+          </View>
+        ) : null}
         {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={expanded ? colors.jersey : colors.inkSoft} />
           : <Txt variant="small">{t('calendar.pending')}</Txt>}
       </Pressable>
@@ -330,7 +338,9 @@ function StageRiders({ data, open }: { data: StageScores; open: (riderId: number
 }
 
 const styles = StyleSheet.create({
-  winner: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 },
+  winner: { alignItems: 'flex-end', maxWidth: '55%', gap: 2 },
+  winnerName: { flexDirection: 'row', alignItems: 'center', gap: 6, maxWidth: '100%' },
+  winnerText: { flexShrink: 1, fontFamily: fonts.bodyMedium },
   stageOpen: { backgroundColor: colors.asphalt },
   stagePanel: { backgroundColor: colors.road, padding: space.m, gap: space.m },
   panel: { backgroundColor: colors.paper, borderRadius: 8, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
