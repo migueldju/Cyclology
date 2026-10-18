@@ -226,7 +226,7 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
             {part === 'final' ? t('kind.gc') : stage.number === 0 ? t('race.prologue') : t('race.stageN', { n: stage.number })}
           </Txt>
           {part === 'final' ? null : (
-            <Txt variant="small" numberOfLines={1} style={expanded && { color: colors.line }}>
+            <Txt variant="small" numberOfLines={2} style={expanded && { color: colors.line }}>
               {[dayMonth(stage.date), course(stage.distance_km, stage.vertical_m)].filter(Boolean).join(' · ')}
             </Txt>
           )}
@@ -245,6 +245,12 @@ function StageItem({ leagueId, item, isOpen, onToggle, last, open }: {
               </Txt>
             ) : null}
           </View>
+        ) : null}
+        {scored ? (
+          <Txt variant="number" style={[styles.myPoints, expanded && { color: colors.jersey }]}>
+            {points(part === 'final' ? stage.my_final_points
+              : part === 'stage' ? stage.my_points - stage.my_final_points : stage.my_points)}
+          </Txt>
         ) : null}
         {scored ? <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={expanded ? colors.jersey : colors.inkSoft} />
           : <Txt variant="small">{t('calendar.pending')}</Txt>}
@@ -338,7 +344,8 @@ function StageRiders({ data, open }: { data: StageScores; open: (riderId: number
 }
 
 const styles = StyleSheet.create({
-  winner: { alignItems: 'flex-end', maxWidth: '55%', gap: 2 },
+  winner: { alignItems: 'flex-end', maxWidth: '42%', gap: 2 },
+  myPoints: { minWidth: 48, textAlign: 'right' },
   winnerName: { flexDirection: 'row', alignItems: 'center', gap: 6, maxWidth: '100%' },
   winnerText: { flexShrink: 1, fontFamily: fonts.bodyMedium },
   stageOpen: { backgroundColor: colors.asphalt },

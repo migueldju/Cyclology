@@ -225,6 +225,7 @@ export interface RaceDetail {
     date: string;
     status: string;
     my_points: number;
+    my_final_points: number;   // de my_points, los de las clasificaciones finales (general, regularidad, montaña)
     top_member: { team_name: string; points: number } | null;
     winner: { name: string; nationality: string | null; team: string | null } | null;   // ganador de la etapa (o de la clásica)
     distance_km: number | null;

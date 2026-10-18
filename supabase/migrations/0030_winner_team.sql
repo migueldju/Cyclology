@@ -1,5 +1,7 @@
 -- =====================================================================================
--- 0030 · Detalle de carrera: el equipo del ganador de cada etapa y de cada ciclista de la general
+-- 0030 · Detalle de carrera: el equipo del ganador de cada etapa y de cada ciclista de la general, y de los puntos
+--        del jugador en cada etapa, cuántos son de las clasificaciones finales (para separar la última etapa y la
+--        general)
 -- =====================================================================================
 
 create or replace function public.get_race_detail(p_league uuid, p_race bigint) returns jsonb
@@ -21,6 +23,10 @@ begin
                'stage_id', s.id, 'number', s.number, 'date', s.date, 'status', s.status,
                'my_points', (select coalesce(sum(points), 0) from public.member_score
                              where stage_id = s.id and member_id = me.id),
+               'my_final_points', (select coalesce(sum(rs.points), 0) from public.member_score ms
+                                   join public.rider_score rs on rs.stage_id = ms.stage_id and rs.rider_id = ms.rider_id
+                                   where ms.stage_id = s.id and ms.member_id = me.id
+                                     and rs.kind in ('gc', 'points_final', 'kom_final')),
                'top_member', (select jsonb_build_object('team_name', m.team_name, 'points', sum(ms.points))
                               from public.member_score ms join public.league_member m on m.id = ms.member_id
                               where ms.stage_id = s.id and ms.league_id = p_league
