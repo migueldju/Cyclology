@@ -331,6 +331,7 @@ const cs: Partial<Dict> = {
   "scoring.kom_final": "Vrchařská soutěž",
   "scoring.kom_jersey": "Vrchařský dres/den",
   "scoring.oneday": "Klasika",
+  "scoring.points_jersey": "Bodovací dres/den",
   "scoring.points_final": "Bodovací soutěž",
   "scoring.stage": "Etapa",
   "settings.addPrize": "Přidat místo",

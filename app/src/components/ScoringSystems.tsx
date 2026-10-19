@@ -26,7 +26,7 @@ const UCI_AS_CATEGORY: Record<string, string> = {
 const groupName = (scheme: ScoringScheme, grp: string) => scheme !== 'uci' ? categoryName(grp)
   : grp === 'C1' ? 'WorldTour 1' : grp === 'C2' ? 'WorldTour 2' : categoryName(UCI_AS_CATEGORY[grp] ?? grp);
 
-const KIND_ORDER = ['oneday', 'gc', 'stage', 'leader', 'kom_jersey', 'points_final', 'kom_final'];
+const KIND_ORDER = ['oneday', 'gc', 'stage', 'leader', 'points_jersey', 'kom_jersey', 'points_final', 'kom_final'];
 const kindLabel = (k: string) => {
   const key = `scoring.${k}` as 'scoring.oneday';
   const s = t(key);

@@ -331,6 +331,7 @@ const ar: Partial<Dict> = {
   "scoring.kom_final": "ترتيب الجبال",
   "scoring.kom_jersey": "قميص الجبال/يوم",
   "scoring.oneday": "كلاسيكية",
+  "scoring.points_jersey": "قميص النقاط/يوم",
   "scoring.points_final": "ترتيب النقاط",
   "scoring.stage": "مرحلة",
   "settings.addPrize": "إضافة مركز",

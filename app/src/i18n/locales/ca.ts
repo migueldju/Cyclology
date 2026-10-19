@@ -331,6 +331,7 @@ const ca: Partial<Dict> = {
   "scoring.kom_final": "Classif. muntanya",
   "scoring.kom_jersey": "Mallot muntanya/dia",
   "scoring.oneday": "Clàssica",
+  "scoring.points_jersey": "Mallot punts/dia",
   "scoring.points_final": "Classif. punts",
   "scoring.stage": "Etapa",
   "settings.addPrize": "Afegir lloc",

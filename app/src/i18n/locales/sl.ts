@@ -331,6 +331,7 @@ const sl: Partial<Dict> = {
   "scoring.kom_final": "Gorska razvrstitev",
   "scoring.kom_jersey": "Gorska majica/dan",
   "scoring.oneday": "Klasika",
+  "scoring.points_jersey": "Majica za točke/dan",
   "scoring.points_final": "Točkovna razvrstitev",
   "scoring.stage": "Etapa",
   "settings.addPrize": "Dodaj mesto",

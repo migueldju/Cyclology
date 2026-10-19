@@ -48,8 +48,16 @@ export function dateRange(start: string, end: string): string {
   return start === end ? dayMonth(start) : `${dayMonth(start)} – ${dayMonth(end)}`;
 }
 
+// Diferencia entre la hora del juego (puede estar simulada, p. ej. en una temporada pasada) y el reloj del dispositivo
+let clockOffset = 0;
+export function setGameClock(gameNowIso: string) {
+  clockOffset = new Date(gameNowIso).getTime() - Date.now();
+}
+/** Ahora, en la hora del juego (ms) */
+export const gameNow = () => Date.now() + clockOffset;
+
 export function todayISO(): string {
-  const d = new Date();
+  const d = new Date(gameNow());
   const pad = (n: number) => String(n).padStart(2, '0');
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
@@ -69,7 +77,7 @@ export function dateTime(ts: string | null): string {
 }
 
 /** en 3 h 20 min · en 2 días · ya */
-export function countdown(ts: string | null, now = Date.now()): string {
+export function countdown(ts: string | null, now = gameNow()): string {
   if (!ts) return '—';
   const diff = new Date(ts).getTime() - now;
   if (diff <= 0) return t('fmt.now');

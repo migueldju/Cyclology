@@ -331,6 +331,7 @@ const da: Partial<Dict> = {
   "scoring.kom_final": "Bjergkonkurrence",
   "scoring.kom_jersey": "Bjergtrøje/dag",
   "scoring.oneday": "Klassiker",
+  "scoring.points_jersey": "Pointtrøje/dag",
   "scoring.points_final": "Pointkonkurrence",
   "scoring.stage": "Etape",
   "settings.addPrize": "Tilføj placering",

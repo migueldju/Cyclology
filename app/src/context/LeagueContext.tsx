@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { api } from '../lib/api';
+import { setGameClock } from '../lib/format';
 import type { Me } from '../lib/types';
 import { useAuth } from './AuthContext';
 
@@ -30,6 +31,12 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     AsyncStorage.getItem(KEY).then((id) => { setLeagueId(id); setReady(true); });
   }, []);
+
+  // la hora del juego (puede estar simulada): «hoy» y las cuentas atrás se calculan con ella
+  useEffect(() => {
+    if (!session) return;
+    api.gameNow().then((now) => { setGameClock(now); setVersion((v) => v + 1); }).catch(() => {});
+  }, [session]);
 
   useEffect(() => {
     if (!session) { setMe(null); return; }
