@@ -31,6 +31,7 @@ export const api = {
     rpc<void>('update_profile', { p_display_name: displayName, p_avatar_url: avatarUrl }),
 
   // lecturas
+  gameNow: () => rpc<string>('get_game_now'),
   me: (leagueId: string) => rpc<Me>('get_me', { p_league: leagueId }),
   standings: (leagueId: string) => rpc<StandingRow[]>('get_standings', { p_league: leagueId }),
   roster: (leagueId: string, memberId?: string) =>

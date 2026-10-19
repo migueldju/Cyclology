@@ -41,3 +41,8 @@ begin
   on conflict (key) do update set updated_at = now();
   perform public.dispatch_ingest('tick');
 end $$;
+
+-- La hora del juego, para que la app cuente «hoy» y las cuentas atrás con ella (y no con el reloj del móvil)
+create or replace function public.get_game_now() returns timestamptz
+language sql stable security definer set search_path = public as $$ select public.app_now() $$;
+grant execute on function public.get_game_now() to anon, authenticated;
