@@ -50,7 +50,14 @@ export interface League {
   payout_per_point: number;
   payout_by_position: number[];
   next_market_at: string;
+  scoring_system: ScoringSystem;   // se elige al crear la liga
+  wt_split: boolean;               // Cyclonomy: WorldTour en WT A y WT B
 }
+
+export type ScoringSystem = 'cyclonomy' | 'uci';
+export type ScoringScheme = 'cyc' | 'cyc_wt' | 'uci';
+/** Un grupo (categoría) de un sistema de puntuación: sus carreras de la temporada y sus tablas */
+export interface ScoringGroup { grp: string; races: string[]; rules: Record<string, number[]> | null }
 
 export type LeagueSettings = Partial<Omit<League, 'id' | 'admin_id' | 'invite_code' | 'next_market_at'>>;
 
@@ -264,13 +271,6 @@ export interface Category {
   depth_level: number;
   max_entries: number;
   is_itt: boolean;
-}
-
-export interface ScoringRule {
-  category: string;
-  kind: string;
-  position: number;
-  points: number;
 }
 
 export interface RankingRow {

@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Share, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { DEFAULT_SETTINGS, depthHint, depthOptions, LeagueSettingsForm, payoutOptions } from '@/components/LeagueSettingsForm';
 import { Screen } from '@/components/Screen';
+import { ScoringGroups, schemeLabel, schemeOf } from '@/components/ScoringSystems';
 import { ErrorText, Row, Section } from '@/components/Section';
 import { Txt } from '@/components/Txt';
 import { useLeague } from '@/context/LeagueContext';
@@ -11,8 +12,8 @@ import { t } from '@/i18n';
 import { api } from '@/lib/api';
 import { money } from '@/lib/format';
 import { inviteMessage } from '@/lib/invite';
-import type { Category, League, ScoringRule } from '@/lib/types';
-import { categoryName, space } from '@/theme';
+import type { League } from '@/lib/types';
+import { space } from '@/theme';
 
 const rules = () => [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => t(`rules.r${n}` as 'rules.r1'));
 
@@ -21,7 +22,6 @@ export default function Normativa() {
   const id = leagueId ?? '';
   const league = useLoader(() => api.league(id), [id], !!leagueId);
   const cats = useLoader(() => api.categories());
-  const scoring = useLoader(() => api.scoring());
   const [editing, setEditing] = useState(false);
   const [codeError, setCodeError] = useState<string | null>(null);
   const lg = league.data;
@@ -54,6 +54,7 @@ export default function Normativa() {
       ) : lg ? (
         <Section title={t('rules.params')}
                  action={me?.is_admin ? <Button small kind="secondary" label={t('rules.editShort')} onPress={() => setEditing(true)} /> : undefined}>
+          <Param label={t('scoring.title')} value={schemeLabel(lg.scoring_system, lg.wt_split)} />
           <Param label={t('settings.maxRiders')} value={String(lg.max_riders)} />
           <Param label={t('tabs.calendar')} value={depthOptions().find((o) => o.value === lg.calendar_depth)?.label ?? ''}
                  hint={depthHint(lg.calendar_depth)} />
@@ -87,7 +88,7 @@ export default function Normativa() {
       </Section>
 
       <Section title={t('rules.pointsByCategory')}>
-        <ScoringTable cats={(cats.data ?? []).filter((c) => !lg || c.depth_level <= lg.calendar_depth)} rules={scoring.data ?? []} />
+        {lg ? <ScoringGroups scheme={schemeOf(lg.scoring_system, lg.wt_split)} cats={cats.data ?? []} depth={lg.calendar_depth} /> : null}
       </Section>
     </Screen>
   );
@@ -119,42 +120,4 @@ function Param({ label, value, hint, last }: { label: string; value: string; hin
   );
 }
 
-const kindLabel = (k: string) => {
-  const key = `scoring.${k}` as 'scoring.oneday';
-  const s = t(key);
-  return s === key ? k : s;
-};
 
-function ScoringTable({ cats, rules }: { cats: Category[]; rules: ScoringRule[] }) {
-  const byCat = useMemo(() => {
-    const m = new Map<string, Map<string, ScoringRule[]>>();
-    rules.forEach((r) => {
-      if (!m.has(r.category)) m.set(r.category, new Map());
-      const k = m.get(r.category)!;
-      k.set(r.kind, [...(k.get(r.kind) ?? []), r]);
-    });
-    return m;
-  }, [rules]);
-
-  return (
-    <>
-      {cats.map((c, i) => {
-        const kinds = [...(byCat.get(c.code)?.entries() ?? [])];
-        return (
-          <Row key={c.code} last={i === cats.length - 1}>
-            <View style={{ flex: 1, gap: 2 }}>
-              <Txt variant="lead">{categoryName(c.code)}</Txt>
-              <Txt variant="small">{t('rules.maxEntries', { n: c.max_entries })}</Txt>
-              {kinds.map(([kind, rs]) => (
-                <Txt key={kind} variant="small">
-                  {kindLabel(kind)}: {rs.slice(0, 5).map((r) => r.points).join(' · ')}
-                  {rs.length > 5 ? ` … ${t('rules.upToPos', { n: rs.length })}` : ''}
-                </Txt>
-              ))}
-            </View>
-          </Row>
-        );
-      })}
-    </>
-  );
-}

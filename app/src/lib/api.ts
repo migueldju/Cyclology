@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { CalendarRow, Category, EntryData, League, LeagueMove, LeagueSettings, MarketRow, Me, MyLeague, OfferRow, RaceDetail, RaceEntries, RankingRow, RiderDetail, RosterRow, ScoringRule, StageScores, StandingRow, TodayRow } from './types';
+import type { CalendarRow, Category, EntryData, League, LeagueMove, LeagueSettings, MarketRow, Me, MyLeague, OfferRow, RaceDetail, RaceEntries, RankingRow, RiderDetail, RosterRow, ScoringGroup, ScoringScheme, StageScores, StandingRow, TodayRow } from './types';
 
 // Todas las escrituras pasan por funciones de Postgres que validan las reglas del juego.
 // Si una regla no se cumple, la función lanza un error con un mensaje para el jugador.
@@ -53,7 +53,7 @@ export const api = {
   rider: (leagueId: string, riderId: number) => rpc<RiderDetail>('get_rider', { p_league: leagueId, p_rider: riderId }),
   entry: (leagueId: string, raceId: number) => rpc<EntryData>('get_entry', { p_league: leagueId, p_race: raceId }),
   categories: () => select<Category[]>(supabase.from('race_category').select('*').order('depth_level')),
-  scoring: () => select<ScoringRule[]>(supabase.from('scoring_rule').select('*').order('position')),
+  scoringSystems: () => rpc<Record<ScoringScheme, ScoringGroup[]>>('get_scoring_systems'),
 
   // mercado y plantilla
   placeBid: (listingId: number, amount: number) => rpc<void>('place_bid', { p_listing: listingId, p_amount: amount }),
