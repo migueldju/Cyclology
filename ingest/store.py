@@ -49,9 +49,9 @@ def value_new_riders(db) -> int:
         "         updated_at = now()"
         "  where r.active and not exists (select 1 from public.rider_value_history h where h.rider_id = r.id)"
         "  returning r.id, r.market_value),"
-        " hist as (insert into public.rider_value_history (rider_id, day, value)"
-        "  select id, (public.app_now() at time zone 'Europe/Madrid')::date, market_value from nuevos"
-        "  on conflict (rider_id, day) do update set value = excluded.value returning 1)"
+        " hist as (insert into public.rider_value_history (rider_id, scheme, day, value)"
+        "  select id, 'cyc', (public.app_now() at time zone 'Europe/Madrid')::date, market_value from nuevos"
+        "  on conflict (rider_id, scheme, day) do update set value = excluded.value returning 1)"
         "select count(*) from hist")
 
 
