@@ -6,6 +6,7 @@ import type { LeagueSettings, PayoutMode } from '../lib/types';
 import { space } from '../theme';
 import { Button } from './Button';
 import { Input, Segmented, Stepper, Toggle } from './Inputs';
+import { ScoringSystemPicker } from './ScoringSystems';
 import { ErrorText } from './Section';
 import { Txt } from './Txt';
 
@@ -26,15 +27,20 @@ export const payoutOptions = (): { value: PayoutMode; label: string }[] => [
 
 export const DEFAULT_SETTINGS: Required<Pick<LeagueSettings,
   'max_riders' | 'calendar_depth' | 'market_size' | 'market_hour' | 'clauses_enabled' | 'payout_mode' |
-  'payout_per_point' | 'payout_by_position'>> = {
+  'payout_per_point' | 'payout_by_position' | 'scoring_system' | 'wt_split'>> = {
   max_riders: 22, calendar_depth: 2, market_size: 10, market_hour: 8, clauses_enabled: true,
   payout_mode: 'per_point', payout_per_point: 100, payout_by_position: [500000, 300000, 150000],
+  // por defecto, el sistema de Cyclonomy con el WorldTour dividido
+  scoring_system: 'cyclonomy', wt_split: true,
 };
 
-/** Parámetros de la liga: se usa al crearla y en la normativa (solo el administrador) */
-export function LeagueSettingsForm({ initial, initialName, submitLabel, onSubmit, children }: {
+/**
+ * Parámetros de la liga: se usa al crearla y en la normativa (solo el administrador). El sistema de puntuación solo
+ * se elige al crearla (`creating`)
+ */
+export function LeagueSettingsForm({ initial, initialName, submitLabel, onSubmit, children, creating }: {
   initial: typeof DEFAULT_SETTINGS; initialName: string; submitLabel: string;
-  onSubmit: (name: string, s: typeof DEFAULT_SETTINGS) => Promise<void>; children?: ReactNode;
+  onSubmit: (name: string, s: typeof DEFAULT_SETTINGS) => Promise<void>; children?: ReactNode; creating?: boolean;
 }) {
   const [name, setName] = useState(initialName);
   const [s, setS] = useState(initial);
@@ -60,6 +66,10 @@ export function LeagueSettingsForm({ initial, initialName, submitLabel, onSubmit
     <View>
       <Input label={t('settings.name')} value={name} onChangeText={setName} maxLength={60} />
       {children}
+      {creating ? (
+        <ScoringSystemPicker system={s.scoring_system} wtSplit={s.wt_split}
+                             onChange={(system, split) => setS((prev) => ({ ...prev, scoring_system: system, wt_split: split }))} />
+      ) : null}
       <Stepper label={t('settings.maxRiders')} value={s.max_riders} min={16} max={40}
                onChange={(v) => set('max_riders', v)} />
       <Segmented label={t('settings.depth')} options={depthOptions()} value={s.calendar_depth}

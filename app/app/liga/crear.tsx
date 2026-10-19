@@ -28,6 +28,7 @@ export default function CrearLiga() {
         initial={DEFAULT_SETTINGS}
         initialName=""
         submitLabel={t('create.submit')}
+        creating
         onSubmit={async (name, s) => {
           if (!team.trim()) throw new Error(t('team.nameRequired'));
           if (!country) throw new Error(t('team.countryRequired'));
