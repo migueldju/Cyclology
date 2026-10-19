@@ -316,6 +316,7 @@ const ja: Partial<Dict> = {
   "rules.upToPos": "{n}位まで",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "優勝者のチームメイト：ステージ／ワンデー優勝者と最終総合優勝者のポイントの10％をそれぞれ獲得。ツール、ジロ、ブエルタでは総合表彰台の10％・7％・5％。",
   "scoring.title": "ポイント制度",
   "scoring.cyclonomyHint": "ゲーム独自のカテゴリーを使う方式。ワールドツアーはWT AとWT Bに分けられます。",
   "scoring.uciHint": "UCI公式2026年ポイント表：世界ランキングと同じポイント。ステージ順位と総合首位にも加算されます。",

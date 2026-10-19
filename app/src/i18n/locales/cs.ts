@@ -316,6 +316,7 @@ const cs: Partial<Dict> = {
   "rules.upToPos": "až do {n}. místa",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Týmoví kolegové vítěze: každý dostane 10 % bodů vítěze etapy nebo klasiky a celkového pořadí. Na Tour, Giru a Vueltě 10 %, 7 % a 5 % bodů z pódia.",
   "scoring.title": "Bodovací systém",
   "scoring.cyclonomyHint": "Systém hry s vlastními kategoriemi. WorldTour lze rozdělit na WT A a WT B.",
   "scoring.uciHint": "Oficiální bodování UCI 2026: stejné body jako ve světovém žebříčku, i za etapy a dres lídra.",

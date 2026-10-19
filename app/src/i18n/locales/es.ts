@@ -315,6 +315,7 @@ const es = {
   "rules.upToPos": "hasta el {n}.º",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Compañeros del ganador: cada uno se lleva el 10 % de los puntos del ganador de la etapa o la clásica y de la general final. En Tour, Giro y Vuelta, el 10 %, 7 % y 5 % de los del podio final.",
   "scoring.title": "Sistema de puntuación",
   "scoring.cyclonomyHint": "El sistema del juego, con sus propias categorías. El WorldTour se puede dividir en WT A y WT B.",
   "scoring.uciHint": "El baremo oficial de la UCI 2026: los mismos puntos que el ranking mundial, también por etapa y por liderar la general.",

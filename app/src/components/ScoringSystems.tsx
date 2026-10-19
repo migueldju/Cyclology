@@ -46,6 +46,7 @@ export function ScoringGroups({ scheme, cats, depth }: { scheme: ScoringScheme; 
   if (!data.data) return <Txt variant="small" style={{ padding: space.l }}>{t('common.loading')}</Txt>;
   return (
     <>
+      {scheme !== 'uci' ? <Txt variant="small" style={{ padding: space.l, paddingBottom: 0 }}>{t('scoring.teamBonus')}</Txt> : null}
       {groups.map((g, i) => {
         const isOpen = open === g.grp;
         const rules = g.rules ?? {};

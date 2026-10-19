@@ -316,6 +316,7 @@ const de: Partial<Dict> = {
   "rules.upToPos": "bis Platz {n}",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Teamkollegen des Siegers: Jeder erhält 10 % der Punkte des Etappen- oder Klassikersiegers und des Gesamtsiegers. Bei Tour, Giro und Vuelta 10 %, 7 % und 5 % der Punkte des Podiums.",
   "scoring.title": "Punktesystem",
   "scoring.cyclonomyHint": "Das System des Spiels mit eigenen Kategorien. Die WorldTour kann in WT A und WT B geteilt werden.",
   "scoring.uciHint": "Die offizielle UCI-Punkteskala 2026: dieselben Punkte wie in der Weltrangliste, auch für Etappen und das Leadertrikot.",

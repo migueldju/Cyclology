@@ -316,6 +316,7 @@ const sl: Partial<Dict> = {
   "rules.upToPos": "do {n}. mesta",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Moštveni kolegi zmagovalca: vsak dobi 10 % točk zmagovalca etape ali klasike in skupnega seštevka. Na Touru, Giru in Vuelti 10 %, 7 % in 5 % točk s končnega odra.",
   "scoring.title": "Točkovni sistem",
   "scoring.cyclonomyHint": "Sistem igre z lastnimi kategorijami. WorldTour je mogoče razdeliti na WT A in WT B.",
   "scoring.uciHint": "Uradna lestvica UCI 2026: enake točke kot na svetovni lestvici, tudi za etape in za majico vodilnega.",

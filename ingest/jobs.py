@@ -103,6 +103,7 @@ def load_teams(db, season: int, points_year: int | None = None, birthdates: bool
             if bd:
                 store.set_birthdate(db, slug, bd)
         new = store.value_new_riders(db)
+        db.execute("select public.relink_results()")   # sus resultados de antes de entrar en el juego
     summary = dict(teams=len(teams), riders=len(set(seen)), inactive=inactive, removed_teams=removed, new_valued=new)
     log.info("Equipos cargados: %s", summary)
     return summary

@@ -316,6 +316,7 @@ const gl: Partial<Dict> = {
   "rules.upToPos": "ata o {n}.º",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Compañeiros do gañador: cada un lévase o 10 % dos puntos do gañador da etapa ou a clásica e da xeral final. No Tour, Giro e Vuelta, o 10 %, 7 % e 5 % dos do podio final.",
   "scoring.title": "Sistema de puntuación",
   "scoring.cyclonomyHint": "O sistema do xogo, coas súas categorías. O WorldTour pódese dividir en WT A e WT B.",
   "scoring.uciHint": "O baremo oficial da UCI 2026: os mesmos puntos ca o ranking mundial, tamén por etapa e por liderar a xeral.",

@@ -316,6 +316,7 @@ const da: Partial<Dict> = {
   "rules.upToPos": "op til {n}. plads",
   "scoring.cyclonomy": "Cyclonomy",
   "scoring.uci": "UCI",
+  "scoring.teamBonus": "Vinderens holdkammerater: hver får 10 % af vinderens point for etapen eller klassikeren og for den samlede stilling. I Tour, Giro og Vuelta 10 %, 7 % og 5 % af podiets point.",
   "scoring.title": "Pointsystem",
   "scoring.cyclonomyHint": "Spillets system med egne kategorier. WorldTour kan deles i WT A og WT B.",
   "scoring.uciHint": "UCI's officielle pointskala 2026: de samme point som verdensranglisten, også for etaper og førertrøjen.",
