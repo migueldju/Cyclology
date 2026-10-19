@@ -3,7 +3,8 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
-import { Input, Segmented } from '@/components/Inputs';
+import { Input } from '@/components/Inputs';
+import { LanguagePicker } from '@/components/LanguagePicker';
 import { Screen } from '@/components/Screen';
 import { Section } from '@/components/Section';
 import { Txt } from '@/components/Txt';
@@ -22,8 +23,6 @@ export default function Perfil() {
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState<string | null>(null);
   const [team, setTeam] = useState('');
-  const [email, setEmail] = useState(session?.user.email ?? '');
-  const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -76,45 +75,25 @@ export default function Perfil() {
       </View>
       {msg ? <Txt style={{ color: msg.ok ? colors.green : colors.red, marginBottom: space.m }}>{msg.text}</Txt> : null}
 
-      <Input label={t('auth.yourName')} value={name} onChangeText={setName} maxLength={40} />
-      <Button kind="secondary" label={t('profile.saveName')} busy={busy === 'name'}
-              onPress={() => run('name', async () => { await api.updateProfile(name, null); return t('profile.nameSaved'); })} />
-
-      <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
-        <View style={{ padding: space.l, paddingBottom: 0 }}>
-          <Segmented label={t('profile.languageHint')} value={lang} onChange={setLang}
-                     options={LANGUAGES.map((l) => ({ value: l.code, label: l.name }))} />
-        </View>
-      </Section>
+      <View style={styles.inline}>
+        <View style={{ flex: 1 }}><Input label={t('auth.yourName')} value={name} onChangeText={setName} maxLength={40} /></View>
+        <Button kind="secondary" label={t('common.save')} busy={busy === 'name'} style={styles.save}
+                onPress={() => run('name', async () => { await api.updateProfile(name, null); return t('profile.nameSaved'); })} />
+      </View>
 
       {leagueId && me ? (
         <Section title={t('profile.teamIn', { league: me.league_name })} style={{ marginHorizontal: -space.l }}>
-          <View style={{ padding: space.l }}>
-            <Input label={t('profile.teamName')} value={team} onChangeText={setTeam} maxLength={40} />
-            <Button kind="secondary" label={t('profile.saveTeamName')} busy={busy === 'team'}
+          <View style={[styles.inline, { padding: space.l, paddingBottom: 0 }]}>
+            <View style={{ flex: 1 }}><Input label={t('profile.teamName')} value={team} onChangeText={setTeam} maxLength={40} /></View>
+            <Button kind="secondary" label={t('common.save')} busy={busy === 'team'} style={styles.save}
                     onPress={() => run('team', async () => { await api.renameTeam(leagueId, team); return t('profile.teamNameSaved'); })} />
           </View>
         </Section>
       ) : null}
 
-      <Section title={t('profile.account')} style={{ marginHorizontal: -space.l }}>
-        <View style={{ padding: space.l }}>
-          <Input label={t('auth.email')} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
-          <Button kind="secondary" label={t('profile.changeEmail')} busy={busy === 'email'}
-                  onPress={() => run('email', async () => {
-                    const { error } = await supabase.auth.updateUser({ email: email.trim() });
-                    if (error) throw new Error(error.message);
-                    return t('profile.emailSent');
-                  })} />
-          <View style={{ height: space.l }} />
-          <Input label={t('newpass.title')} value={password} onChangeText={setPassword} secureTextEntry hint={t('auth.min8')} />
-          <Button kind="secondary" label={t('profile.changePassword')} busy={busy === 'password'} disabled={password.length < 8}
-                  onPress={() => run('password', async () => {
-                    const { error } = await supabase.auth.updateUser({ password });
-                    if (error) throw new Error(error.message);
-                    setPassword('');
-                    return t('profile.passwordChanged');
-                  })} />
+      <Section title={t('profile.language')} style={{ marginHorizontal: -space.l }}>
+        <View style={{ padding: space.l, paddingBottom: 0 }}>
+          <LanguagePicker label={t('profile.languageHint')} hideLabel languages={LANGUAGES} value={lang} onChange={setLang} />
         </View>
       </Section>
 
@@ -129,7 +108,10 @@ export default function Perfil() {
 }
 
 const styles = StyleSheet.create({
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.l, marginTop: space.l, marginBottom: space.xl },
-  avatar: { width: 72, height: 72, borderRadius: 36 },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.l, marginBottom: space.l },
+  avatar: { width: 56, height: 56, borderRadius: 28 },
+  // campo con su botón de guardar al lado, a la altura del campo
+  inline: { flexDirection: 'row', alignItems: 'flex-end', gap: space.s },
+  save: { marginBottom: space.l, minHeight: 44 },
   noAvatar: { backgroundColor: colors.line },
 });
