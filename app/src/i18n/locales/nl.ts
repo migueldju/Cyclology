@@ -331,6 +331,7 @@ const nl: Partial<Dict> = {
   "scoring.kom_final": "Bergklassement",
   "scoring.kom_jersey": "Bergtrui/dag",
   "scoring.oneday": "Klassieker",
+  "scoring.points_jersey": "Puntentrui/dag",
   "scoring.points_final": "Puntenklassement",
   "scoring.stage": "Etappe",
   "settings.addPrize": "Plaats toevoegen",

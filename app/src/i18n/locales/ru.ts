@@ -331,6 +331,7 @@ const ru: Partial<Dict> = {
   "scoring.kom_final": "Горная классиф.",
   "scoring.kom_jersey": "Горная майка/день",
   "scoring.oneday": "Однодневка",
+  "scoring.points_jersey": "Очковая майка/день",
   "scoring.points_final": "Очковая классиф.",
   "scoring.stage": "Этап",
   "settings.addPrize": "Добавить место",

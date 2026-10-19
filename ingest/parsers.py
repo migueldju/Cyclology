@@ -78,13 +78,13 @@ def parse_calendar_listing(html: str, year: int) -> list[dict]:
     rows = []
     for tr in _soup(html).select("table tr"):
         tds = tr.find_all("td")
-        a = tr.find("a", href=re.compile(r"race/[^/]+/\d{4}"))
+        # enlaces antiguos (race/slug/2026) y nuevos (race/slug-2026-result, race/slug-2026-gc…)
+        pat = re.compile(rf"race/([^/]+)/{year}(?:[/?#]|$)|race/([^/?#]+?)-{year}(?:-[^/?#]*)?(?:[/?#]|$)")
+        a = tr.find("a", href=pat)
         if len(tds) < 3 or not a:
             continue
-        m = re.search(r"race/([^/]+)/(\d{4})", a["href"])
-        slug, race_year = m.group(1), int(m.group(2))
-        if race_year != year:
-            continue
+        m = pat.search(a["href"])
+        slug = m.group(1) or m.group(2)
         start, end = parse_dates(tds[0].get_text(" ", strip=True), year)
         cls = next((t.get_text(strip=True) for t in reversed(tds) if CLASS_RE.match(t.get_text(strip=True))), "")
         name = re.sub(r"\s+ME$", "", a.get_text(" ", strip=True))

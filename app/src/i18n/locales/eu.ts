@@ -331,6 +331,7 @@ const eu: Partial<Dict> = {
   "scoring.kom_final": "Mendiko sailk.",
   "scoring.kom_jersey": "Mendiko maillota/eguna",
   "scoring.oneday": "Klasikoa",
+  "scoring.points_jersey": "Puntu-maillota/eguna",
   "scoring.points_final": "Puntuen sailk.",
   "scoring.stage": "Etapa",
   "settings.addPrize": "Postua gehitu",

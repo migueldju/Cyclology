@@ -331,6 +331,7 @@ const de: Partial<Dict> = {
   "scoring.kom_final": "Bergwertung",
   "scoring.kom_jersey": "Bergtrikot/Tag",
   "scoring.oneday": "Klassiker",
+  "scoring.points_jersey": "Punktetrikot/Tag",
   "scoring.points_final": "Punktewertung",
   "scoring.stage": "Etappe",
   "settings.addPrize": "Platz hinzufügen",

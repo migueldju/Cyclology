@@ -331,6 +331,7 @@ const ja: Partial<Dict> = {
   "scoring.kom_final": "山岳賞",
   "scoring.kom_jersey": "山岳ジャージ/日",
   "scoring.oneday": "クラシック",
+  "scoring.points_jersey": "ポイント賞ジャージ/日",
   "scoring.points_final": "ポイント賞",
   "scoring.stage": "ステージ",
   "settings.addPrize": "順位を追加",

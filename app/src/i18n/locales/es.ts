@@ -330,6 +330,7 @@ const es = {
   "scoring.kom_final": "Clasif. montaña",
   "scoring.kom_jersey": "Maillot montaña/día",
   "scoring.oneday": "Clásica",
+  "scoring.points_jersey": "Maillot puntos/día",
   "scoring.points_final": "Clasif. puntos",
   "scoring.stage": "Etapa",
   "settings.addPrize": "Añadir puesto",
