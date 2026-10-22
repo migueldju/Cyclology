@@ -103,6 +103,7 @@ def load_teams(db, season: int, points_year: int | None = None, birthdates: bool
             if bd:
                 store.set_birthdate(db, slug, bd)
         new = store.value_new_riders(db)
+        db.execute("select public.relink_results()")   # sus resultados de antes de entrar en el juego
     summary = dict(teams=len(teams), riders=len(set(seen)), inactive=inactive, removed_teams=removed, new_valued=new)
     log.info("Equipos cargados: %s", summary)
     return summary
@@ -130,6 +131,11 @@ def madrid_now(now: dt.datetime | None = None) -> dt.datetime:
     return (now or dt.datetime.now(dt.timezone.utc)).astimezone(MADRID)
 
 
+def game_now(db) -> dt.datetime:
+    """Hora del juego (public.app_now()): la real o la de la fecha simulada para probar con temporadas pasadas."""
+    return db.scalar("select public.app_now()")
+
+
 def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: float | None, tz,
              profile: int | None = None) -> tuple:
     """Salida y llegada estimada: la distancia a la media típica de su tipo de recorrido, más un margen."""
@@ -140,7 +146,7 @@ def estimate(stage_date: dt.date, start_local: dt.time | None, distance_km: floa
 
 def plan_day(db, now: dt.datetime | None = None) -> int:
     """Lee horas de salida y distancias de las etapas de hoy y mañana y crea las tareas del día."""
-    now = madrid_now(now)
+    now = madrid_now(now or game_now(db))
     today = now.date()
     rows = db.fetchall(
         "select s.id, s.number, s.date, s.distance_km, r.id, r.pcs_slug, r.season, r.country, r.is_stage_race, "
@@ -219,7 +225,7 @@ def run_task(db, task: dict) -> str:
             # el cierre (carreras sin lista en PCS, como las CRI por parejas) se cierra igual: corre quien se inscribió a mano
             # y los resultados pueden puntuarse
             if not db.scalar("select exists (select 1 from public.startlist where race_id = %s)", (task["race_id"],)):
-                if not db.scalar("select now() > entries_close_at + %s from public.race where id = %s",
+                if not db.scalar("select public.app_now() > entries_close_at + %s from public.race where id = %s",
                                  (LINEUP_GIVE_UP, task["race_id"])):
                     raise
             total = ours = db.scalar("select count(*) from public.startlist where race_id = %s", (task["race_id"],))
@@ -261,7 +267,7 @@ def load_startlist(db, race_id: int, slug: str, season: int) -> tuple[int, int]:
 
 
 def tick(db, now: dt.datetime | None = None) -> list[str]:
-    now = madrid_now(now)
+    now = madrid_now(now or game_now(db))
     out = []
     for task in store.due_tasks(db, now):
         label = f"{task['kind']} {task['slug']} {task['season']}" + (

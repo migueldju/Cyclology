@@ -18,11 +18,16 @@ STAGE_URL = re.compile(r"race/([^/]+)/(\d{4})(?:/([a-z0-9-]+))?")
 
 
 def parse_stage_url(url: str, season: int) -> tuple[str, str, int] | None:
-    """'race/vuelta-a-espana/2026/stage-20' → ('vuelta-a-espana', 'stage', 20). None si no interesa."""
+    """'race/vuelta-a-espana/2026/stage-20' o, con el formato nuevo de PCS, 'race/vuelta-a-espana-2026-stage-20'
+    → ('vuelta-a-espana', 'stage', 20). None si no interesa."""
+    new = re.search(rf"race/([^/?#]+?)-{season}(?:-([a-z0-9-]+))?(?:[/?#]|$)", url or "")
     m = STAGE_URL.search(url or "")
-    if not m or int(m.group(2)) != season:
+    if m and int(m.group(2)) == season:
+        slug, suffix = m.group(1), m.group(3) or "result"
+    elif new:
+        slug, suffix = new.group(1), new.group(2) or "result"
+    else:
         return None
-    slug, suffix = m.group(1), m.group(3) or "result"
     if suffix == "result":
         return slug, "stage", 1
     if suffix == "prologue":
