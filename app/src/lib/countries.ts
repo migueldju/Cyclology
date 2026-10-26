@@ -1,7 +1,7 @@
 import { getLang } from '../i18n';
 
 // Países para el equipo de cada jugador: código ISO de 2 letras (como los de los ciclistas) y nombre en español
-export const COUNTRIES: [string, string][] = [
+const ALL: [string, string][] = [
   ['af', 'Afganistán'], ['al', 'Albania'], ['de', 'Alemania'], ['ad', 'Andorra'], ['ao', 'Angola'], ['ai', 'Anguila'],
   ['ag', 'Antigua y Barbuda'], ['sa', 'Arabia Saudí'], ['dz', 'Argelia'], ['ar', 'Argentina'], ['am', 'Armenia'],
   ['aw', 'Aruba'], ['au', 'Australia'], ['at', 'Austria'], ['az', 'Azerbaiyán'], ['bs', 'Bahamas'],
@@ -51,6 +51,14 @@ export const COUNTRIES: [string, string][] = [
   ['tv', 'Tuvalu'], ['ua', 'Ucrania'], ['ug', 'Uganda'], ['uy', 'Uruguay'], ['uz', 'Uzbekistán'], ['vu', 'Vanuatu'],
   ['va', 'Vaticano'], ['ve', 'Venezuela'], ['vn', 'Vietnam'], ['wf', 'Wallis y Futuna'], ['ye', 'Yemen'],
   ['dj', 'Yibuti'], ['zm', 'Zambia'], ['zw', 'Zimbabue'],
+];
+
+// Primero, los 10 mejores países de la historia (puntos del ranking histórico de ciclistas de PCS, sumados por
+// nacionalidad); después, todos en orden alfabético
+const TOP = ['it', 'be', 'fr', 'es', 'nl', 'de', 'ch', 'au', 'gb', 'dk'];
+export const COUNTRIES: [string, string][] = [
+  ...TOP.map((code) => ALL.find(([c]) => c === code)!),
+  ...ALL.filter(([c]) => !TOP.includes(c)),
 ];
 
 const spanish = (code: string | null | undefined) => COUNTRIES.find(([c]) => c === code)?.[1] ?? null;
