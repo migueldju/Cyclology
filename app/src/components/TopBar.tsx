@@ -23,7 +23,7 @@ export function TopBar({ back }: { back?: boolean }) {
             <Ionicons name="chevron-back" size={22} color={colors.paper} />
           </Pressable>
         ) : null}
-        <Pressable onPress={() => router.push('/perfil')} accessibilityRole="button" accessibilityLabel={t('topbar.profile')}>
+        <Pressable onPress={() => router.push('/profile')} accessibilityRole="button" accessibilityLabel={t('topbar.profile')}>
           {me?.avatar_url ? (
             <Image source={{ uri: me.avatar_url }} style={styles.avatar} />
           ) : (
