@@ -24,7 +24,7 @@ export const COUNTRIES: [string, string][] = [
   ['pk', 'Pakistán'], ['ps', 'Palestina'], ['pa', 'Panamá'], ['py', 'Paraguay'], ['pe', 'Perú'], ['pl', 'Polonia'], ['pt', 'Portugal'],
   ['pr', 'Puerto Rico'], ['gb', 'Reino Unido'], ['do', 'República Dominicana'], ['rw', 'Ruanda'], ['ro', 'Rumanía'],
   ['ru', 'Rusia'], ['sm', 'San Marino'], ['sn', 'Senegal'], ['rs', 'Serbia'], ['eh', 'Sáhara Occidental'], ['sg', 'Singapur'],
-  ['za', 'Sudáfrica'], ['se', 'Suecia'], ['ch', 'Suiza'], ['th', 'Tailandia'], ['tw', 'Taiwán'],
+  ['za', 'Sudáfrica'], ['ss', 'Sudán del Sur'], ['se', 'Suecia'], ['ch', 'Suiza'], ['th', 'Tailandia'], ['tw', 'Taiwán'],
   ['tz', 'Tanzania'], ['tt', 'Trinidad y Tobago'], ['tn', 'Túnez'], ['tr', 'Turquía'], ['ua', 'Ucrania'],
   ['ug', 'Uganda'], ['uy', 'Uruguay'], ['uz', 'Uzbekistán'], ['ve', 'Venezuela'], ['vn', 'Vietnam'],
   ['zw', 'Zimbabue'],
