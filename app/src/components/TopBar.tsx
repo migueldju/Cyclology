@@ -38,7 +38,8 @@ export function TopBar({ back }: { back?: boolean }) {
 
       <View style={styles.right}>
         <PositionJersey position={me?.position} size={28} />
-        <Txt style={styles.value} numberOfLines={1}>{me ? moneyShort(me.team_value) : ''}</Txt>
+        {/* el dinero del jugador (en rojo si está en negativo) */}
+        <Txt style={[styles.value, me && me.balance < 0 && { color: colors.red }]} numberOfLines={1}>{me ? moneyShort(me.balance) : ''}</Txt>
       </View>
     </View>
   );
