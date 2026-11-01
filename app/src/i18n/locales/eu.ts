@@ -420,6 +420,15 @@ const eu: Partial<Dict> = {
   "team.countryRequired": "Aukeratu zure taldearen herrialdea.",
   "team.nameRequired": "Jarri izena zure taldeari.",
   "team.yourTeamName": "Zure taldearen izena",
+  "title.world": "Munduko txapelduna",
+  "title.continental": "{scope}ko txapelduna",
+  "title.national": "Txapeldun nazionala",
+  "title.itt": "Erlojupekoa",
+  "title.continent.europe": "Europa",
+  "title.continent.asia": "Asia",
+  "title.continent.america": "Amerika",
+  "title.continent.africa": "Afrika",
+  "title.continent.oceania": "Ozeania",
   "topbar.profile": "Nire profila",
 };
 

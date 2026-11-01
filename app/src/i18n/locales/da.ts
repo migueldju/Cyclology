@@ -420,6 +420,15 @@ const da: Partial<Dict> = {
   "team.countryRequired": "Vælg dit holds land.",
   "team.nameRequired": "Giv dit hold et navn.",
   "team.yourTeamName": "Dit holds navn",
+  "title.world": "Verdensmester",
+  "title.continental": "{scope}mester",
+  "title.national": "National mester",
+  "title.itt": "Enkeltstart",
+  "title.continent.europe": "Europa",
+  "title.continent.asia": "Asien",
+  "title.continent.america": "Amerika",
+  "title.continent.africa": "Afrika",
+  "title.continent.oceania": "Oceanien",
   "topbar.profile": "Min profil",
 };
 

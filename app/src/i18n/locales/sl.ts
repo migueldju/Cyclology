@@ -420,6 +420,15 @@ const sl: Partial<Dict> = {
   "team.countryRequired": "Izberi državo svoje ekipe.",
   "team.nameRequired": "Poimenuj svojo ekipo.",
   "team.yourTeamName": "Ime tvoje ekipe",
+  "title.world": "Svetovni prvak",
+  "title.continental": "Prvak {scope}",
+  "title.national": "Državni prvak",
+  "title.itt": "Kronometer",
+  "title.continent.europe": "Evrope",
+  "title.continent.asia": "Azije",
+  "title.continent.america": "Amerike",
+  "title.continent.africa": "Afrike",
+  "title.continent.oceania": "Oceanije",
   "topbar.profile": "Moj profil",
 };
 

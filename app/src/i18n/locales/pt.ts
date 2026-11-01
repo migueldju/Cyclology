@@ -420,6 +420,15 @@ const pt: Partial<Dict> = {
   "team.countryRequired": "Escolhe o país da tua equipa.",
   "team.nameRequired": "Dá um nome à tua equipa.",
   "team.yourTeamName": "Nome da tua equipa",
+  "title.world": "Campeão do mundo",
+  "title.continental": "Campeão da {scope}",
+  "title.national": "Campeão nacional",
+  "title.itt": "CRI",
+  "title.continent.europe": "Europa",
+  "title.continent.asia": "Ásia",
+  "title.continent.america": "América",
+  "title.continent.africa": "África",
+  "title.continent.oceania": "Oceânia",
   "topbar.profile": "O meu perfil",
 };
 

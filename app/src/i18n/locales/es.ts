@@ -419,6 +419,15 @@ const es = {
   "team.countryRequired": "Elige el país de tu equipo.",
   "team.nameRequired": "Ponle nombre a tu equipo.",
   "team.yourTeamName": "Nombre de tu equipo",
+  "title.world": "Campeón del mundo",
+  "title.continental": "Campeón de {scope}",
+  "title.national": "Campeón nacional",
+  "title.itt": "CRI",
+  "title.continent.europe": "Europa",
+  "title.continent.asia": "Asia",
+  "title.continent.america": "América",
+  "title.continent.africa": "África",
+  "title.continent.oceania": "Oceanía",
   "topbar.profile": "Mi perfil",
 } as const;
 

@@ -4,15 +4,17 @@ import { t } from '../i18n';
 import { moneyShort } from '../lib/format';
 import type { RiderStatus } from '../lib/types';
 import { colors, space } from '../theme';
+import { ChampionBadges } from './ChampionJersey';
 import { Flag } from './Flag';
 import { RiderAvatar } from './RiderAvatar';
 import { StatusDot } from './StatusDot';
 import { Txt } from './Txt';
 
 /** Fila de ciclista: foto, nombre con bandera y equipo a la izquierda; valor y dato secundario a la derecha. */
-export function RiderRow({ name, team, value, detail, status = 'ok', note, onPress, last, right, photo, nationality }: {
+export function RiderRow({ name, team, value, detail, status = 'ok', note, onPress, last, right, photo, nationality, riderId }: {
   name: string; team?: string | null; value: number; detail?: string; status?: RiderStatus; note?: string;
   onPress?: () => void; last?: boolean; right?: ReactNode; photo?: string | null; nationality?: string | null;
+  riderId?: number | null;
 }) {
   const content = (
     <>
@@ -22,6 +24,7 @@ export function RiderRow({ name, team, value, detail, status = 'ok', note, onPre
           <View style={styles.nameLine}>
             <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{name}</Txt>
             <Flag code={nationality} />
+            <ChampionBadges riderId={riderId} />
             <StatusDot status={status} />
           </View>
           <Txt variant="small" numberOfLines={1}>{[team, note].filter(Boolean).join(' · ')}</Txt>

@@ -38,7 +38,7 @@ export default function Plantilla() {
 
       <Section>
         {rows.length ? rows.map((r, i) => (
-          <RiderRow
+          <RiderRow riderId={r.rider_id}
             key={r.ownership_id}
             name={r.rider_name}
             team={r.pro_team}

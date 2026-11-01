@@ -420,6 +420,15 @@ const cs: Partial<Dict> = {
   "team.countryRequired": "Vyber zemi svého týmu.",
   "team.nameRequired": "Pojmenuj svůj tým.",
   "team.yourTeamName": "Název tvého týmu",
+  "title.world": "Mistr světa",
+  "title.continental": "Mistr {scope}",
+  "title.national": "Národní mistr",
+  "title.itt": "Časovka",
+  "title.continent.europe": "Evropy",
+  "title.continent.asia": "Asie",
+  "title.continent.america": "Ameriky",
+  "title.continent.africa": "Afriky",
+  "title.continent.oceania": "Oceánie",
   "topbar.profile": "Můj profil",
 };
 

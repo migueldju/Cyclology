@@ -420,6 +420,15 @@ const nl: Partial<Dict> = {
   "team.countryRequired": "Kies het land van je ploeg.",
   "team.nameRequired": "Geef je ploeg een naam.",
   "team.yourTeamName": "Naam van je ploeg",
+  "title.world": "Wereldkampioen",
+  "title.continental": "{scope}s kampioen",
+  "title.national": "Nationaal kampioen",
+  "title.itt": "Tijdrit",
+  "title.continent.europe": "Europees",
+  "title.continent.asia": "Aziatisch",
+  "title.continent.america": "Pan-Amerikaans",
+  "title.continent.africa": "Afrikaans",
+  "title.continent.oceania": "Oceanisch",
   "topbar.profile": "Mijn profiel",
 };
 

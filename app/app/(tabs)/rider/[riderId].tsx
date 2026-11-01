@@ -7,6 +7,7 @@ import { ClauseSheet } from '@/components/ClauseSheet';
 import { ActionSheet } from '@/components/Modal';
 import { Screen } from '@/components/Screen';
 import { Empty, ErrorText, Section } from '@/components/Section';
+import { ChampionBadges } from '@/components/ChampionJersey';
 import { Flag } from '@/components/Flag';
 import { RiderAvatar } from '@/components/RiderAvatar';
 import { Txt } from '@/components/Txt';
@@ -78,6 +79,7 @@ export default function Ciclista() {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s }}>
             <Txt variant="display" numberOfLines={2} style={{ flexShrink: 1 }}>{r.name}</Txt>
             <Flag code={r.nationality} height={15} />
+            <ChampionBadges riderId={r.id} size={18} />
           </View>
           <Txt variant="small">
             {[r.pro_team, r.age != null ? t('rider.age', { n: r.age }) : null].filter(Boolean).join(' · ')}

@@ -420,6 +420,15 @@ const ru: Partial<Dict> = {
   "team.countryRequired": "Выбери страну своей команды.",
   "team.nameRequired": "Дай название своей команде.",
   "team.yourTeamName": "Название твоей команды",
+  "title.world": "Чемпион мира",
+  "title.continental": "Чемпион {scope}",
+  "title.national": "Чемпион страны",
+  "title.itt": "Разделка",
+  "title.continent.europe": "Европы",
+  "title.continent.asia": "Азии",
+  "title.continent.america": "Америки",
+  "title.continent.africa": "Африки",
+  "title.continent.oceania": "Океании",
   "topbar.profile": "Мой профиль",
 };
 

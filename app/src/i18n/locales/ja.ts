@@ -420,6 +420,15 @@ const ja: Partial<Dict> = {
   "team.countryRequired": "チームの国を選んでください。",
   "team.nameRequired": "チームに名前を付けてください。",
   "team.yourTeamName": "チーム名",
+  "title.world": "世界チャンピオン",
+  "title.continental": "{scope}チャンピオン",
+  "title.national": "国内チャンピオン",
+  "title.itt": "TT",
+  "title.continent.europe": "ヨーロッパ",
+  "title.continent.asia": "アジア",
+  "title.continent.america": "アメリカ",
+  "title.continent.africa": "アフリカ",
+  "title.continent.oceania": "オセアニア",
   "topbar.profile": "プロフィール",
 };
 

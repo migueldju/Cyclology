@@ -420,6 +420,15 @@ const ar: Partial<Dict> = {
   "team.countryRequired": "اختر بلد فريقك.",
   "team.nameRequired": "أعطِ فريقك اسمًا.",
   "team.yourTeamName": "اسم فريقك",
+  "title.world": "بطل العالم",
+  "title.continental": "بطل {scope}",
+  "title.national": "البطل الوطني",
+  "title.itt": "ضد الساعة",
+  "title.continent.europe": "أوروبا",
+  "title.continent.asia": "آسيا",
+  "title.continent.america": "أمريكا",
+  "title.continent.africa": "أفريقيا",
+  "title.continent.oceania": "أوقيانوسيا",
   "topbar.profile": "ملفي الشخصي",
 };
 

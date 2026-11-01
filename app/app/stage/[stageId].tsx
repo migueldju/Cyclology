@@ -91,7 +91,7 @@ export default function Etapa() {
                          : `${tm.riders.length}/${entries.data!.max_entries}${tm.auto ? ` · ${t('stage.auto')}` : ''}`}
                      </Txt>}>
               {tm.riders.length ? tm.riders.map((r, i) => (
-                <RiderRow key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
+                <RiderRow riderId={r.rider_id} key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
                           value={0} last={i === tm.riders.length - 1} onPress={() => open(r.rider_id)} right={<View />} />
               )) : <Empty text={tm.hidden ? t('stage.hiddenShort') : t('stage.noRiderEntered')} />}
             </Section>
@@ -105,7 +105,7 @@ export default function Etapa() {
                   <Txt variant="small">{g.riders.length}</Txt>
                 </View>
                 {g.riders.map((r, i) => (
-                  <RiderRow key={`${g.team_name}-${r.bib ?? r.name}`} name={r.name} team={g.team_name} photo={r.photo_url}
+                  <RiderRow riderId={r.rider_id} key={`${g.team_name}-${r.bib ?? r.name}`} name={r.name} team={g.team_name} photo={r.photo_url}
                             nationality={r.nationality} value={0} last={i === g.riders.length - 1}
                             note={r.teams.length ? t('stage.enteredBy', { teams: r.teams.join(', ') }) : r.rider_id ? undefined : t('stage.notInGame')}
                             onPress={r.rider_id ? () => open(r.rider_id!) : undefined}
@@ -333,7 +333,7 @@ function StageRiders({ data, open }: { data: StageScores; open: (riderId: number
   return (
     <>
         {data.riders.length ? data.riders.map((r, i) => (
-          <RiderRow key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
+          <RiderRow riderId={r.rider_id} key={r.rider_id} name={r.name} team={r.pro_team} photo={r.photo_url} nationality={r.nationality}
                     note={r.entered_by.length ? t('stage.enteredBy', { teams: r.entered_by.join(', ') })
                       : r.owner ? t('stage.ownedNotEntered', { team: r.owner }) : t('stage.noOwner')}
                     value={0} last={i === data.riders.length - 1} onPress={() => open(r.rider_id)}
