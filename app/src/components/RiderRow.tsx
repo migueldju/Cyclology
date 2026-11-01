@@ -19,7 +19,7 @@ export function RiderRow({ name, team, value, detail, status = 'ok', note, onPre
   const content = (
     <>
       <View style={styles.row}>
-        <RiderAvatar url={photo} name={name} team={team} riderId={riderId} />
+        <RiderAvatar url={photo} name={name} team={team} />
         <View style={styles.main}>
           <View style={styles.nameLine}>
             <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{name}</Txt>
