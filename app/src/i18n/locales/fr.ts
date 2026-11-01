@@ -115,8 +115,6 @@ const fr: Partial<Dict> = {
   "entry.save": "Enregistrer l'inscription ({n}/{max})",
   "entry.saved": "Inscription enregistrée.",
   "entry.yourRiders": "Tes coureurs · {n}/{max}",
-  "fmt.dateTime": "{wd} {d} {mon}, {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "dans {d} jours",
   "fmt.inHours": "dans {h} h {m} min",

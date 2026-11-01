@@ -115,8 +115,6 @@ const ar: Partial<Dict> = {
   "entry.save": "حفظ التسجيل ({n}/{max})",
   "entry.saved": "تم حفظ التسجيل.",
   "entry.yourRiders": "درّاجوك · {n}/{max}",
-  "fmt.dateTime": "{wd} {d} {mon}، {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "بعد {d} يوم",
   "fmt.inHours": "بعد {h} س {m} د",

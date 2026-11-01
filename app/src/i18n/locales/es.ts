@@ -114,8 +114,6 @@ const es = {
   "entry.save": "Guardar inscripción ({n}/{max})",
   "entry.saved": "Inscripción guardada.",
   "entry.yourRiders": "Tus ciclistas · {n}/{max}",
-  "fmt.dateTime": "{wd} {d} {mon}, {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "en {d} días",
   "fmt.inHours": "en {h} h {m} min",

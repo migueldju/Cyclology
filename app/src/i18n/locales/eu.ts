@@ -115,8 +115,6 @@ const eu: Partial<Dict> = {
   "entry.save": "Izen-ematea gorde ({n}/{max})",
   "entry.saved": "Izen-ematea gordeta.",
   "entry.yourRiders": "Zure txirrindulariak · {n}/{max}",
-  "fmt.dateTime": "{wd} {mon} {d}, {time}",
-  "fmt.dayMonth": "{mon} {d}",
   "fmt.decimal": ",",
   "fmt.inDays": "{d} egun barru",
   "fmt.inHours": "{h} h {m} min barru",

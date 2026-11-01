@@ -115,8 +115,6 @@ const ru: Partial<Dict> = {
   "entry.save": "Сохранить заявку ({n}/{max})",
   "entry.saved": "Заявка сохранена.",
   "entry.yourRiders": "Твои гонщики · {n}/{max}",
-  "fmt.dateTime": "{wd}, {d} {mon}, {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "через {d} дн.",
   "fmt.inHours": "через {h} ч {m} мин",

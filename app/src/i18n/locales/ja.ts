@@ -115,8 +115,6 @@ const ja: Partial<Dict> = {
   "entry.save": "エントリーを保存（{n}/{max}）",
   "entry.saved": "エントリーを保存しました。",
   "entry.yourRiders": "あなたの選手 · {n}/{max}",
-  "fmt.dateTime": "{mon}{d}日（{wd}）{time}",
-  "fmt.dayMonth": "{mon}{d}日",
   "fmt.decimal": ".",
   "fmt.inDays": "{d}日後",
   "fmt.inHours": "{h}時間{m}分後",

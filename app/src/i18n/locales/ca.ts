@@ -115,8 +115,6 @@ const ca: Partial<Dict> = {
   "entry.save": "Desar inscripció ({n}/{max})",
   "entry.saved": "Inscripció desada.",
   "entry.yourRiders": "Els teus ciclistes · {n}/{max}",
-  "fmt.dateTime": "{wd} {d} {mon}, {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "d'aquí a {d} dies",
   "fmt.inHours": "d'aquí a {h} h {m} min",

@@ -115,8 +115,6 @@ const sl: Partial<Dict> = {
   "entry.save": "Shrani prijavo ({n}/{max})",
   "entry.saved": "Prijava shranjena.",
   "entry.yourRiders": "Tvoji kolesarji · {n}/{max}",
-  "fmt.dateTime": "{wd} {d}. {mon}, {time}",
-  "fmt.dayMonth": "{d}. {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "čez {d} d",
   "fmt.inHours": "čez {h} h {m} min",

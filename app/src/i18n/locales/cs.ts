@@ -115,8 +115,6 @@ const cs: Partial<Dict> = {
   "entry.save": "Uložit přihlášku ({n}/{max})",
   "entry.saved": "Přihláška uložena.",
   "entry.yourRiders": "Tvoji jezdci · {n}/{max}",
-  "fmt.dateTime": "{wd} {d}. {mon}, {time}",
-  "fmt.dayMonth": "{d}. {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "za {d} d",
   "fmt.inHours": "za {h} h {m} min",

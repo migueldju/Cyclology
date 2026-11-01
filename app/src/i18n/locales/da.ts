@@ -115,8 +115,6 @@ const da: Partial<Dict> = {
   "entry.save": "Gem tilmelding ({n}/{max})",
   "entry.saved": "Tilmelding gemt.",
   "entry.yourRiders": "Dine ryttere · {n}/{max}",
-  "fmt.dateTime": "{wd} {d}. {mon}, {time}",
-  "fmt.dayMonth": "{d}. {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "om {d} dage",
   "fmt.inHours": "om {h} t {m} min",

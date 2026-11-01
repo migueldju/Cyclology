@@ -115,8 +115,6 @@ const de: Partial<Dict> = {
   "entry.save": "Anmeldung speichern ({n}/{max})",
   "entry.saved": "Anmeldung gespeichert.",
   "entry.yourRiders": "Deine Fahrer · {n}/{max}",
-  "fmt.dateTime": "{wd}, {d}. {mon}, {time}",
-  "fmt.dayMonth": "{d}. {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "in {d} Tagen",
   "fmt.inHours": "in {h} Std. {m} Min.",

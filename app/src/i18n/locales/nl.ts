@@ -115,8 +115,6 @@ const nl: Partial<Dict> = {
   "entry.save": "Inschrijving opslaan ({n}/{max})",
   "entry.saved": "Inschrijving opgeslagen.",
   "entry.yourRiders": "Jouw renners · {n}/{max}",
-  "fmt.dateTime": "{wd} {d} {mon}, {time}",
-  "fmt.dayMonth": "{d} {mon}",
   "fmt.decimal": ",",
   "fmt.inDays": "over {d} dagen",
   "fmt.inHours": "over {h} u {m} min",
