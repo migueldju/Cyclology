@@ -146,7 +146,7 @@ export default function Ciclista() {
           visible={managing}
           onClose={() => setManaging(false)}
           title={r.name}
-          subtitle={t('rider.manageSubtitle', { value: money(rosterRow.market_value), paid: money(rosterRow.price_paid), clause: money(rosterRow.clause) })}
+          subtitle={t('rider.manageSubtitle', { value: moneyShort(rosterRow.market_value), clause: moneyShort(rosterRow.clause) })}
           actions={actionsFor(rosterRow, { onChangeClause: () => { setTimeout(() => setRaising(true), 350); } })}
           onDone={() => { detail.reload(); roster.reload(); refresh(); }}
         />

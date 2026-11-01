@@ -35,17 +35,19 @@ export default function Mercado() {
     if (r.is_mine) {
       const out: SheetAction[] = [];
       if (r.game_offer_id && r.game_offer_amount) {
-        out.push({ label: t('actions.sellToGame', { amount: moneyShort(r.game_offer_amount) }), kind: 'primary',
-                   hint: t('market.sellToGameHint'),
+        out.push({ icon: 'cash-outline', kind: 'primary', label: t('actions.sellToGameShort'),
+                   detail: t('actions.sellToGameDetail', { amount: moneyShort(r.game_offer_amount), when: dateTime(r.game_offer_expires) }),
                    onPress: () => api.acceptGameOffer(r.game_offer_id!) });
       }
-      out.push({ label: t('actions.unsell'), kind: 'danger', hint: t('actions.unsellHint'),
+      out.push({ icon: 'close-circle-outline', kind: 'danger', label: t('actions.unsell'), detail: t('actions.unsellDetail'),
                  onPress: () => api.setForSale(r.seller_ownership_id!, false) });
       return out;
     }
     return [
-      { label: t('market.changeBid'), kind: 'primary', onPress: () => { setTimeout(() => setBidding(r), 350); } },
-      { label: t('market.cancelBid'), kind: 'danger', onPress: () => api.cancelBid(r.listing_id) },
+      { icon: 'create-outline', kind: 'primary', label: t('market.changeBid'),
+        detail: r.my_bid ? t('market.yourBid', { amount: moneyShort(r.my_bid) }) : undefined,
+        onPress: () => { setTimeout(() => setBidding(r), 350); } },
+      { icon: 'close-circle-outline', kind: 'danger', label: t('market.cancelBid'), onPress: () => api.cancelBid(r.listing_id) },
     ];
   }
 
