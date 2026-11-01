@@ -44,6 +44,12 @@ export function dayMonth(day: string): string {
   return t('fmt.dayMonth', { d: d.getDate(), mon: months()[d.getMonth()] });
 }
 
+/** sáb 14 mar */
+export function weekdayDayMonth(day: string): string {
+  const d = parseDay(day);
+  return `${weekdays()[d.getDay()]} ${dayMonth(day)}`;
+}
+
 export function dateRange(start: string, end: string): string {
   return start === end ? dayMonth(start) : `${dayMonth(start)} – ${dayMonth(end)}`;
 }
