@@ -428,7 +428,6 @@ const nl: Partial<Dict> = {
   "rules.r10": "Je kunt een renner beschermen door 8 % van zijn marktwaarde te betalen: de week erna kan niemand zijn afkoopsom betalen (biedingen wel). Je betaalt in de week ervoor.",
   "player.lockedClause": "Deze week beschermd: zijn afkoopsom kan niet betaald worden",
   "clause.level": "Percentage van de afkoopsom",
-  "clause.range": "Tussen {min} en {max}",
   "topbar.profile": "Mijn profiel",
 };
 

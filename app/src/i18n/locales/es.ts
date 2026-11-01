@@ -427,7 +427,6 @@ const es = {
   "rules.r10": "Puedes blindar un ciclista pagando el 8 % de su valor de mercado: la semana siguiente nadie podrá pagar su cláusula (sí hacerle ofertas). Se paga durante la semana anterior.",
   "player.lockedClause": "Blindado esta semana: no se puede pagar su cláusula",
   "clause.level": "Porcentaje de la cláusula",
-  "clause.range": "Entre {min} y {max}",
   "topbar.profile": "Mi perfil",
 } as const;
 

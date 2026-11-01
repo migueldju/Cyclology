@@ -428,7 +428,6 @@ const fr: Partial<Dict> = {
   "rules.r10": "Tu peux protéger un coureur en payant 8 % de sa valeur marchande : la semaine suivante, personne ne pourra payer sa clause (les offres restent possibles). Ça se paie pendant la semaine d'avant.",
   "player.lockedClause": "Protégé cette semaine : sa clause ne peut pas être payée",
   "clause.level": "Pourcentage de la clause",
-  "clause.range": "Entre {min} et {max}",
   "topbar.profile": "Mon profil",
 };
 

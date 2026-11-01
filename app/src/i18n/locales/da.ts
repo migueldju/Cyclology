@@ -428,7 +428,6 @@ const da: Partial<Dict> = {
   "rules.r10": "Du kan beskytte en rytter ved at betale 8 % af hans markedsværdi: ugen efter kan ingen betale hans frikøbsklausul (bud er stadig tilladt). Der betales i ugen før.",
   "player.lockedClause": "Beskyttet denne uge: hans frikøbsklausul kan ikke betales",
   "clause.level": "Klausulens procent",
-  "clause.range": "Mellem {min} og {max}",
   "topbar.profile": "Min profil",
 };
 

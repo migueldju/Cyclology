@@ -428,7 +428,6 @@ const de: Partial<Dict> = {
   "rules.r10": "Du kannst einen Fahrer für 8 % seines Marktwerts sperren: In der Woche darauf kann niemand seine Klausel zahlen (Angebote schon). Bezahlt wird in der Woche davor.",
   "player.lockedClause": "Diese Woche gesperrt: seine Klausel kann nicht gezahlt werden",
   "clause.level": "Prozentsatz der Klausel",
-  "clause.range": "Zwischen {min} und {max}",
   "topbar.profile": "Mein Profil",
 };
 

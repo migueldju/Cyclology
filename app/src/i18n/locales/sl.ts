@@ -428,7 +428,6 @@ const sl: Partial<Dict> = {
   "rules.r10": "Kolesarja lahko zakleneš za 8 % njegove tržne vrednosti: naslednji teden nihče ne more plačati njegove klavzule (ponudbe pa). Plača se v tednu prej.",
   "player.lockedClause": "Zaklenjen ta teden: njegove klavzule ni mogoče plačati",
   "clause.level": "Odstotek klavzule",
-  "clause.range": "Med {min} in {max}",
   "topbar.profile": "Moj profil",
 };
 

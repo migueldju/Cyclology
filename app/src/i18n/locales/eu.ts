@@ -428,7 +428,6 @@ const eu: Partial<Dict> = {
   "rules.r10": "Txirrindulari bat blinda dezakezu bere merkatu-balioaren % 8 ordainduta: hurrengo astean inork ezin izango du bere klausula ordaindu (eskaintzak bai). Aurreko astean ordaintzen da.",
   "player.lockedClause": "Aste honetan blindatuta: ezin da bere klausula ordaindu",
   "clause.level": "Klausularen ehunekoa",
-  "clause.range": "{min} eta {max} artean",
   "topbar.profile": "Nire profila",
 };
 
