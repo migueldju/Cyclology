@@ -13,7 +13,7 @@ import { useLoader } from '@/hooks/useLoader';
 import { t } from '@/i18n';
 import { api } from '@/lib/api';
 import { stageLabel } from '@/lib/stages';
-import { course, dateRange, moneyShort, points, time, todayISO, weekdayDayMonth } from '@/lib/format';
+import { course, dateRange, ddmm, moneyShort, points, time, todayISO } from '@/lib/format';
 import { inviteMessage } from '@/lib/invite';
 import type { CalendarRow, TodayRow } from '@/lib/types';
 import { categoryColor, categoryLabel, colors, space } from '@/theme';
@@ -90,7 +90,7 @@ export default function Inicio() {
       <ErrorText error={top.error} />
 
 
-      <Section title={`${t('home.today')} · ${weekdayDayMonth(todayISO())}`}>
+      <Section title={`${t('home.today')} · ${ddmm(todayISO())}`}>
         {today.data?.length ? today.data.map((s, i) => (
           <StageRow key={s.stage_id} s={s} last={i === today.data!.length - 1}
                     entriesOpen={!!calendar.data?.find((r) => r.race_id === s.race_id)?.entries_open} />
