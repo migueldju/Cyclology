@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { ClauseSheet } from '@/components/ClauseSheet';
+import { LockSheet } from '@/components/LockSheet';
 import { ActionSheet } from '@/components/Modal';
 import { Screen } from '@/components/Screen';
 import { Empty, ErrorText, Section } from '@/components/Section';
@@ -52,6 +53,7 @@ export default function Ciclista() {
   const [open, setOpen] = useState<string | null>(null);
   const [managing, setManaging] = useState(false);
   const [raising, setRaising] = useState(false);
+  const [locking, setLocking] = useState(false);
 
   const d = detail.data;
   const rosterRow = mine ? roster.data?.find((r) => r.rider_id === Number(riderId)) : undefined;
@@ -89,7 +91,7 @@ export default function Ciclista() {
         <Stat label={t('rider.marketValue')} value={moneyShort(r.market_value)} />
         <Stat label={t('rider.seasonPoints')} value={points(r.season_points)} />
         <Stat label={t('ranking.owner')} value={d.owner ? (d.owner.is_mine ? t('rider.you') : d.owner.team_name) : t('rider.freeCap')} />
-        {d.owner ? <Stat label={t('rider.clause')} value={moneyShort(d.owner.clause)} /> : null}
+        {d.owner ? <Stat label={t('rider.clause')} value={moneyShort(d.owner.clause)} locked={d.owner.locked} /> : null}
       </View>
 
       <View style={{ paddingHorizontal: space.l }}>
@@ -97,7 +99,7 @@ export default function Ciclista() {
           <Button kind="secondary" label={t('rider.manage')} onPress={() => setManaging(true)} disabled={!rosterRow} />
         ) : d.owner ? (
           <Button kind="secondary" label={t('rider.seeSquad', { team: d.owner.team_name })}
-                  onPress={() => router.push(`/jugador/${d.owner!.member_id}`)} />
+                  onPress={() => router.push(`/player/${d.owner!.member_id}`)} />
         ) : (
           <Txt variant="small">{t('rider.freeHint')}</Txt>
         )}
@@ -146,11 +148,14 @@ export default function Ciclista() {
           visible={managing}
           onClose={() => setManaging(false)}
           title={r.name}
-          subtitle={t('rider.manageSubtitle', { value: money(rosterRow.market_value), paid: money(rosterRow.price_paid), clause: money(rosterRow.clause) })}
-          actions={actionsFor(rosterRow, { onChangeClause: () => { setTimeout(() => setRaising(true), 350); } })}
+          subtitle={t('rider.manageSubtitle', { value: moneyShort(rosterRow.market_value), clause: moneyShort(rosterRow.clause) })}
+          actions={actionsFor(rosterRow, { onChangeClause: () => { setTimeout(() => setRaising(true), 350); },
+                                           onLock: () => { setTimeout(() => setLocking(true), 350); } })}
           onDone={() => { detail.reload(); roster.reload(); refresh(); }}
         />
       ) : null}
+      <LockSheet row={rosterRow ?? null} available={me?.available} visible={locking} onClose={() => setLocking(false)}
+                 onDone={() => { detail.reload(); roster.reload(); refresh(); }} />
       <ClauseSheet row={rosterRow ?? null} available={me?.available} visible={raising} onClose={() => setRaising(false)}
                    onDone={() => { detail.reload(); roster.reload(); refresh(); }} />
     </Screen>
@@ -190,7 +195,7 @@ function RaceItem({ g, open, last, onToggle }: { g: RaceGroup; open: boolean; la
   // una clásica tiene un solo resultado: sin desplegable (si es del juego, abre la etapa)
   const oneDay = !g.isStageRace;
   const stageId = oneDay ? g.rows[0]?.stage_id : null;
-  const onPress = oneDay ? (stageId ? () => router.push(`/etapa/${stageId}`) : undefined) : onToggle;
+  const onPress = oneDay ? (stageId ? () => router.push(`/stage/${stageId}`) : undefined) : onToggle;
   return (
     <View style={[!last && styles.line]}>
       <Pressable onPress={onPress} disabled={!onPress} accessibilityRole="button"
@@ -216,7 +221,7 @@ function RaceItem({ g, open, last, onToggle }: { g: RaceGroup; open: boolean; la
               : !x.is_stage_race ? t('calendar.result') : x.number === 0 ? t('race.prologue') : t('race.stageN', { n: x.number });
             return (
               <Pressable key={`${x.kind}-${x.number}`} disabled={!x.stage_id}
-                         onPress={() => x.stage_id && router.push(`/etapa/${x.stage_id}`)} style={styles.detailLine}>
+                         onPress={() => x.stage_id && router.push(`/stage/${x.stage_id}`)} style={styles.detailLine}>
                 <Txt style={{ flex: 1 }}>{what}</Txt>
                 <Txt variant="number" style={{ width: 52, textAlign: 'right' }}>{ordinal(x.position)}</Txt>
                 <Txt variant="small" style={{ width: 64, textAlign: 'right' }}>{x.points ? points(x.points) : ''}</Txt>
@@ -230,11 +235,15 @@ function RaceItem({ g, open, last, onToggle }: { g: RaceGroup; open: boolean; la
 }
 
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, locked }: { label: string; value: string; locked?: boolean }) {
   return (
     <View style={styles.stat}>
       <Txt variant="small">{label}</Txt>
-      <Txt variant="title" numberOfLines={1}>{value}</Txt>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+        {/* candado: blindado la semana que viene */}
+        {locked ? <Ionicons name="lock-closed" size={18} color={colors.ink} accessibilityLabel={t('squad.lockedNext')} /> : null}
+        <Txt variant="title" numberOfLines={1} style={{ flexShrink: 1 }}>{value}</Txt>
+      </View>
     </View>
   );
 }

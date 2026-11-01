@@ -7,6 +7,7 @@ import { Input } from '@/components/Inputs';
 import { Screen } from '@/components/Screen';
 import { Empty, ErrorText, Row, Section } from '@/components/Section';
 import { Txt } from '@/components/Txt';
+import { showToast } from '@/components/Toast';
 import { useLeague } from '@/context/LeagueContext';
 import { useLoader } from '@/hooks/useLoader';
 import { t } from '@/i18n';
@@ -35,6 +36,7 @@ export default function Ligas() {
     setJoinError(null);
     try {
       const id = await api.joinLeague(code.trim(), team.trim(), country!);
+      showToast(t('toast.joined'));
       await open(id);
     } catch (e) {
       setJoinError((e as Error).message);
@@ -63,7 +65,7 @@ export default function Ligas() {
       <ErrorText error={error} />
 
       <View style={{ padding: space.l }}>
-        <Button label={t('leagues.create')} onPress={() => router.push('/liga/crear')} />
+        <Button label={t('leagues.create')} onPress={() => router.push('/league/new')} />
       </View>
 
       <Section title={t('leagues.joinWithCode')}>
@@ -78,7 +80,7 @@ export default function Ligas() {
         </View>
       </Section>
       <View style={{ padding: space.l }}>
-        <Button label={t('topbar.profile')} kind="quiet" onPress={() => router.push('/perfil')} />
+        <Button label={t('topbar.profile')} kind="quiet" onPress={() => router.push('/profile')} />
       </View>
     </Screen>
   );

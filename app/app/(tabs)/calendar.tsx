@@ -197,7 +197,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
           <Txt variant="small" style={{ flex: 1 }}>
             {t('calendar.entriesOpen', { when: dateTime(r.entries_close_at) })} · {r.my_entry_count}/{r.max_entries}
           </Txt>
-          <Button small label={t('race.enter')} onPress={() => router.push(`/carrera/${r.race_id}`)} />
+          <Button small label={t('race.enter')} onPress={() => router.push(`/race/${r.race_id}`)} />
         </View>
       ) : null}
       <ErrorText error={error} />
@@ -206,13 +206,13 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
           <Txt variant="label" style={styles.subhead}>{r.is_stage_race ? t('calendar.stagesTitle') : t('calendar.race')}</Txt>
           <View style={styles.table}>
             <View style={[styles.tr, styles.th]}>
-              <Txt variant="label" style={styles.stageCol}>{r.is_stage_race ? t('calendar.stage') : ''}</Txt>
-              <Txt variant="label" style={{ width: 52 }}>{t('calendar.date')}</Txt>
-              <Txt variant="label" style={{ flex: 1 }}>{t('calendar.winner')}</Txt>
-              <Txt variant="label" style={styles.numCol}>{t('calendar.yourPoints')}</Txt>
+              <Txt variant="label" style={[styles.stageCol, styles.thText]}>{r.is_stage_race ? t('calendar.stage') : ''}</Txt>
+              <Txt variant="label" style={[{ width: 52 }, styles.thText]}>{t('calendar.date')}</Txt>
+              <Txt variant="label" style={[{ flex: 1 }, styles.thText]}>{t('calendar.winner')}</Txt>
+              <Txt variant="label" style={[styles.numCol, styles.thText]}>{t('calendar.yourPoints')}</Txt>
             </View>
             {d.stages.map((s, i) => (
-              <Pressable key={s.stage_id} onPress={() => router.push(`/etapa/${s.stage_id}`)} accessibilityRole="button"
+              <Pressable key={s.stage_id} onPress={() => router.push(`/stage/${s.stage_id}`)} accessibilityRole="button"
                          style={({ pressed }) => [styles.tr, i === d.stages.length - 1 && styles.trLast,
                                                   pressed && { backgroundColor: colors.road }]}>
                 <View style={styles.stageCol}>
@@ -242,10 +242,10 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
               <Txt variant="label" style={styles.subhead}>{t('calendar.leaguePoints')}</Txt>
               <View style={styles.table}>
                 <View style={[styles.tr, styles.th]}>
-                  <Txt variant="label" style={styles.posCol}>{t('calendar.pos')}</Txt>
+                  <Txt variant="label" style={[styles.posCol, styles.thText]}>{t('calendar.pos')}</Txt>
                   <View style={styles.flagCell} />
-                  <Txt variant="label" style={{ flex: 1 }}>{t('calendar.team')}</Txt>
-                  <Txt variant="label" style={styles.numCol}>{t('kind.points')}</Txt>
+                  <Txt variant="label" style={[{ flex: 1 }, styles.thText]}>{t('calendar.team')}</Txt>
+                  <Txt variant="label" style={[styles.numCol, styles.thText]}>{t('kind.points')}</Txt>
                 </View>
                 {d.league_total.map((m, i) => (
                   <View key={m.member_id} style={[styles.tr, i === d.league_total.length - 1 && styles.trLast]}>
@@ -265,10 +265,10 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
               {/* tabla: posición · bandera (columna fija, todas alineadas) · ciclista · equipo de la liga que puntuó */}
               <View style={styles.table}>
                 <View style={[styles.tr, styles.th]}>
-                  <Txt variant="label" style={styles.posCol}>{t('calendar.pos')}</Txt>
+                  <Txt variant="label" style={[styles.posCol, styles.thText]}>{t('calendar.pos')}</Txt>
                   <View style={styles.flagCell} />
-                  <Txt variant="label" style={{ flex: 1 }}>{t('calendar.rider')}</Txt>
-                  <Txt variant="label" style={styles.teamCol}>{t('calendar.scoresFor')}</Txt>
+                  <Txt variant="label" style={[{ flex: 1 }, styles.thText]}>{t('calendar.rider')}</Txt>
+                  <Txt variant="label" style={[styles.teamCol, styles.thText]}>{t('calendar.scoresFor')}</Txt>
                 </View>
                 {d.gc.map((g, i) => {
                   const cells = (
@@ -286,7 +286,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
                   return g.rider_id == null ? (
                     <View key={`x${g.position}-${g.name}`} style={rowStyle}>{cells}</View>
                   ) : (
-                    <Pressable key={g.rider_id} onPress={() => router.push(`/ciclista/${g.rider_id}`)} accessibilityRole="button"
+                    <Pressable key={g.rider_id} onPress={() => router.push(`/rider/${g.rider_id}`)} accessibilityRole="button"
                                style={({ pressed }) => [...rowStyle, pressed && { backgroundColor: colors.road }]}>
                       {cells}
                     </Pressable>
@@ -326,13 +326,14 @@ const styles = StyleSheet.create({
   detailLine: { flexDirection: 'row', alignItems: 'center', gap: space.s, paddingVertical: 6 },
   subhead: { marginTop: space.m, marginBottom: 2 },
   scoredFor: { color: colors.green, fontFamily: fonts.bodyMedium },
-  // tablas del desplegable: borde y separadores finos, cabecera sobre el gris de fondo
-  table: { borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, borderRadius: 6, overflow: 'hidden',
+  // tablas del desplegable: separadores finos y cabecera negra
+  table: { borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, borderRadius: 12, overflow: 'hidden',
            backgroundColor: colors.paper },
   tr: { flexDirection: 'row', alignItems: 'center', gap: space.s, paddingHorizontal: space.m, paddingVertical: 7,
         borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.line },
   trLast: { borderBottomWidth: 0 },
-  th: { backgroundColor: colors.road, paddingVertical: 5 },
+  th: { backgroundColor: colors.asphalt, paddingVertical: 7, borderBottomWidth: 0 },
+  thText: { color: colors.paper },
   posCol: { width: 34 },
   flagCell: { width: 18, alignItems: 'center' },
   numCol: { width: 64, textAlign: 'right' },
