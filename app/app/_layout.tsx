@@ -4,6 +4,7 @@ import { FiraSans_500Medium } from '@expo-google-fonts/fira-sans/500Medium';
 import { FiraSans_600SemiBold } from '@expo-google-fonts/fira-sans/600SemiBold';
 import { FiraSansCondensed_600SemiBold } from '@expo-google-fonts/fira-sans-condensed/600SemiBold';
 import { FiraSansCondensed_700Bold } from '@expo-google-fonts/fira-sans-condensed/700Bold';
+import { BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue/400Regular';
 import { useFonts } from 'expo-font';
 import { Stack, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -28,6 +29,7 @@ const NO_LEAGUE_SCREENS = ['leagues', 'league', 'join', 'unirse', 'profile', 'ad
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     FiraSans_400Regular, FiraSans_500Medium, FiraSans_600SemiBold, FiraSansCondensed_600SemiBold, FiraSansCondensed_700Bold,
+    BebasNeue_400Regular,
   });
   useEffect(() => { if (fontsLoaded) SplashScreen.hideAsync(); }, [fontsLoaded]);
   if (!fontsLoaded) return null;
