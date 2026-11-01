@@ -91,7 +91,7 @@ export default function Ciclista() {
         <Stat label={t('rider.marketValue')} value={moneyShort(r.market_value)} />
         <Stat label={t('rider.seasonPoints')} value={points(r.season_points)} />
         <Stat label={t('ranking.owner')} value={d.owner ? (d.owner.is_mine ? t('rider.you') : d.owner.team_name) : t('rider.freeCap')} />
-        {d.owner ? <Stat label={t('rider.clause')} value={moneyShort(d.owner.clause)} /> : null}
+        {d.owner ? <Stat label={t('rider.clause')} value={`${d.owner.locked ? '🔒 ' : ''}${moneyShort(d.owner.clause)}`} /> : null}
       </View>
 
       <View style={{ paddingHorizontal: space.l }}>

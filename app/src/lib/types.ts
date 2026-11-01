@@ -84,8 +84,10 @@ export interface RosterRow {
   market_value: number;
   price_paid: number;
   clause: number;
-  next_clause: number;
-  next_clause_cost: number;
+  clause_level: number;      // 0 = 130 % … 8 = 500 % de la base
+  locked: boolean;           // blindado esta semana: nadie puede pagar su cláusula
+  locked_next: boolean;      // blindado la semana que viene
+  lock_cost: number;         // lo que cuesta blindarlo (8 % de su valor)
   season_points: number;
   league_points: number;
   status: RiderStatus;
@@ -325,7 +327,7 @@ export interface RiderDetail {
     season_points: number;
     photo: RiderPhoto | null;
   };
-  owner: { member_id: string; team_name: string; is_mine: boolean; clause: number } | null;
+  owner: { member_id: string; team_name: string; is_mine: boolean; clause: number; locked: boolean } | null;
   values: { day: string; value: number }[];
   results: RiderResult[];
 }

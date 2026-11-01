@@ -64,6 +64,7 @@ export const api = {
   setClause: (ownershipId: number, level: number) =>
     rpc<number>('set_clause', { p_ownership: ownershipId, p_level: level }),
   payClause: (ownershipId: number) => rpc<void>('pay_clause', { p_ownership: ownershipId }),
+  lockRider: (ownershipId: number) => rpc<string>('lock_rider', { p_ownership: ownershipId }),
   setForSale: (ownershipId: number, forSale: boolean) =>
     rpc<void>('set_for_sale', { p_ownership: ownershipId, p_for_sale: forSale }),
   acceptGameOffer: (offerId: number) => rpc<void>('accept_game_offer', { p_offer: offerId }),

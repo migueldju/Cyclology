@@ -15,7 +15,7 @@ import { inviteMessage } from '@/lib/invite';
 import type { League } from '@/lib/types';
 import { space } from '@/theme';
 
-const rules = () => [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => t(`rules.r${n}` as 'rules.r1'));
+const rules = () => [1, 2, 3, 4, 5, 6, 7, 10, 8, 9].map((n) => t(`rules.r${n}` as 'rules.r1'));
 
 export default function Normativa() {
   const { leagueId, me, refresh } = useLeague();

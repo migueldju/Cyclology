@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { t } from '../i18n';
 import { api } from '../lib/api';
 import { money, moneyShort } from '../lib/format';
-import { CLAUSE_LEVELS, clauseChange, clauseLevel, clauseLevelValue } from '../lib/rosterActions';
+import { CLAUSE_LEVELS, clauseBase, clauseChange, clauseLevelValue, clausePct } from '../lib/rosterActions';
 import type { RosterRow } from '../lib/types';
 import { colors, space } from '../theme';
 import { Button } from './Button';
@@ -12,26 +12,27 @@ import { RangeSlider } from './RangeSlider';
 import { ErrorText } from './Section';
 import { Txt } from './Txt';
 
-const pct = (level: number) => `${150 + 50 * level} %`;   // espacio que no se parte entre el número y el %
+const pct = (level: number) => `${clausePct(level)} %`;   // espacio que no se parte entre el número y el %
 
 /**
- * Cambiar la cláusula de uno de mis ciclistas: 8 niveles del 150 % al 500 % de lo que pagó. La barra empieza
+ * Cambiar la cláusula de uno de mis ciclistas: 9 niveles del 130 % al 500 % de su base. La barra empieza
  * en el escalón actual; a la derecha se sube (pagando la mitad de la subida) y a la izquierda se baja
  * (recibiendo un cuarto de la bajada).
  */
 export function ClauseSheet({ row, available, visible, onClose, onDone }: {
   row: RosterRow | null; available: number | null | undefined; visible: boolean; onClose: () => void; onDone?: () => void;
 }) {
-  const current = row ? clauseLevel(row.clause, row.price_paid) : 0;
+  const current = row?.clause_level ?? 0;
   const [chosen, setChosen] = useState(current);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => { if (visible) { setChosen(current); setError(null); } }, [visible, current]);
 
   if (!row) return null;
-  const target = clauseLevelValue(row.price_paid, chosen);
-  const change = clauseChange(row.clause, row.price_paid, chosen);    // > 0 pago, < 0 me devuelven
-  const same = target === row.clause;
+  const base = clauseBase(row);
+  const target = clauseLevelValue(base, chosen);
+  const change = clauseChange(row.clause, base, chosen);    // > 0 pago, < 0 me devuelven
+  const same = chosen === current;
   const after = available != null ? available - change : null;
   const short = change > 0 && after != null && after < 0;
 
@@ -85,7 +86,7 @@ export function ClauseSheet({ row, available, visible, onClose, onDone }: {
                 ? t('clause.raiseTo', { clause: moneyShort(target), amount: money(change) })
                 : t('clause.lowerTo', { clause: moneyShort(target), amount: money(-change) })} />
       <Txt variant="small" style={{ marginTop: space.s }}>
-        {t('clause.rule', { paid: moneyShort(row.price_paid) })}
+        {t('clause.rule', { base: moneyShort(base) })}
       </Txt>
       <Button label={t('common.cancel')} kind="quiet" onPress={onClose} style={{ marginTop: space.s }} />
     </Sheet>
