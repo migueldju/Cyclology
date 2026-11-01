@@ -2,7 +2,6 @@ import { router } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button } from '@/components/Button';
-import { ChampionBadges } from '@/components/ChampionJersey';
 import { Flag } from '@/components/Flag';
 import { BottomFill } from '@/components/Screen';
 import { ErrorText } from '@/components/Section';
@@ -276,10 +275,7 @@ function RaceDetailView({ r, leagueId }: { r: CalendarRow; leagueId: string }) {
                     <>
                       <Txt variant="number" style={styles.posCol}>{ordinal(g.position)}</Txt>
                       <View style={styles.flagCell}><Flag code={g.nationality} /></View>
-                      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                        <Txt numberOfLines={1} style={[{ flexShrink: 1 }, g.rider_id == null && { color: colors.inkSoft }]}>{g.name}</Txt>
-                        <ChampionBadges riderId={g.rider_id} size={14} />
-                      </View>
+                      <Txt numberOfLines={1} style={[{ flex: 1 }, g.rider_id == null && { color: colors.inkSoft }]}>{g.name}</Txt>
                       <Txt variant="small" numberOfLines={1} style={[styles.teamCol, g.scored_for.length ? styles.scoredFor : null]}>
                         {g.rider_id == null ? '' : g.scored_for.length ? g.scored_for.join(', ') : '—'}
                       </Txt>

@@ -119,7 +119,7 @@ function ListingRow({ r, last, onPress }: { r: MarketRow; last: boolean; onPress
     : r.my_bid ? t('market.yourBid', { amount: moneyShort(r.my_bid) }) : bids(r.bid_count);
   const who = r.seller_member_id ? (r.is_mine ? t('market.yourSaleShort') : t('market.from', { team: r.seller_team ?? '' })) : null;
   return (
-    <RiderRow riderId={r.rider_id}
+    <RiderRow
       name={r.rider_name}
       team={r.pro_team}
       photo={r.photo_url}

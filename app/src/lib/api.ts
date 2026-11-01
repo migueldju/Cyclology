@@ -1,4 +1,3 @@
-import type { Title } from '../components/ChampionJersey';
 import { supabase } from './supabase';
 import type { CalendarRow, Category, EntryData, League, LeagueMove, LeagueSettings, MarketRow, Me, MyLeague, OfferRow, RaceDetail, RaceEntries, RankingRow, RiderDetail, RosterRow, ScoringGroup, ScoringScheme, StageScores, StandingRow, TodayRow } from './types';
 
@@ -33,7 +32,6 @@ export const api = {
 
   // lecturas
   gameNow: () => rpc<string>('get_game_now'),
-  titles: () => rpc<Title[]>('get_current_titles'),
   me: (leagueId: string) => rpc<Me>('get_me', { p_league: leagueId }),
   standings: (leagueId: string) => rpc<StandingRow[]>('get_standings', { p_league: leagueId }),
   roster: (leagueId: string, memberId?: string) =>

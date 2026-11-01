@@ -51,7 +51,7 @@ export default function Jugador() {
       </View>
       <Section>
         {rows.length ? rows.map((r, i) => (
-          <RiderRow riderId={r.rider_id} key={r.ownership_id} name={r.rider_name} team={r.pro_team} status={r.status}
+          <RiderRow key={r.ownership_id} name={r.rider_name} team={r.pro_team} status={r.status}
                     photo={r.photo_url} nationality={r.nationality}
                     note={riderStatusNote(r.status)} value={r.market_value}
                     detail={`${r.locked ? '🔒 ' : ''}${t('squad.clause', { amount: moneyShort(r.clause) })}`} onPress={() => setPicked(r)} last={i === rows.length - 1} />

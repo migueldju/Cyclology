@@ -3,7 +3,6 @@ import { Share, StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { PositionJersey } from '@/components/PositionJersey';
 import { MoveRow } from '@/components/MoveRow';
-import { ChampionBadges } from '@/components/ChampionJersey';
 import { Flag } from '@/components/Flag';
 import { RiderAvatar } from '@/components/RiderAvatar';
 import { Screen } from '@/components/Screen';
@@ -76,7 +75,6 @@ export default function Inicio() {
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s }}>
                 <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{r.name}</Txt>
                 <Flag code={r.nationality} />
-                <ChampionBadges riderId={r.rider_id} />
               </View>
               <Txt variant="small" numberOfLines={1}>
                 {r.pro_team ?? t('rider.noTeam')} · {r.is_mine ? t('rider.yours') : r.owner_team ?? t('rider.free')}

@@ -2,7 +2,6 @@ import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, StyleSheet, TextInput, View } from 'react-native';
 import { Chips } from '@/components/Chips';
-import { ChampionBadges } from '@/components/ChampionJersey';
 import { Flag } from '@/components/Flag';
 import { RangeSlider } from '@/components/RangeSlider';
 import { RiderAvatar } from '@/components/RiderAvatar';
@@ -113,7 +112,6 @@ function RankRow({ r }: { r: RankingRow & { rank: number } }) {
         <View style={styles.nameLine}>
           <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{r.name}</Txt>
           <Flag code={r.nationality} />
-          <ChampionBadges riderId={r.rider_id} />
         </View>
         <Txt variant="small" numberOfLines={1}>
           {r.pro_team ?? t('rider.noTeam')} · <Txt variant="small" style={r.is_mine ? styles.mine : undefined}>{owner}</Txt>
