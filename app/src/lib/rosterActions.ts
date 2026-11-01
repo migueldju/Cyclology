@@ -18,7 +18,7 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } =
   if (opts.onChangeClause) {
     out.push({
       label: t('actions.changeClause'),
-      hint: t('actions.changeClauseHint', { from: moneyShort(clauseMin(r)) }),
+      hint: t('actions.changeClauseHint', { from: moneyShort(clauseMin(r)), to: moneyShort(r.clause_base * 7) }),
       onPress: opts.onChangeClause,
     });
   }
@@ -35,6 +35,14 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } =
         onPress: () => api.setForSale(r.ownership_id, true) });
   return out;
 }
+
+/** La cláusula va del 130 % al 700 % de su base (lo pagado o, si es mayor, el valor de mercado), de 1 en 1 % */
+export const CLAUSE_MIN_PCT = 130;
+export const CLAUSE_MAX_PCT = 700;
+
+/** Porcentaje actual de la cláusula sobre su base, redondeado al 1 % */
+export const clauseCurrentPct = (r: { clause: number; clause_base: number }) =>
+  Math.min(CLAUSE_MAX_PCT, Math.max(CLAUSE_MIN_PCT, Math.round((r.clause / Math.max(1, r.clause_base)) * 100)));
 
 /** Cláusula mínima: el 130 % de su base (lo pagado o, si es mayor, el valor de mercado), como en set_clause */
 export const clauseMin = (r: { clause_base: number }) => Math.ceil(r.clause_base * 1.3);
