@@ -30,7 +30,7 @@ export function MoveRow({ m, last, myId }: { m: LeagueMove; last?: boolean; myId
   const mine = !!myId && (m.buyer_id === myId || m.seller_id === myId);
   return (
     <Row last={last} onPress={() => router.push(`/rider/${m.rider_id}`)}>
-      <RiderAvatar name={m.rider_name} team={m.pro_team} size={36} />
+      <RiderAvatar name={m.rider_name} team={m.pro_team} size={36} riderId={m.rider_id} />
       <View style={{ flex: 1 }}>
         <Txt numberOfLines={1} style={mine ? { fontFamily: fonts.bodyBold } : undefined}>{moveText(m)}</Txt>
         {/* el dueño anterior (clausulazos y compras a otro jugador), a la derecha de la hora */}

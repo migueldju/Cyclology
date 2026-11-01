@@ -1,18 +1,25 @@
+import { useId } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import Svg, { Ellipse, G, Path } from 'react-native-svg';
+import Svg, { ClipPath, Defs, Ellipse, G, Image as SvgImage, Path, Rect } from 'react-native-svg';
 import { t } from '../i18n';
 import { RIDER_LOOKS } from '../lib/riderLooks';
 import { teamKit } from '../lib/teamKits';
 import { colors } from '../theme';
+import { type Title, useRiderTitles } from './ChampionJersey';
 
-/** Ciclista ilustrado con el maillot de su equipo y sus rasgos (de su foto si la tenemos; si no, al azar). */
-export function RiderAvatar({ name, team, size = 40 }: {
-  url?: string | null; name: string; team?: string | null; size?: number;
+/**
+ * Ciclista ilustrado con el maillot de su equipo y sus rasgos (de su foto si la tenemos; si no, al azar). Si es
+ * campeón en ruta (del mundo, continental o nacional), lleva el maillot de campeón.
+ */
+export function RiderAvatar({ name, team, size = 40, riderId }: {
+  url?: string | null; name: string; team?: string | null; size?: number; riderId?: number | null;
 }) {
   const circle = { width: size, height: size, borderRadius: size / 2 };
+  // el título de ruta más importante: mundial, continental y nacional
+  const champion = useRiderTitles(riderId).find((x) => x.discipline === 'rr');
   return (
     <View style={[styles.base, styles.figureBg, circle]} accessible accessibilityLabel={name}>
-      <Cyclist team={team} name={name} size={size} />
+      <Cyclist team={team} name={name} size={size} champion={champion} />
     </View>
   );
 }
@@ -94,7 +101,7 @@ const HAIRSTYLES = [
  * Coordenadas en una caja de 100 × 100 que se escala al tamaño del avatar. Sin degradados: con muchos avatares
  * en pantalla los ids de los degradados chocarían en la web.
  */
-function Cyclist({ team, name, size }: { team?: string | null; name: string; size: number }) {
+function Cyclist({ team, name, size, champion }: { team?: string | null; name: string; size: number; champion?: Title }) {
   const kit = teamKit(team);
   const h = hash(name);
   const p: Portrait = { ...fromLook(RIDER_LOOKS[name]), ...PORTRAITS[name] };
@@ -109,8 +116,10 @@ function Cyclist({ team, name, size }: { team?: string | null; name: string; siz
   const layer = { position: 'absolute' as const, left: 0, top: 0 };
   return (
     <>
-      {/* torso: minimaillot del equipo o, si no hay, un maillot dibujado con sus colores */}
-      {kit.jersey ? (
+      {/* torso: maillot de campeón; si no, minimaillot del equipo o, si no hay, un maillot dibujado con sus colores */}
+      {champion ? (
+        <ChampionTorso title={champion} size={size} main={kit.main} second={kit.second} />
+      ) : kit.jersey ? (
         <Image source={kit.jersey} resizeMode="contain"
                style={{ position: 'absolute', width: 112 * u, height: 112 * u, left: -6 * u, top: 52 * u }} />
       ) : (
@@ -229,6 +238,55 @@ function Cyclist({ team, name, size }: { team?: string | null; name: string; siz
         </G>
       </Svg>
     </>
+  );
+}
+
+// Torso del ciclista (caja de 100 × 100): hombros, cuello y pecho hasta abajo
+const TORSO = 'M14 74 Q28 62 41 60 Q50 66 59 60 Q72 62 86 74 L94 100 L6 100 Z';
+const RAINBOW = ['#0081C8', '#EE334E', '#111111', '#FCB131', '#00A651'];
+// estrella de 5 puntas centrada en (0, 0) y de radio 1
+const STAR = 'M0 -1 L0.24 -0.31 L0.95 -0.31 L0.38 0.12 L0.59 0.81 L0 0.4 L-0.59 0.81 L-0.38 0.12 L-0.95 -0.31 L-0.24 -0.31 Z';
+
+/**
+ * Maillot de campeón en ruta sobre el torso: del mundo (blanco con el arcoíris en el pecho), de Europa (blanco con
+ * la banda azul y las estrellas), de otros continentes (banda oscura con estrellas doradas) o nacional (la bandera).
+ * El cuello y el bajo, con los colores del equipo, como en los maillots de campeón de verdad.
+ */
+function ChampionTorso({ title, size, main, second }: { title: Title; size: number; main: string; second: string }) {
+  const id = `t${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
+  const europe = title.scope === 'europe';
+  return (
+    <Svg width={size} height={size} viewBox="0 0 100 100" style={{ position: 'absolute', left: 0, top: 0 }}>
+      <Defs><ClipPath id={id}><Path d={TORSO} /></ClipPath></Defs>
+      <G clipPath={`url(#${id})`}>
+        {title.level === 'nc' ? (
+          <>
+            <Rect x={0} y={58} width={100} height={42} fill="#FFFFFF" />
+            {/* la bandera en la parte del pecho que se ve dentro del círculo (y de 60 a 92) */}
+            <SvgImage href={{ uri: `https://flagcdn.com/w160/${title.scope}.png` }} x={0} y={60} width={100} height={30}
+                      preserveAspectRatio="none" />
+          </>
+        ) : title.level === 'wc' ? (
+          <>
+            <Rect x={0} y={58} width={100} height={42} fill="#FFFFFF" />
+            {RAINBOW.map((c, i) => <Rect key={c} x={0} y={70 + i * 3} width={100} height={3} fill={c} />)}
+          </>
+        ) : (
+          <>
+            <Rect x={0} y={58} width={100} height={42} fill="#FFFFFF" />
+            <Rect x={0} y={70} width={100} height={13} fill={europe ? '#003399' : '#1E272C'} />
+            {[22, 36, 50, 64, 78].map((x) => (
+              <Path key={x} d={STAR} fill={europe ? '#FFCC00' : '#D4A017'} transform={`translate(${x} 76.6) scale(3.4)`} />
+            ))}
+          </>
+        )}
+        {/* bajo con el color del equipo */}
+        <Rect x={0} y={90} width={100} height={10} fill={main} />
+      </G>
+      <Path d={TORSO} fill="none" stroke="rgba(30,39,44,0.35)" strokeWidth={1.2} />
+      {/* cuello con el color del equipo */}
+      <Path d="M41 60 Q50 68 59 60" fill="none" stroke={second === '#FFFFFF' ? main : second} strokeWidth={3} />
+    </Svg>
   );
 }
 
