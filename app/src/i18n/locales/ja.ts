@@ -414,6 +414,12 @@ const ja: Partial<Dict> = {
   "actions.lockDetail": "{amount}・価値の8％",
   "actions.sellDetail": "市場に48時間",
   "actions.unsellDetail": "入札は取り消されます",
+  "lock.title": "{name}をブロック",
+  "lock.week": "{from}〜{to}の週",
+  "lock.explain": "その週に誰かが契約解除金を払っても、{name}はあなたのもとに残り、{after}（月）まで相手チームへは移りません。それまではあなたのために得点します。",
+  "lock.money": "契約解除金は支払われた時点で受け取れます。",
+  "lock.noMoney": "残高が足りません。",
+  "lock.confirm": "{amount}でブロック",
   "topbar.profile": "プロフィール",
 };
 

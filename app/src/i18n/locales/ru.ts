@@ -414,6 +414,12 @@ const ru: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % его стоимости",
   "actions.sellDetail": "48 ч на рынке",
   "actions.unsellDetail": "Ставки отменяются",
+  "lock.title": "Защитить {name}",
+  "lock.week": "Неделя {from}–{to}",
+  "lock.explain": "Если на этой неделе кто-то заплатит его отступные, {name} останется у тебя и перейдёт в его команду только в понедельник {after}. Пока что он продолжает набирать очки для тебя.",
+  "lock.money": "Деньги за отступные ты всё равно получаешь в момент оплаты.",
+  "lock.noMoney": "Недостаточно средств.",
+  "lock.confirm": "Защитить за {amount}",
   "topbar.profile": "Мой профиль",
 };
 

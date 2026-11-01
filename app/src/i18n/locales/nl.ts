@@ -414,6 +414,12 @@ const nl: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % van zijn waarde",
   "actions.sellDetail": "48 u op de markt",
   "actions.unsellDetail": "Biedingen vervallen",
+  "lock.title": "{name} beschermen",
+  "lock.week": "Week van {from} tot {to}",
+  "lock.explain": "Als iemand die week zijn afkoopsom betaalt, blijft {name} bij jou en gaat hij pas op maandag {after} naar diens team. Intussen blijft hij voor jou scoren.",
+  "lock.money": "Het geld van de afkoopsom krijg je hoe dan ook meteen bij de betaling.",
+  "lock.noMoney": "Je hebt niet genoeg saldo.",
+  "lock.confirm": "Beschermen voor {amount}",
   "topbar.profile": "Mijn profiel",
 };
 

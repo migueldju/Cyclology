@@ -414,6 +414,12 @@ const eu: Partial<Dict> = {
   "actions.lockDetail": "{amount} · bere balioaren % 8",
   "actions.sellDetail": "48 h merkatuan",
   "actions.unsellDetail": "Eskaintzak bertan behera",
+  "lock.title": "{name} blindatu",
+  "lock.week": "{from}–{to} astea",
+  "lock.explain": "Aste horretan, norbaitek bere klausula ordaintzen badu, {name} zurekin geratuko da eta ez da bere taldera pasatuko {after} astelehenera arte. Bitartean zuretzat puntuatzen jarraituko du.",
+  "lock.money": "Klausularen dirua ordainketa egiten den unean jasoko duzu.",
+  "lock.noMoney": "Ez duzu nahikoa saldo.",
+  "lock.confirm": "Blindatu {amount}rekin",
   "topbar.profile": "Nire profila",
 };
 

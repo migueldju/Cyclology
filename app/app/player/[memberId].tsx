@@ -53,8 +53,9 @@ export default function Jugador() {
         {rows.length ? rows.map((r, i) => (
           <RiderRow key={r.ownership_id} name={r.rider_name} team={r.pro_team} status={r.status}
                     photo={r.photo_url} nationality={r.nationality}
-                    note={riderStatusNote(r.status)} value={r.market_value}
-                    detail={`${r.locked_next ? '🔒 ' : ''}${t('squad.clause', { amount: moneyShort(r.clause) })}`} onPress={() => setPicked(r)} last={i === rows.length - 1} />
+                    note={[riderStatusNote(r.status), r.locked_next ? t('squad.lockedNext') : null].filter(Boolean).join(' · ') || undefined}
+                    value={r.market_value}
+                    detail={t('squad.clause', { amount: moneyShort(r.clause) })} onPress={() => setPicked(r)} last={i === rows.length - 1} />
         )) : <Empty text={roster.loading ? t('common.loading') : t('player.noRiders')} />}
       </Section>
       <ErrorText error={roster.error} />

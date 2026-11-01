@@ -414,6 +414,12 @@ const fr: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % de sa valeur",
   "actions.sellDetail": "48 h sur le marché",
   "actions.unsellDetail": "Les enchères sont annulées",
+  "lock.title": "Protéger {name}",
+  "lock.week": "Semaine du {from} au {to}",
+  "lock.explain": "Cette semaine-là, si quelqu'un paie sa clause, {name} reste avec toi et ne rejoint son équipe que le lundi {after}. Il continue de marquer pour toi en attendant.",
+  "lock.money": "Tu reçois quand même l'argent de la clause au moment du paiement.",
+  "lock.noMoney": "Tu n'as pas assez de solde.",
+  "lock.confirm": "Protéger pour {amount}",
   "topbar.profile": "Mon profil",
 };
 

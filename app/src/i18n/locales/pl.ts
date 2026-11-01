@@ -414,6 +414,12 @@ const pl: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % jego wartości",
   "actions.sellDetail": "48 h na rynku",
   "actions.unsellDetail": "Oferty zostaną anulowane",
+  "lock.title": "Zablokuj {name}",
+  "lock.week": "Tydzień {from}–{to}",
+  "lock.explain": "W tym tygodniu, jeśli ktoś zapłaci jego klauzulę, {name} zostaje u ciebie i przejdzie do jego drużyny dopiero w poniedziałek {after}. Do tego czasu punktuje dla ciebie.",
+  "lock.money": "Pieniądze z klauzuli i tak dostajesz w chwili zapłaty.",
+  "lock.noMoney": "Nie masz wystarczającego salda.",
+  "lock.confirm": "Zablokuj za {amount}",
   "topbar.profile": "Mój profil",
 };
 

@@ -414,6 +414,12 @@ const sl: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % njegove vrednosti",
   "actions.sellDetail": "48 h na trgu",
   "actions.unsellDetail": "Ponudbe se razveljavijo",
+  "lock.title": "Zakleni {name}",
+  "lock.week": "Teden {from}–{to}",
+  "lock.explain": "Če ta teden kdo plača njegovo klavzulo, {name} ostane pri tebi in v njegovo ekipo preide šele v ponedeljek {after}. Medtem še naprej zbira točke zate.",
+  "lock.money": "Denar od klavzule vseeno dobiš ob plačilu.",
+  "lock.noMoney": "Nimaš dovolj sredstev.",
+  "lock.confirm": "Zakleni za {amount}",
   "topbar.profile": "Moj profil",
 };
 

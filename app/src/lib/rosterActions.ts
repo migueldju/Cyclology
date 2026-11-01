@@ -5,7 +5,7 @@ import { dateTime, moneyShort } from './format';
 import type { RosterRow } from './types';
 
 /** Acciones sobre un ciclista de mi plantilla: vender al juego, cambiar la cláusula, blindarlo, poner o quitar de la venta */
-export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } = {}): SheetAction[] {
+export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void; onLock?: () => void } = {}): SheetAction[] {
   if (!r.transferable) return [];               // le llega o se va el lunes: no se puede tocar
   const out: SheetAction[] = [];
   if (r.game_offer_id && r.game_offer_amount) {
@@ -22,7 +22,9 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } =
   // blindarlo la semana que viene (una vez por semana)
   if (!r.locked_next) {
     out.push({ icon: 'lock-closed-outline', label: t('actions.lockShort'),
-               detail: t('actions.lockDetail', { amount: moneyShort(r.lock_cost) }), onPress: () => api.lockRider(r.ownership_id) });
+               detail: t('actions.lockDetail', { amount: moneyShort(r.lock_cost) }),
+               // con confirmación (qué semana y qué protege) si la pantalla la ofrece
+               onPress: opts.onLock ?? (() => api.lockRider(r.ownership_id)) });
   }
   out.push(r.for_sale
     ? { icon: 'close-circle-outline', label: t('actions.unsell'), detail: t('actions.unsellDetail'),

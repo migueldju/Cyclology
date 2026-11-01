@@ -414,6 +414,12 @@ const de: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % seines Werts",
   "actions.sellDetail": "48 h auf dem Markt",
   "actions.unsellDetail": "Gebote werden storniert",
+  "lock.title": "{name} sperren",
+  "lock.week": "Woche vom {from} bis {to}",
+  "lock.explain": "Zahlt in dieser Woche jemand seine Klausel, bleibt {name} bei dir und wechselt erst am Montag, {after}, in dessen Team. Bis dahin punktet er weiter für dich.",
+  "lock.money": "Das Klauselgeld bekommst du trotzdem sofort bei der Zahlung.",
+  "lock.noMoney": "Du hast nicht genug Guthaben.",
+  "lock.confirm": "Für {amount} sperren",
   "topbar.profile": "Mein Profil",
 };
 

@@ -414,6 +414,12 @@ const da: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % af hans værdi",
   "actions.sellDetail": "48 t på markedet",
   "actions.unsellDetail": "Bud annulleres",
+  "lock.title": "Beskyt {name}",
+  "lock.week": "Ugen {from}–{to}",
+  "lock.explain": "Hvis nogen betaler hans frikøbsklausul den uge, bliver {name} hos dig og skifter først til deres hold mandag {after}. Imens scorer han fortsat for dig.",
+  "lock.money": "Du får stadig klausulpengene, så snart de betales.",
+  "lock.noMoney": "Du har ikke nok saldo.",
+  "lock.confirm": "Beskyt for {amount}",
   "topbar.profile": "Min profil",
 };
 

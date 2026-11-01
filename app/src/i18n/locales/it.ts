@@ -414,6 +414,12 @@ const it: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % del suo valore",
   "actions.sellDetail": "48 h sul mercato",
   "actions.unsellDetail": "Le offerte vengono annullate",
+  "lock.title": "Blinda {name}",
+  "lock.week": "Settimana dal {from} al {to}",
+  "lock.explain": "Quella settimana, se qualcuno paga la sua clausola, {name} resta con te e passa alla sua squadra solo lunedì {after}. Nel frattempo continua a fare punti per te.",
+  "lock.money": "I soldi della clausola li ricevi comunque al momento del pagamento.",
+  "lock.noMoney": "Non hai saldo sufficiente.",
+  "lock.confirm": "Blinda per {amount}",
   "topbar.profile": "Il mio profilo",
 };
 

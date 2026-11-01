@@ -413,6 +413,12 @@ const es = {
   "actions.lockDetail": "{amount} · 8 % de su valor",
   "actions.sellDetail": "48 h en el mercado",
   "actions.unsellDetail": "Se anulan las pujas",
+  "lock.title": "Blindar a {name}",
+  "lock.week": "Semana del {from} al {to}",
+  "lock.explain": "Esa semana, si alguien paga su cláusula, {name} se queda contigo y no pasa a su equipo hasta el lunes {after}. Sigue puntuando para ti mientras tanto.",
+  "lock.money": "El dinero de la cláusula lo recibes igualmente en el momento del pago.",
+  "lock.noMoney": "No tienes saldo suficiente.",
+  "lock.confirm": "Blindar por {amount}",
   "topbar.profile": "Mi perfil",
 } as const;
 

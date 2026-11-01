@@ -414,6 +414,12 @@ const ar: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % من قيمته",
   "actions.sellDetail": "48 ساعة في السوق",
   "actions.unsellDetail": "تُلغى العروض",
+  "lock.title": "حماية {name}",
+  "lock.week": "أسبوع {from} إلى {to}",
+  "lock.explain": "في ذلك الأسبوع، إذا دفع أحدٌ شرطه الجزائي، يبقى {name} معك ولا ينتقل إلى فريقه إلا يوم الاثنين {after}. ويواصل جمع النقاط لك في الأثناء.",
+  "lock.money": "تحصل على مال الشرط الجزائي فور الدفع على أي حال.",
+  "lock.noMoney": "رصيدك غير كافٍ.",
+  "lock.confirm": "الحماية مقابل {amount}",
   "topbar.profile": "ملفي الشخصي",
 };
 

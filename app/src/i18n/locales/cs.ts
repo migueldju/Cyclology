@@ -414,6 +414,12 @@ const cs: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % jeho hodnoty",
   "actions.sellDetail": "48 h na trhu",
   "actions.unsellDetail": "Nabídky se ruší",
+  "lock.title": "Zamknout {name}",
+  "lock.week": "Týden {from}–{to}",
+  "lock.explain": "Pokud ten týden někdo zaplatí jeho klauzuli, {name} zůstane u tebe a do jeho týmu přejde až v pondělí {after}. Mezitím za tebe dál boduje.",
+  "lock.money": "Peníze za klauzuli dostaneš hned při zaplacení.",
+  "lock.noMoney": "Nemáš dostatek peněz.",
+  "lock.confirm": "Zamknout za {amount}",
   "topbar.profile": "Můj profil",
 };
 

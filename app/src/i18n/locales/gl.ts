@@ -414,6 +414,12 @@ const gl: Partial<Dict> = {
   "actions.lockDetail": "{amount} · 8 % do seu valor",
   "actions.sellDetail": "48 h no mercado",
   "actions.unsellDetail": "Anúlanse as poxas",
+  "lock.title": "Blindar a {name}",
+  "lock.week": "Semana do {from} ao {to}",
+  "lock.explain": "Esa semana, se alguén paga a súa cláusula, {name} queda contigo e non pasa ao seu equipo ata o luns {after}. Segue puntuando para ti mentres tanto.",
+  "lock.money": "O diñeiro da cláusula recíbelo igualmente no momento do pagamento.",
+  "lock.noMoney": "Non tes saldo suficiente.",
+  "lock.confirm": "Blindar por {amount}",
   "topbar.profile": "O meu perfil",
 };
 
