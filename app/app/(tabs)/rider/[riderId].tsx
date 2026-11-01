@@ -74,7 +74,7 @@ export default function Ciclista() {
   return (
     <Screen onRefresh={detail.reload} refreshing={detail.loading}>
       <View style={styles.head}>
-        <RiderAvatar url={r.photo?.url} name={r.name} team={r.pro_team} size={72} />
+        <RiderAvatar url={r.photo?.url} name={r.name} team={r.pro_team} size={72} riderId={r.id} />
         <View style={{ flex: 1, gap: 2 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s }}>
             <Txt variant="display" numberOfLines={2} style={{ flexShrink: 1 }}>{r.name}</Txt>
