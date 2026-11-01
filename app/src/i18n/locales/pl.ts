@@ -428,6 +428,7 @@ const pl: Partial<Dict> = {
   "rules.r10": "Możesz zablokować kolarza, płacąc 8 % jego wartości rynkowej: w kolejnym tygodniu nikt nie zapłaci jego klauzuli (oferty są dozwolone). Płaci się w tygodniu wcześniej.",
   "player.lockedClause": "Zablokowany w tym tygodniu: nie można zapłacić jego klauzuli",
   "clause.level": "Procent klauzuli",
+  "clause.range": "Od {min} do {max}",
   "topbar.profile": "Mój profil",
 };
 

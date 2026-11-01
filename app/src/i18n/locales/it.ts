@@ -428,6 +428,7 @@ const it: Partial<Dict> = {
   "rules.r10": "Puoi blindare un corridore pagando l'8 % del suo valore di mercato: la settimana dopo nessuno potrà pagare la sua clausola (le offerte sì). Si paga durante la settimana prima.",
   "player.lockedClause": "Blindato questa settimana: la sua clausola non si può pagare",
   "clause.level": "Percentuale della clausola",
+  "clause.range": "Tra {min} e {max}",
   "topbar.profile": "Il mio profilo",
 };
 

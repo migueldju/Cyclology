@@ -428,6 +428,7 @@ const gl: Partial<Dict> = {
   "rules.r10": "Podes blindar un ciclista pagando o 8 % do seu valor de mercado: a semana seguinte ninguén poderá pagar a súa cláusula (si facerlle ofertas). Págase durante a semana anterior.",
   "player.lockedClause": "Blindado esta semana: non se pode pagar a súa cláusula",
   "clause.level": "Porcentaxe da cláusula",
+  "clause.range": "Entre {min} e {max}",
   "topbar.profile": "O meu perfil",
 };
 

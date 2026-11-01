@@ -428,6 +428,7 @@ const en: Partial<Dict> = {
   "rules.r10": "You can lock a rider by paying 8% of his market value: the following week nobody can pay his release clause (offers are still allowed). It's paid during the week before.",
   "player.lockedClause": "Locked this week: his release clause can't be paid",
   "clause.level": "Release clause percentage",
+  "clause.range": "Between {min} and {max}",
   "topbar.profile": "My profile",
 };
 

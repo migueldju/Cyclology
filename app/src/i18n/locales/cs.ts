@@ -428,6 +428,7 @@ const cs: Partial<Dict> = {
   "rules.r10": "Jezdce můžeš zamknout za 8 % jeho tržní hodnoty: další týden nikdo nezaplatí jeho klauzuli (nabídky ano). Platí se v týdnu předtím.",
   "player.lockedClause": "Tento týden zamčený: jeho klauzuli nelze zaplatit",
   "clause.level": "Procento klauzule",
+  "clause.range": "Mezi {min} a {max}",
   "topbar.profile": "Můj profil",
 };
 

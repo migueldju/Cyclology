@@ -428,6 +428,7 @@ const ja: Partial<Dict> = {
   "rules.r10": "市場価値の8％を払うと選手をブロックできます：翌週は誰も契約解除金を払えません（オファーは可）。前の週に支払います。",
   "player.lockedClause": "今週ブロック中：契約解除金は払えません",
   "clause.level": "契約解除金の割合",
+  "clause.range": "{min}〜{max}",
   "topbar.profile": "プロフィール",
 };
 
