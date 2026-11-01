@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const eu: Partial<Dict> = {
   "actions.changeClause": "Klausula aldatu",
-  "actions.changeClauseHint": "Bere oinarriaren % 130etik % 500era ({from}tik {to}ra). Igotzeak igoeraren erdia balio du; jaisteak jaitsieraren laurdena itzultzen dizu.",
+  "actions.changeClauseHint": "{from}tik aurrera (bere oinarriaren % 130), gehienezkorik gabe. Igotzeak igoeraren erdia balio du; jaisteak jaitsieraren laurdena itzultzen dizu.",
   "actions.sell": "Salgai jarri",
   "actions.sellHint": "48 orduz merkatura ateratzen da eta besteek eskaintzak egin ditzakete. Itxi baino 12 ordu lehenago jokoak bere balioa ±% 10 eskainiko dizu.",
   "actions.sellToGame": "Jokoari saldu {amount}(e)an",
@@ -82,8 +82,7 @@ const eu: Partial<Dict> = {
   "chart.empty": "Oraindik ez dago bilakaerarik: balioa egunero eguneratzen da eta hemen ikusiko duzu nola aldatzen den.",
   "clause.balanceAfter": "saldoa ondoren: {amount}",
   "clause.chooseOther": "Aukeratu beste maila bat",
-  "clause.hint": "Ukitu edo arrastatu barra igotzeko edo jaisteko.",
-  "clause.level": "Klausularen maila",
+  "clause.hint": "Idatzi klausula berria.",
   "clause.lowerTo": "{clause}(e)ra jaitsi · {amount} jaso",
   "clause.pay": "Ordaintzen duzu",
   "clause.raiseTo": "{clause}(e)ra igo · {amount} ordaindu",
@@ -306,7 +305,7 @@ const eu: Partial<Dict> = {
   "rules.r2": "Zure taldearen balioaren % 20 arte zorpetu zaitezke. Astelehenean 00:00etan zure saldoa negatiboa bada, ez duzu aste osoan puntuatzen.",
   "rules.r3": "Egunero txirrindulari berriak ateratzen dira merkatura. Eskaintza itsua da: altuenak irabazten du eta, berdinketan, lehenago egindakoak.",
   "rules.r4": "Fitxaketak puntu laranjarekin iristen dira: hurrengo astelehenetik aurrera eman dakieke izena.",
-  "rules.r5": "Klausula txirrindulariagatik ordaindu zenuenaren % 130 da edo, merkatu-balioa handiagoa bada, merkatu-balioarena (egunero eguneratzen da). % 500era arte igo dezakezu: igotzeak igotzen denaren erdia balio du eta jaisteak jaisten denaren laurdena itzultzen dizu.",
+  "rules.r5": "Klausula txirrindulariagatik ordaindu zenuenaren % 130 da edo, merkatu-balioa handiagoa bada, merkatu-balioarena (egunero eguneratzen da). Gutxieneko horren gainetik nahi duzun kopurua jar dezakezu: igotzeak igotzen denaren erdia balio du eta jaisteak jaisten denaren laurdena itzultzen dizu.",
   "rules.r6": "Klausula txirrindulariaren jabeari ordaintzen zaio. Txirrindularia harekin geratzen da (puntu gorria) astelehenera arte eta harentzat puntuatzen jarraitzen du izena emanda zegoen lasterketetan.",
   "rules.r7": "Klausulakadak itxita daude igandeetan 14:00etatik 24:00etara.",
   "rules.r8": "Txirrindulari bat salgai jartzen baduzu, 48 orduz merkatura ateratzen da eta besteek eskaintza itsuak egin ditzakete (gutxienez bere balioa). Itxi baino 12 ordu lehenago jokoak bere balioa ±% 10 eskaintzen dizu, itxi arte onar dezakezuna. Eskaintzak badaude, altuenak irabazten du eta txirrindulariak jabez aldatzen du astelehenean; bestela, zurea izaten jarraitzen du.",
@@ -428,6 +427,8 @@ const eu: Partial<Dict> = {
   "squad.lockedNext": "datorren astean blindatuta",
   "rules.r10": "Txirrindulari bat blinda dezakezu bere merkatu-balioaren % 8 ordainduta: hurrengo astean inork ezin izango du bere klausula ordaindu (eskaintzak bai). Aurreko astean ordaintzen da.",
   "player.lockedClause": "Aste honetan blindatuta: ezin da bere klausula ordaindu",
+  "clause.current": "Orain: {amount}",
+  "clause.minimum": "Gutxienekoa",
   "topbar.profile": "Nire profila",
 };
 

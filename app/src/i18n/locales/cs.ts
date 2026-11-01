@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const cs: Partial<Dict> = {
   "actions.changeClause": "Změnit výkupní klauzuli",
-  "actions.changeClauseHint": "Od 130 % do 500 % jeho základu ({from} až {to}). Zvýšení stojí polovinu navýšení; snížení ti vrátí čtvrtinu snížení.",
+  "actions.changeClauseHint": "Od {from} (130 % jeho základu), bez maxima. Zvýšení stojí polovinu navýšení; snížení ti vrátí čtvrtinu snížení.",
   "actions.sell": "Dát na prodej",
   "actions.sellHint": "Na 48 hodin jde na trh a ostatní mohou přihazovat. 12 hodin před uzavřením ti hra nabídne jeho hodnotu ±10 %.",
   "actions.sellToGame": "Prodat hře za {amount}",
@@ -82,8 +82,7 @@ const cs: Partial<Dict> = {
   "chart.empty": "Zatím žádný vývoj: hodnota se aktualizuje každý den a tady uvidíš, jak se mění.",
   "clause.balanceAfter": "zůstatek potom: {amount}",
   "clause.chooseOther": "Vyber jiný stupeň",
-  "clause.hint": "Klepni nebo táhni lištu pro zvýšení či snížení.",
-  "clause.level": "Stupeň klauzule",
+  "clause.hint": "Napiš novou klauzuli.",
   "clause.lowerTo": "Snížit na {clause} · dostaneš {amount}",
   "clause.pay": "Platíš",
   "clause.raiseTo": "Zvýšit na {clause} · zaplatíš {amount}",
@@ -306,7 +305,7 @@ const cs: Partial<Dict> = {
   "rules.r2": "Můžeš se zadlužit až do 20 % hodnoty svého týmu. Pokud je tvůj zůstatek v pondělí v 00:00 záporný, celý týden neboduješ.",
   "rules.r3": "Každý den přicházejí na trh noví jezdci. Přihazuje se naslepo: vyhrává nejvyšší příhoz a při shodě ten dřívější.",
   "rules.r4": "Posily přicházejí s oranžovou tečkou: přihlásit je lze od následujícího pondělí.",
-  "rules.r5": "Výkupní klauzule je 130 % toho, co jsi za jezdce zaplatil, nebo, je-li jeho tržní hodnota vyšší, jeho tržní hodnoty (aktualizuje se denně). Můžeš ji zvýšit až na 500 %: zvýšení stojí polovinu navýšení a snížení ti vrátí čtvrtinu snížení.",
+  "rules.r5": "Výkupní klauzule je 130 % toho, co jsi za jezdce zaplatil, nebo, je-li jeho tržní hodnota vyšší, jeho tržní hodnoty (aktualizuje se denně). Můžeš ji nastavit na jakoukoli částku nad tímto minimem: zvýšení stojí polovinu navýšení a snížení ti vrátí čtvrtinu snížení.",
   "rules.r6": "Výkupní klauzule se platí majiteli jezdce. Jezdec u něj zůstává (červená tečka) do pondělí a dál pro něj boduje v závodech, do kterých už byl přihlášen.",
   "rules.r7": "Výkupy jsou v neděli od 14:00 do 24:00 uzavřené.",
   "rules.r8": "Když dáš jezdce na prodej, jde na 48 hodin na trh a ostatní mohou přihazovat naslepo (minimum je jeho hodnota). 12 hodin před uzavřením ti hra nabídne jeho hodnotu ±10 %, kterou můžeš přijmout do uzavření. Pokud jsou příhozy, vyhrává nejvyšší a jezdec v pondělí mění majitele; jinak zůstává tvůj.",
@@ -428,6 +427,8 @@ const cs: Partial<Dict> = {
   "squad.lockedNext": "zamčený příští týden",
   "rules.r10": "Jezdce můžeš zamknout za 8 % jeho tržní hodnoty: další týden nikdo nezaplatí jeho klauzuli (nabídky ano). Platí se v týdnu předtím.",
   "player.lockedClause": "Tento týden zamčený: jeho klauzuli nelze zaplatit",
+  "clause.current": "Nyní: {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Můj profil",
 };
 

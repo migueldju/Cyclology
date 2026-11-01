@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const it: Partial<Dict> = {
   "actions.changeClause": "Modifica la clausola",
-  "actions.changeClauseHint": "Dal 130 % al 500 % della sua base (da {from} a {to}). Alzarla costa metà dell'aumento; abbassarla ti restituisce un quarto della riduzione.",
+  "actions.changeClauseHint": "Da {from} (il 130 % della sua base), senza massimo. Alzarla costa metà dell'aumento; abbassarla ti restituisce un quarto della riduzione.",
   "actions.sell": "Metti in vendita",
   "actions.sellHint": "Va sul mercato per 48 ore e gli altri possono fare offerte. 12 ore prima della chiusura il gioco ti offrirà il suo valore ±10 %.",
   "actions.sellToGame": "Vendi al gioco per {amount}",
@@ -82,8 +82,7 @@ const it: Partial<Dict> = {
   "chart.empty": "Ancora nessuna evoluzione: il valore si aggiorna ogni giorno e qui vedrai come cambia.",
   "clause.balanceAfter": "saldo dopo: {amount}",
   "clause.chooseOther": "Scegli un altro livello",
-  "clause.hint": "Tocca o trascina la barra per alzarla o abbassarla.",
-  "clause.level": "Livello della clausola",
+  "clause.hint": "Scrivi la nuova clausola.",
   "clause.lowerTo": "Abbassa a {clause} · ricevi {amount}",
   "clause.pay": "Paghi",
   "clause.raiseTo": "Alza a {clause} · paga {amount}",
@@ -306,7 +305,7 @@ const it: Partial<Dict> = {
   "rules.r2": "Puoi indebitarti fino al 20 % del valore della tua rosa. Se lunedì alle 00:00 il tuo saldo è negativo, non fai punti per tutta la settimana.",
   "rules.r3": "Ogni giorno arrivano nuovi corridori sul mercato. Le offerte sono al buio: vince la più alta e, a parità, quella fatta prima.",
   "rules.r4": "Gli acquisti arrivano con il punto arancione: si possono iscrivere dal lunedì successivo.",
-  "rules.r5": "La clausola è il 130 % di quanto hai pagato per il corridore o, se il suo valore di mercato è maggiore, del valore di mercato (si aggiorna ogni giorno). Puoi alzarla fino al 500 %: alzarla costa metà dell'aumento e abbassarla ti restituisce un quarto della riduzione.",
+  "rules.r5": "La clausola è il 130 % di quanto hai pagato per il corridore o, se il suo valore di mercato è maggiore, del valore di mercato (si aggiorna ogni giorno). Puoi fissarla alla cifra che vuoi sopra quel minimo: alzarla costa metà dell'aumento e abbassarla ti restituisce un quarto della riduzione.",
   "rules.r6": "Una clausola rescissoria si paga al proprietario del corridore. Il corridore resta con lui (punto rosso) fino a lunedì e continua a fare punti per lui nelle corse a cui era già iscritto.",
   "rules.r7": "Le clausole sono chiuse la domenica dalle 14:00 alle 24:00.",
   "rules.r8": "Se metti in vendita un corridore, va sul mercato per 48 ore e gli altri possono fare offerte al buio (minimo: il suo valore). 12 ore prima della chiusura il gioco ti offre il suo valore ±10 %, che puoi accettare fino alla chiusura. Se ci sono offerte, vince la più alta e il corridore cambia proprietario lunedì; altrimenti resta tuo.",
@@ -428,6 +427,8 @@ const it: Partial<Dict> = {
   "squad.lockedNext": "blindato la prossima settimana",
   "rules.r10": "Puoi blindare un corridore pagando l'8 % del suo valore di mercato: la settimana dopo nessuno potrà pagare la sua clausola (le offerte sì). Si paga durante la settimana prima.",
   "player.lockedClause": "Blindato questa settimana: la sua clausola non si può pagare",
+  "clause.current": "Ora: {amount}",
+  "clause.minimum": "Minimo",
   "topbar.profile": "Il mio profilo",
 };
 

@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const da: Partial<Dict> = {
   "actions.changeClause": "Ændr frikøbsklausulen",
-  "actions.changeClauseHint": "Fra 130 % til 500 % af hans basis ({from} til {to}). At hæve koster halvdelen af stigningen; at sænke giver dig en fjerdedel af faldet tilbage.",
+  "actions.changeClauseHint": "Fra {from} (130 % af hans basis), uden maksimum. At hæve koster halvdelen af stigningen; at sænke giver dig en fjerdedel af faldet tilbage.",
   "actions.sell": "Sæt til salg",
   "actions.sellHint": "Han kommer på markedet i 48 timer, og de andre kan byde. 12 timer før lukning tilbyder spillet dig hans værdi ±10 %.",
   "actions.sellToGame": "Sælg til spillet for {amount}",
@@ -82,8 +82,7 @@ const da: Partial<Dict> = {
   "chart.empty": "Ingen udvikling endnu: værdien opdateres hver dag, og her ser du, hvordan den ændrer sig.",
   "clause.balanceAfter": "saldo bagefter: {amount}",
   "clause.chooseOther": "Vælg et andet trin",
-  "clause.hint": "Tryk eller træk i bjælken for at hæve eller sænke den.",
-  "clause.level": "Klausulens trin",
+  "clause.hint": "Skriv den nye frikøbsklausul.",
   "clause.lowerTo": "Sænk til {clause} · modtag {amount}",
   "clause.pay": "Du betaler",
   "clause.raiseTo": "Hæv til {clause} · betal {amount}",
@@ -306,7 +305,7 @@ const da: Partial<Dict> = {
   "rules.r2": "Du kan gå i gæld op til 20 % af dit holds værdi. Hvis din saldo mandag kl. 00:00 er negativ, scorer du ingen point hele ugen.",
   "rules.r3": "Hver dag kommer der nye ryttere på markedet. Buddene er blinde: det højeste vinder, og ved lighed det tidligste.",
   "rules.r4": "Nye ryttere kommer med en orange prik: de kan tilmeldes fra den følgende mandag.",
-  "rules.r5": "Frikøbsklausulen er 130 % af det, du betalte for rytteren, eller, hvis hans markedsværdi er højere, af hans markedsværdi (opdateres dagligt). Du kan hæve den op til 500 %: at hæve koster halvdelen af stigningen, og at sænke giver en fjerdedel af faldet tilbage.",
+  "rules.r5": "Frikøbsklausulen er 130 % af det, du betalte for rytteren, eller, hvis hans markedsværdi er højere, af hans markedsværdi (opdateres dagligt). Du kan sætte den til ethvert beløb over det minimum: at hæve koster halvdelen af stigningen, og at sænke giver en fjerdedel af faldet tilbage.",
   "rules.r6": "En frikøbsklausul betales til rytterens ejer. Rytteren bliver hos ham (rød prik) indtil mandag og scorer fortsat for ham i de løb, han allerede var tilmeldt.",
   "rules.r7": "Frikøb er lukket om søndagen fra 14:00 til 24:00.",
   "rules.r8": "Hvis du sætter en rytter til salg, kommer han på markedet i 48 timer, og de andre kan byde blindt (mindst hans værdi). 12 timer før lukning tilbyder spillet dig hans værdi ±10 %, som du kan acceptere indtil lukning. Er der bud, vinder det højeste, og rytteren skifter ejer mandag; ellers forbliver han din.",
@@ -428,6 +427,8 @@ const da: Partial<Dict> = {
   "squad.lockedNext": "beskyttet næste uge",
   "rules.r10": "Du kan beskytte en rytter ved at betale 8 % af hans markedsværdi: ugen efter kan ingen betale hans frikøbsklausul (bud er stadig tilladt). Der betales i ugen før.",
   "player.lockedClause": "Beskyttet denne uge: hans frikøbsklausul kan ikke betales",
+  "clause.current": "Nu: {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Min profil",
 };
 

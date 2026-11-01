@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const de: Partial<Dict> = {
   "actions.changeClause": "Ausstiegsklausel ändern",
-  "actions.changeClauseHint": "130 % bis 500 % seiner Basis ({from} bis {to}). Erhöhen kostet die Hälfte der Erhöhung; Senken bringt ein Viertel der Senkung zurück.",
+  "actions.changeClauseHint": "Ab {from} (130 % seiner Basis), ohne Obergrenze. Erhöhen kostet die Hälfte der Erhöhung; Senken bringt ein Viertel der Senkung zurück.",
   "actions.sell": "Zum Verkauf stellen",
   "actions.sellHint": "Er kommt 48 Stunden auf den Markt und die anderen können bieten. 12 Stunden vor Schluss bietet dir das Spiel seinen Wert ±10 %.",
   "actions.sellToGame": "An das Spiel verkaufen für {amount}",
@@ -82,8 +82,7 @@ const de: Partial<Dict> = {
   "chart.empty": "Noch kein Verlauf: Der Wert wird täglich aktualisiert und hier siehst du, wie er sich ändert.",
   "clause.balanceAfter": "Kontostand danach: {amount}",
   "clause.chooseOther": "Wähle eine andere Stufe",
-  "clause.hint": "Tippe oder ziehe am Balken, um sie zu erhöhen oder zu senken.",
-  "clause.level": "Stufe der Klausel",
+  "clause.hint": "Gib die neue Klausel ein.",
   "clause.lowerTo": "Senken auf {clause} · {amount} erhalten",
   "clause.pay": "Du zahlst",
   "clause.raiseTo": "Erhöhen auf {clause} · {amount} zahlen",
@@ -306,7 +305,7 @@ const de: Partial<Dict> = {
   "rules.r2": "Du kannst dich bis zu 20 % des Kaderwerts verschulden. Ist dein Kontostand am Montag um 00:00 negativ, punktest du die ganze Woche nicht.",
   "rules.r3": "Jeden Tag kommen neue Fahrer auf den Markt. Gebote sind verdeckt: Das höchste gewinnt, bei Gleichstand das frühere.",
   "rules.r4": "Neuzugänge kommen mit orangem Punkt: Du kannst sie ab dem folgenden Montag anmelden.",
-  "rules.r5": "Die Ausstiegsklausel beträgt 130 % dessen, was du für den Fahrer bezahlt hast, oder, falls sein Marktwert höher ist, seines Marktwerts (täglich aktualisiert). Du kannst sie bis 500 % erhöhen: Erhöhen kostet die Hälfte der Erhöhung, Senken bringt ein Viertel der Senkung zurück.",
+  "rules.r5": "Die Ausstiegsklausel beträgt 130 % dessen, was du für den Fahrer bezahlt hast, oder, falls sein Marktwert höher ist, seines Marktwerts (täglich aktualisiert). Du kannst sie über diesem Minimum auf jeden Betrag setzen: Erhöhen kostet die Hälfte der Erhöhung, Senken bringt ein Viertel der Senkung zurück.",
   "rules.r6": "Eine Ausstiegsklausel wird an den Besitzer des Fahrers gezahlt. Der Fahrer bleibt bis Montag bei ihm (roter Punkt) und punktet weiter für ihn in den Rennen, für die er schon angemeldet war.",
   "rules.r7": "Klauselzahlungen sind sonntags von 14:00 bis 24:00 Uhr geschlossen.",
   "rules.r8": "Stellst du einen Fahrer zum Verkauf, kommt er 48 Stunden auf den Markt und die anderen können verdeckt bieten (mindestens sein Wert). 12 Stunden vor Schluss bietet dir das Spiel seinen Wert ±10 %, den du bis zum Schluss annehmen kannst. Gibt es Gebote, gewinnt das höchste und der Fahrer wechselt am Montag den Besitzer; sonst bleibt er deiner.",
@@ -428,6 +427,8 @@ const de: Partial<Dict> = {
   "squad.lockedNext": "nächste Woche gesperrt",
   "rules.r10": "Du kannst einen Fahrer für 8 % seines Marktwerts sperren: In der Woche darauf kann niemand seine Klausel zahlen (Angebote schon). Bezahlt wird in der Woche davor.",
   "player.lockedClause": "Diese Woche gesperrt: seine Klausel kann nicht gezahlt werden",
+  "clause.current": "Aktuell: {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Mein Profil",
 };
 

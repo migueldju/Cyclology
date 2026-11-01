@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const pt: Partial<Dict> = {
   "actions.changeClause": "Alterar a cláusula",
-  "actions.changeClauseHint": "De 130 % a 500 % da sua base ({from} a {to}). Subir custa metade da subida; baixar devolve-te um quarto da descida.",
+  "actions.changeClauseHint": "A partir de {from} (130 % da sua base), sem máximo. Subir custa metade da subida; baixar devolve-te um quarto da descida.",
   "actions.sell": "Pôr à venda",
   "actions.sellHint": "Vai ao mercado durante 48 horas e os outros podem licitar. 12 horas antes do fecho, o jogo oferece-te o seu valor ±10 %.",
   "actions.sellToGame": "Vender ao jogo por {amount}",
@@ -82,8 +82,7 @@ const pt: Partial<Dict> = {
   "chart.empty": "Ainda não há evolução: o valor é atualizado todos os dias e aqui verás como muda.",
   "clause.balanceAfter": "saldo depois: {amount}",
   "clause.chooseOther": "Escolhe outro escalão",
-  "clause.hint": "Toca ou arrasta a barra para a subir ou baixar.",
-  "clause.level": "Escalão da cláusula",
+  "clause.hint": "Escreve a nova cláusula.",
   "clause.lowerTo": "Baixar para {clause} · receber {amount}",
   "clause.pay": "Pagas",
   "clause.raiseTo": "Subir para {clause} · pagar {amount}",
@@ -306,7 +305,7 @@ const pt: Partial<Dict> = {
   "rules.r2": "Podes endividar-te até 20 % do valor do teu plantel. Se na segunda às 00:00 o teu saldo for negativo, não pontuas durante toda a semana.",
   "rules.r3": "Todos os dias saem novos ciclistas no mercado. A licitação é às cegas: ganha a mais alta e, em caso de empate, a mais antiga.",
   "rules.r4": "As contratações chegam com ponto laranja: podem ser inscritas a partir da segunda seguinte.",
-  "rules.r5": "A cláusula é 130 % do que pagaste pelo ciclista ou, se o valor de mercado for maior, do valor de mercado (atualiza-se todos os dias). Podes subi-la até 500 %: subir custa metade do que sobe e baixar devolve-te um quarto do que desce.",
+  "rules.r5": "A cláusula é 130 % do que pagaste pelo ciclista ou, se o valor de mercado for maior, do valor de mercado (atualiza-se todos os dias). Podes pô-la no valor que quiseres acima desse mínimo: subir custa metade do que sobe e baixar devolve-te um quarto do que desce.",
   "rules.r6": "Uma cláusula de rescisão é paga ao dono do ciclista. O ciclista fica com ele (ponto vermelho) até segunda e continua a pontuar para ele nas corridas em que já estava inscrito.",
   "rules.r7": "As cláusulas estão fechadas aos domingos das 14:00 às 24:00.",
   "rules.r8": "Se puseres um ciclista à venda, vai ao mercado durante 48 horas e os outros podem licitar às cegas (mínimo: o seu valor). 12 horas antes do fecho, o jogo oferece-te o seu valor ±10 %, que podes aceitar até ao fecho. Se houver licitações, ganha a mais alta e o ciclista muda de dono na segunda; caso contrário, continua teu.",
@@ -428,6 +427,8 @@ const pt: Partial<Dict> = {
   "squad.lockedNext": "blindado na próxima semana",
   "rules.r10": "Podes blindar um ciclista pagando 8 % do seu valor de mercado: na semana seguinte ninguém poderá pagar a sua cláusula (ofertas sim). Paga-se durante a semana anterior.",
   "player.lockedClause": "Blindado esta semana: não se pode pagar a sua cláusula",
+  "clause.current": "Agora: {amount}",
+  "clause.minimum": "Mínimo",
   "topbar.profile": "O meu perfil",
 };
 

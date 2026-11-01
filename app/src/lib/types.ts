@@ -84,7 +84,7 @@ export interface RosterRow {
   market_value: number;
   price_paid: number;
   clause: number;
-  clause_level: number;      // 0 = 130 % … 8 = 500 % de la base
+  clause_base: number;       // base de la cláusula: lo pagado o, si es mayor, el valor de mercado
   locked: boolean;           // blindado esta semana: nadie puede pagar su cláusula
   locked_next: boolean;      // blindado la semana que viene
   lock_cost: number;         // lo que cuesta blindarlo (8 % de su valor)

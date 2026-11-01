@@ -59,8 +59,8 @@ export const api = {
   // mercado y plantilla
   placeBid: (listingId: number, amount: number) => rpc<void>('place_bid', { p_listing: listingId, p_amount: amount }),
   cancelBid: (listingId: number) => rpc<void>('cancel_bid', { p_listing: listingId }),
-  setClause: (ownershipId: number, level: number) =>
-    rpc<number>('set_clause', { p_ownership: ownershipId, p_level: level }),
+  setClause: (ownershipId: number, amount: number) =>
+    rpc<number>('set_clause', { p_ownership: ownershipId, p_amount: amount }),
   payClause: (ownershipId: number) => rpc<void>('pay_clause', { p_ownership: ownershipId }),
   lockRider: (ownershipId: number) => rpc<string>('lock_rider', { p_ownership: ownershipId }),
   setForSale: (ownershipId: number, forSale: boolean) =>

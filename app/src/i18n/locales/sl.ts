@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const sl: Partial<Dict> = {
   "actions.changeClause": "Spremeni odkupno klavzulo",
-  "actions.changeClauseHint": "Od 130 % do 500 % njegove osnove ({from} do {to}). Dvig stane polovico povišanja; znižanje ti vrne četrtino znižanja.",
+  "actions.changeClauseHint": "Od {from} (130 % njegove osnove), brez zgornje meje. Dvig stane polovico povišanja; znižanje ti vrne četrtino znižanja.",
   "actions.sell": "Daj na prodaj",
   "actions.sellHint": "Za 48 ur gre na trg in drugi lahko dajo ponudbe. 12 ur pred zaprtjem ti bo igra ponudila njegovo vrednost ±10 %.",
   "actions.sellToGame": "Prodaj igri za {amount}",
@@ -82,8 +82,7 @@ const sl: Partial<Dict> = {
   "chart.empty": "Še ni razvoja: vrednost se posodablja vsak dan in tukaj boš videl, kako se spreminja.",
   "clause.balanceAfter": "stanje po tem: {amount}",
   "clause.chooseOther": "Izberi drugo stopnjo",
-  "clause.hint": "Tapni ali povleci vrstico, da jo zvišaš ali znižaš.",
-  "clause.level": "Stopnja klavzule",
+  "clause.hint": "Vpiši novo klavzulo.",
   "clause.lowerTo": "Znižaj na {clause} · prejmeš {amount}",
   "clause.pay": "Plačaš",
   "clause.raiseTo": "Zvišaj na {clause} · plačaš {amount}",
@@ -306,7 +305,7 @@ const sl: Partial<Dict> = {
   "rules.r2": "Zadolžiš se lahko do 20 % vrednosti svoje ekipe. Če je tvoje stanje v ponedeljek ob 00:00 negativno, ves teden ne zbiraš točk.",
   "rules.r3": "Vsak dan na trg pridejo novi kolesarji. Ponudbe so na slepo: zmaga najvišja, ob enakosti pa prejšnja.",
   "rules.r4": "Novi kolesarji pridejo z oranžno piko: prijaviš jih lahko od naslednjega ponedeljka.",
-  "rules.r5": "Odkupna klavzula je 130 % tega, kar si plačal za kolesarja, ali, če je njegova tržna vrednost višja, njegove tržne vrednosti (posodablja se vsak dan). Dvigneš jo lahko do 500 %: dvig stane polovico povišanja, znižanje pa ti vrne četrtino znižanja.",
+  "rules.r5": "Odkupna klavzula je 130 % tega, kar si plačal za kolesarja, ali, če je njegova tržna vrednost višja, njegove tržne vrednosti (posodablja se vsak dan). Nastaviš jo lahko na poljuben znesek nad tem minimumom: dvig stane polovico povišanja, znižanje pa ti vrne četrtino znižanja.",
   "rules.r6": "Odkupna klavzula se plača lastniku kolesarja. Kolesar ostane pri njem (rdeča pika) do ponedeljka in zanj še naprej zbira točke na dirkah, na katere je bil že prijavljen.",
   "rules.r7": "Odkupi so ob nedeljah od 14:00 do 24:00 zaprti.",
   "rules.r8": "Če daš kolesarja na prodaj, gre za 48 ur na trg in drugi lahko dajo ponudbe na slepo (najmanj njegova vrednost). 12 ur pred zaprtjem ti igra ponudi njegovo vrednost ±10 %, ki jo lahko sprejmeš do zaprtja. Če so ponudbe, zmaga najvišja in kolesar v ponedeljek zamenja lastnika; sicer ostane tvoj.",
@@ -428,6 +427,8 @@ const sl: Partial<Dict> = {
   "squad.lockedNext": "zaklenjen naslednji teden",
   "rules.r10": "Kolesarja lahko zakleneš za 8 % njegove tržne vrednosti: naslednji teden nihče ne more plačati njegove klavzule (ponudbe pa). Plača se v tednu prej.",
   "player.lockedClause": "Zaklenjen ta teden: njegove klavzule ni mogoče plačati",
+  "clause.current": "Zdaj: {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Moj profil",
 };
 

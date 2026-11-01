@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const nl: Partial<Dict> = {
   "actions.changeClause": "Clausule wijzigen",
-  "actions.changeClauseHint": "Van 130 % tot 500 % van zijn basis ({from} tot {to}). Verhogen kost de helft van de verhoging; verlagen geeft een kwart van de verlaging terug.",
+  "actions.changeClauseHint": "Vanaf {from} (130 % van zijn basis), zonder maximum. Verhogen kost de helft van de verhoging; verlagen geeft een kwart van de verlaging terug.",
   "actions.sell": "Te koop zetten",
   "actions.sellHint": "Hij komt 48 uur op de markt en de anderen kunnen bieden. 12 uur voor de sluiting biedt het spel je zijn waarde ±10 %.",
   "actions.sellToGame": "Aan het spel verkopen voor {amount}",
@@ -82,8 +82,7 @@ const nl: Partial<Dict> = {
   "chart.empty": "Nog geen verloop: de waarde wordt elke dag bijgewerkt en hier zie je hoe ze verandert.",
   "clause.balanceAfter": "saldo daarna: {amount}",
   "clause.chooseOther": "Kies een andere trede",
-  "clause.hint": "Tik of sleep de balk om hem te verhogen of te verlagen.",
-  "clause.level": "Trede van de clausule",
+  "clause.hint": "Typ de nieuwe afkoopsom.",
   "clause.lowerTo": "Verlagen naar {clause} · {amount} ontvangen",
   "clause.pay": "Je betaalt",
   "clause.raiseTo": "Verhogen naar {clause} · {amount} betalen",
@@ -306,7 +305,7 @@ const nl: Partial<Dict> = {
   "rules.r2": "Je kunt schulden maken tot 20 % van de waarde van je selectie. Als je saldo maandag om 00:00 negatief is, scoor je de hele week niet.",
   "rules.r3": "Elke dag komen er nieuwe renners op de markt. Bieden gaat blind: het hoogste bod wint en bij gelijkspel het vroegste.",
   "rules.r4": "Aanwinsten komen binnen met een oranje stip: je kunt ze vanaf de volgende maandag inschrijven.",
-  "rules.r5": "De afkoopsom is 130 % van wat je voor de renner betaalde of, als zijn marktwaarde hoger is, van zijn marktwaarde (elke dag bijgewerkt). Je kunt hem verhogen tot 500 %: verhogen kost de helft van de verhoging en verlagen geeft een kwart van de verlaging terug.",
+  "rules.r5": "De afkoopsom is 130 % van wat je voor de renner betaalde of, als zijn marktwaarde hoger is, van zijn marktwaarde (elke dag bijgewerkt). Je kunt hem op elk bedrag boven dat minimum zetten: verhogen kost de helft van de verhoging en verlagen geeft een kwart van de verlaging terug.",
   "rules.r6": "Een afkoopclausule wordt betaald aan de eigenaar van de renner. De renner blijft bij hem (rode stip) tot maandag en blijft voor hem scoren in de koersen waarvoor hij al ingeschreven was.",
   "rules.r7": "Afkoopsommen zijn op zondag van 14:00 tot 24:00 gesloten.",
   "rules.r8": "Als je een renner te koop zet, komt hij 48 uur op de markt en kunnen de anderen blind bieden (minimaal zijn waarde). 12 uur voor de sluiting biedt het spel je zijn waarde ±10 %, die je tot de sluiting kunt accepteren. Zijn er biedingen, dan wint het hoogste en wisselt de renner maandag van eigenaar; anders blijft hij van jou.",
@@ -428,6 +427,8 @@ const nl: Partial<Dict> = {
   "squad.lockedNext": "volgende week beschermd",
   "rules.r10": "Je kunt een renner beschermen door 8 % van zijn marktwaarde te betalen: de week erna kan niemand zijn afkoopsom betalen (biedingen wel). Je betaalt in de week ervoor.",
   "player.lockedClause": "Deze week beschermd: zijn afkoopsom kan niet betaald worden",
+  "clause.current": "Nu: {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Mijn profiel",
 };
 

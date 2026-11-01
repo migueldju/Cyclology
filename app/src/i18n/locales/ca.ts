@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const ca: Partial<Dict> = {
   "actions.changeClause": "Canviar la clàusula",
-  "actions.changeClauseHint": "Del 130 % al 500 % de la seva base ({from} a {to}). Pujar costa la meitat de la pujada; baixar et retorna una quarta part de la baixada.",
+  "actions.changeClauseHint": "Des de {from} (el 130 % de la seva base), sense màxim. Pujar costa la meitat de la pujada; baixar et retorna una quarta part de la baixada.",
   "actions.sell": "Posar a la venda",
   "actions.sellHint": "Surt al mercat durant 48 hores i els altres poden fer ofertes. 12 hores abans del tancament el joc t'oferirà el seu valor ±10 %.",
   "actions.sellToGame": "Vendre al joc per {amount}",
@@ -82,8 +82,7 @@ const ca: Partial<Dict> = {
   "chart.empty": "Encara no hi ha evolució: el valor s'actualitza cada dia i aquí veuràs com canvia.",
   "clause.balanceAfter": "saldo després: {amount}",
   "clause.chooseOther": "Tria un altre esglaó",
-  "clause.hint": "Toca o arrossega la barra per pujar-la o baixar-la.",
-  "clause.level": "Esglaó de la clàusula",
+  "clause.hint": "Escriu la nova clàusula.",
   "clause.lowerTo": "Baixar a {clause} · rebre {amount}",
   "clause.pay": "Pagues",
   "clause.raiseTo": "Pujar a {clause} · pagar {amount}",
@@ -306,7 +305,7 @@ const ca: Partial<Dict> = {
   "rules.r2": "Pots endeutar-te fins al 20 % del valor de la teva plantilla. Si dilluns a les 00:00 el teu saldo és negatiu, no puntues en tota la setmana.",
   "rules.r3": "Cada dia surten ciclistes nous al mercat. L'oferta és a cegues: guanya la més alta i, si empaten, la que es va fer abans.",
   "rules.r4": "Els fitxatges arriben amb punt taronja: es poden inscriure a partir del dilluns següent.",
-  "rules.r5": "La clàusula és el 130 % del que vas pagar pel ciclista o, si el seu valor de mercat és més alt, del seu valor de mercat (s'actualitza cada dia). La pots pujar fins al 500 %: pujar-la costa la meitat del que puja i baixar-la et retorna una quarta part del que baixa.",
+  "rules.r5": "La clàusula és el 130 % del que vas pagar pel ciclista o, si el seu valor de mercat és més alt, del seu valor de mercat (s'actualitza cada dia). La pots posar a la quantitat que vulguis per sobre d'aquest mínim: pujar-la costa la meitat del que puja i baixar-la et retorna una quarta part del que baixa.",
   "rules.r6": "Una clàusula de rescissió es paga al propietari del ciclista. El ciclista es queda amb ell (punt vermell) fins dilluns i hi continua puntuant a les curses on ja estava inscrit.",
   "rules.r7": "Els clausulassos estan tancats els diumenges de 14:00 a 24:00.",
   "rules.r8": "Si poses un ciclista a la venda, surt al mercat durant 48 hores i els altres poden fer ofertes a cegues (mínim, el seu valor). 12 hores abans del tancament el joc t'ofereix el seu valor ±10 %, que pots acceptar fins al tancament. Si hi ha ofertes, guanya la més alta i el ciclista canvia de propietari dilluns; si no, continua sent teu.",
@@ -428,6 +427,8 @@ const ca: Partial<Dict> = {
   "squad.lockedNext": "blindat la setmana vinent",
   "rules.r10": "Pots blindar un ciclista pagant el 8 % del seu valor de mercat: la setmana següent ningú no podrà pagar la seva clàusula (sí fer-li ofertes). Es paga durant la setmana anterior.",
   "player.lockedClause": "Blindat aquesta setmana: no es pot pagar la seva clàusula",
+  "clause.current": "Ara: {amount}",
+  "clause.minimum": "Mínim",
   "topbar.profile": "El meu perfil",
 };
 

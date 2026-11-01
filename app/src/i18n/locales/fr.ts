@@ -2,7 +2,7 @@ import type { Dict } from '../types';
 
 const fr: Partial<Dict> = {
   "actions.changeClause": "Modifier la clause",
-  "actions.changeClauseHint": "De 130 % à 500 % de sa base ({from} à {to}). Monter coûte la moitié de la hausse ; baisser te rend un quart de la baisse.",
+  "actions.changeClauseHint": "À partir de {from} (130 % de sa base), sans maximum. Monter coûte la moitié de la hausse ; baisser te rend un quart de la baisse.",
   "actions.sell": "Mettre en vente",
   "actions.sellHint": "Il part sur le marché pendant 48 heures et les autres peuvent enchérir. 12 heures avant la clôture, le jeu t'offrira sa valeur ±10 %.",
   "actions.sellToGame": "Vendre au jeu pour {amount}",
@@ -82,8 +82,7 @@ const fr: Partial<Dict> = {
   "chart.empty": "Pas encore d'évolution : la valeur est mise à jour chaque jour et tu verras ici comment elle change.",
   "clause.balanceAfter": "solde après : {amount}",
   "clause.chooseOther": "Choisis un autre palier",
-  "clause.hint": "Touche ou fais glisser la barre pour la monter ou la baisser.",
-  "clause.level": "Palier de la clause",
+  "clause.hint": "Saisis la nouvelle clause.",
   "clause.lowerTo": "Baisser à {clause} · recevoir {amount}",
   "clause.pay": "Tu paies",
   "clause.raiseTo": "Monter à {clause} · payer {amount}",
@@ -306,7 +305,7 @@ const fr: Partial<Dict> = {
   "rules.r2": "Tu peux t'endetter jusqu'à 20 % de la valeur de ton effectif. Si lundi à 00:00 ton solde est négatif, tu ne marques pas de la semaine.",
   "rules.r3": "Chaque jour, de nouveaux coureurs arrivent sur le marché. Les enchères sont à l'aveugle : la plus haute gagne et, en cas d'égalité, la plus ancienne.",
   "rules.r4": "Les recrues arrivent avec un point orange : elles peuvent être inscrites à partir du lundi suivant.",
-  "rules.r5": "La clause vaut 130 % de ce que tu as payé pour le coureur ou, si sa valeur marchande est plus élevée, de sa valeur marchande (mise à jour chaque jour). Tu peux la monter jusqu'à 500 % : la monter coûte la moitié de la hausse et la baisser te rend un quart de la baisse.",
+  "rules.r5": "La clause vaut 130 % de ce que tu as payé pour le coureur ou, si sa valeur marchande est plus élevée, de sa valeur marchande (mise à jour chaque jour). Tu peux la fixer au montant que tu veux au-dessus de ce minimum : la monter coûte la moitié de la hausse et la baisser te rend un quart de la baisse.",
   "rules.r6": "Une clause libératoire est payée au propriétaire du coureur. Le coureur reste chez lui (point rouge) jusqu'au lundi et continue de marquer pour lui dans les courses où il était déjà inscrit.",
   "rules.r7": "Les clauses sont fermées le dimanche de 14h00 à 24h00.",
   "rules.r8": "Si tu mets un coureur en vente, il part sur le marché pendant 48 heures et les autres peuvent enchérir à l'aveugle (minimum : sa valeur). 12 heures avant la clôture, le jeu t'offre sa valeur ±10 %, que tu peux accepter jusqu'à la clôture. S'il y a des enchères, la plus haute gagne et le coureur change de propriétaire le lundi ; sinon, il reste à toi.",
@@ -428,6 +427,8 @@ const fr: Partial<Dict> = {
   "squad.lockedNext": "protégé la semaine prochaine",
   "rules.r10": "Tu peux protéger un coureur en payant 8 % de sa valeur marchande : la semaine suivante, personne ne pourra payer sa clause (les offres restent possibles). Ça se paie pendant la semaine d'avant.",
   "player.lockedClause": "Protégé cette semaine : sa clause ne peut pas être payée",
+  "clause.current": "Actuellement : {amount}",
+  "clause.minimum": "Minimum",
   "topbar.profile": "Mon profil",
 };
 

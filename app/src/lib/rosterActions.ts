@@ -18,8 +18,7 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } =
   if (opts.onChangeClause) {
     out.push({
       label: t('actions.changeClause'),
-      hint: t('actions.changeClauseHint', { from: moneyShort(clauseLevelValue(clauseBase(r), 0)),
-                                            to: moneyShort(clauseLevelValue(clauseBase(r), CLAUSE_LEVELS - 1)) }),
+      hint: t('actions.changeClauseHint', { from: moneyShort(clauseMin(r)) }),
       onPress: opts.onChangeClause,
     });
   }
@@ -37,24 +36,10 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void } =
   return out;
 }
 
-/**
- * Escalones de la cláusula (las mismas cuentas que set_clause en la base de datos): 0 = 130 %, 1 = 150 %,
- * 2 = 200 % … 8 = 500 % de la base, que es lo que pagaste o, si es mayor, su valor de mercado. Subir cuesta la
- * mitad de lo que sube; bajar devuelve un cuarto.
- */
-export const CLAUSE_LEVELS = 9;
+/** Cláusula mínima: el 130 % de su base (lo pagado o, si es mayor, el valor de mercado), como en set_clause */
+export const clauseMin = (r: { clause_base: number }) => Math.ceil(r.clause_base * 1.3);
 
-export const clausePct = (level: number) => (level <= 0 ? 130 : 150 + 50 * (level - 1));
-
-/** Base de la cláusula: lo pagado o, si es mayor, el valor de mercado */
-export const clauseBase = (r: { price_paid: number; market_value: number }) => Math.max(r.price_paid, r.market_value);
-
-export function clauseLevelValue(base: number, level: number): number {
-  return Math.round((base * clausePct(level)) / 100);
-}
-
-/** Lo que cuesta (positivo) o devuelve (negativo) pasar de la cláusula actual a un nivel */
-export function clauseChange(clause: number, base: number, level: number): number {
-  const target = clauseLevelValue(base, level);
+/** Lo que cuesta (positivo) o devuelve (negativo) poner la cláusula en una cantidad: la mitad de la subida, un cuarto de la bajada */
+export function clauseChange(clause: number, target: number): number {
   return target >= clause ? Math.ceil((target - clause) / 2) : -Math.floor((clause - target) / 4);
 }
