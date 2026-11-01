@@ -7,6 +7,7 @@ import { dayMonth, money, todayISO } from '../lib/format';
 import type { RosterRow } from '../lib/types';
 import { colors, space } from '../theme';
 import { Button } from './Button';
+import { showToast } from './Toast';
 import { Sheet } from './Modal';
 import { ErrorText } from './Section';
 import { Txt } from './Txt';
@@ -41,6 +42,7 @@ export function LockSheet({ row, available, visible, onClose, onDone }: {
     setError(null);
     try {
       await api.lockRider(row.ownership_id);
+      showToast(t('toast.locked', { name: row.rider_name }));
       onDone?.();
       onClose();
     } catch (e) {

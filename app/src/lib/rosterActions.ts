@@ -1,7 +1,7 @@
 import type { SheetAction } from '../components/Modal';
 import { t } from '../i18n';
 import { api } from './api';
-import { dateTime, moneyShort } from './format';
+import { dateTime, money, moneyShort } from './format';
 import type { RosterRow } from './types';
 
 /** Acciones sobre un ciclista de mi plantilla: vender al juego, cambiar la cláusula, blindarlo, poner o quitar de la venta */
@@ -13,6 +13,7 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void; on
       icon: 'cash-outline', kind: 'primary', label: t('actions.sellToGameShort'),
       detail: t('actions.sellToGameDetail', { amount: moneyShort(r.game_offer_amount), when: dateTime(r.game_offer_expires) }),
       onPress: () => api.acceptGameOffer(r.game_offer_id!),
+      done: t('toast.soldToGame', { name: r.rider_name, amount: money(r.game_offer_amount) }),
     });
   }
   if (opts.onChangeClause) {
@@ -24,13 +25,14 @@ export function actionsFor(r: RosterRow, opts: { onChangeClause?: () => void; on
     out.push({ icon: 'lock-closed-outline', label: t('actions.lockShort'),
                detail: t('actions.lockDetail', { amount: moneyShort(r.lock_cost) }),
                // con confirmación (qué semana y qué protege) si la pantalla la ofrece
-               onPress: opts.onLock ?? (() => api.lockRider(r.ownership_id)) });
+               onPress: opts.onLock ?? (() => api.lockRider(r.ownership_id)),
+               done: opts.onLock ? undefined : t('toast.locked', { name: r.rider_name }) });
   }
   out.push(r.for_sale
     ? { icon: 'close-circle-outline', label: t('actions.unsell'), detail: t('actions.unsellDetail'),
-        onPress: () => api.setForSale(r.ownership_id, false) }
+        onPress: () => api.setForSale(r.ownership_id, false), done: t('toast.unsold', { name: r.rider_name }) }
     : { icon: 'pricetag-outline', label: t('actions.sell'), detail: t('actions.sellDetail'),
-        onPress: () => api.setForSale(r.ownership_id, true) });
+        onPress: () => api.setForSale(r.ownership_id, true), done: t('toast.forSale', { name: r.rider_name }) });
   return out;
 }
 

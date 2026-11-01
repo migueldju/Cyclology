@@ -5,6 +5,7 @@ import { t } from '../i18n';
 import { money, parseAmount } from '../lib/format';
 import { colors, fonts, space, type } from '../theme';
 import { Button } from './Button';
+import { showToast } from './Toast';
 import { ErrorText } from './Section';
 import { Txt } from './Txt';
 
@@ -33,6 +34,8 @@ export interface SheetAction {
   /** con icono, la acción se muestra como fila compacta: icono, nombre y `detail` (un dato corto) */
   icon?: ComponentProps<typeof Ionicons>['name'];
   detail?: string;
+  /** aviso momentáneo al terminar bien */
+  done?: string;
 }
 
 /** Lista de acciones; ejecuta la elegida y muestra el error del servidor si lo hay */
@@ -48,6 +51,7 @@ export function ActionSheet({ visible, onClose, title, subtitle, actions, onDone
     setError(null);
     try {
       await actions[i].onPress();
+      if (actions[i].done) showToast(actions[i].done!);
       onDone?.();
       onClose();
     } catch (e) {
@@ -90,9 +94,10 @@ export function ActionSheet({ visible, onClose, title, subtitle, actions, onDone
 }
 
 /** Pide una cantidad en euros (pujas y ofertas) */
-export function AmountSheet({ visible, onClose, title, subtitle, min, initial, confirmLabel, onConfirm, onDone }: {
+export function AmountSheet({ visible, onClose, title, subtitle, min, initial, confirmLabel, onConfirm, onDone, done }: {
   visible: boolean; onClose: () => void; title: string; subtitle?: string; min?: number; initial?: number;
   confirmLabel: string; onConfirm: (amount: number) => Promise<unknown>; onDone?: () => void;
+  done?: (amount: number) => string;          // aviso momentáneo al terminar bien
 }) {
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
@@ -110,6 +115,7 @@ export function AmountSheet({ visible, onClose, title, subtitle, min, initial, c
     setError(null);
     try {
       await onConfirm(amount);
+      if (done) showToast(done(amount));
       onDone?.();
       onClose();
     } catch (e) {

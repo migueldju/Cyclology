@@ -71,7 +71,8 @@ export default function Jugador() {
         actions={picked?.transferable ? [
           { label: t('player.payClause', { amount: moneyShort(picked.clause) }), kind: 'primary' as const,
             hint: picked.locked_next ? t('player.lockedClause') : t('player.payClauseHint'),
-            onPress: () => api.payClause(picked.ownership_id) },
+            onPress: () => api.payClause(picked.ownership_id),
+            done: t(picked.locked_next ? 'toast.clausePaidLater' : 'toast.clausePaid', { name: picked.rider_name }) },
           { label: t('player.makeOffer'), hint: t('player.makeOfferHint'),
             onPress: () => { const p = picked; setTimeout(() => setOffering(p), 350); } },
         ] : []}
@@ -85,6 +86,7 @@ export default function Jugador() {
         initial={offering?.market_value}
         confirmLabel={t('player.sendOffer')}
         onConfirm={(amount) => api.makeOffer(offering!.ownership_id, amount)}
+        done={(amount) => t('toast.offerSent', { name: offering!.rider_name, amount: money(amount) })}
         onDone={done}
       />
     </Screen>

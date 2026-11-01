@@ -37,17 +37,19 @@ export default function Mercado() {
       if (r.game_offer_id && r.game_offer_amount) {
         out.push({ icon: 'cash-outline', kind: 'primary', label: t('actions.sellToGameShort'),
                    detail: t('actions.sellToGameDetail', { amount: moneyShort(r.game_offer_amount), when: dateTime(r.game_offer_expires) }),
-                   onPress: () => api.acceptGameOffer(r.game_offer_id!) });
+                   onPress: () => api.acceptGameOffer(r.game_offer_id!),
+                   done: t('toast.soldToGame', { name: r.rider_name, amount: money(r.game_offer_amount) }) });
       }
       out.push({ icon: 'close-circle-outline', kind: 'danger', label: t('actions.unsell'), detail: t('actions.unsellDetail'),
-                 onPress: () => api.setForSale(r.seller_ownership_id!, false) });
+                 onPress: () => api.setForSale(r.seller_ownership_id!, false), done: t('toast.unsold', { name: r.rider_name }) });
       return out;
     }
     return [
       { icon: 'create-outline', kind: 'primary', label: t('market.changeBid'),
         detail: r.my_bid ? t('market.yourBid', { amount: moneyShort(r.my_bid) }) : undefined,
         onPress: () => { setTimeout(() => setBidding(r), 350); } },
-      { icon: 'close-circle-outline', kind: 'danger', label: t('market.cancelBid'), onPress: () => api.cancelBid(r.listing_id) },
+      { icon: 'close-circle-outline', kind: 'danger', label: t('market.cancelBid'), onPress: () => api.cancelBid(r.listing_id),
+        done: t('toast.bidCancelled', { name: r.rider_name }) },
     ];
   }
 
@@ -107,6 +109,7 @@ export default function Mercado() {
         initial={bidding?.my_bid ?? bidding?.base_value}
         confirmLabel={t('market.bid')}
         onConfirm={(amount) => api.placeBid(bidding!.listing_id, amount)}
+        done={(amount) => t('toast.bid', { name: bidding!.rider_name, amount: money(amount) })}
         onDone={done}
       />
     </Screen>

@@ -12,6 +12,7 @@ import * as SystemUI from 'expo-system-ui';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ToastHost } from '@/components/Toast';
 import { TopBar } from '@/components/TopBar';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { LeagueProvider, useLeague } from '@/context/LeagueContext';
@@ -42,6 +43,7 @@ export default function RootLayout() {
             <LeagueProvider>
               <StatusBar style="light" />
               <Gate key={lang} />
+              <ToastHost />
             </LeagueProvider>
           </AuthProvider>
         )}
