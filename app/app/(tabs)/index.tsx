@@ -71,7 +71,7 @@ export default function Inicio() {
         {top.data?.length ? top.data.map((r, i) => (
           <Row key={r.rider_id} onPress={() => router.push(`/rider/${r.rider_id}`)} last={i === top.data!.length - 1}>
             <Txt variant="number" style={{ width: 20, color: colors.inkSoft }}>{i + 1}</Txt>
-            <RiderAvatar url={r.photo_url} name={r.name} team={r.pro_team} riderId={r.rider_id} />
+            <RiderAvatar url={r.photo_url} name={r.name} team={r.pro_team} />
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.s }}>
                 <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{r.name}</Txt>

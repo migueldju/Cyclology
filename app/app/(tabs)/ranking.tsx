@@ -108,7 +108,7 @@ function RankRow({ r }: { r: RankingRow & { rank: number } }) {
     <Pressable onPress={() => router.push(`/rider/${r.rider_id}`)} accessibilityRole="button"
                style={({ pressed }) => [styles.row, pressed && { backgroundColor: colors.road }]}>
       <Txt variant="number" style={styles.rank}>{r.rank}</Txt>
-      <RiderAvatar url={r.photo_url} name={r.name} team={r.pro_team} riderId={r.rider_id} />
+      <RiderAvatar url={r.photo_url} name={r.name} team={r.pro_team} />
       <View style={{ flex: 1, gap: 2 }}>
         <View style={styles.nameLine}>
           <Txt variant="lead" numberOfLines={1} style={{ flexShrink: 1 }}>{r.name}</Txt>
